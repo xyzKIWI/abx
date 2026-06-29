@@ -20,6 +20,9 @@
 
   /* calculator */
   .calc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:14px}
+  .calc-direct .fld input{border-color:var(--accent);background:#fbfdff}
+  .ordiv{display:flex;align-items:center;gap:10px;margin:12px 0;color:var(--muted);font-size:12px}
+  .ordiv::before,.ordiv::after{content:"";flex:1;height:1px;background:var(--line)}
   .calc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
   .fld label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}
   .fld input,.fld select{width:100%;padding:9px 8px;border:1px solid var(--line);border-radius:8px;font-size:16px;background:#fff}
@@ -70,6 +73,13 @@
 <div class="wrap">
   <!-- CrCl calculator -->
   <div class="calc">
+    <div class="calc-direct">
+      <div class="fld">
+        <label>直接輸入 CrCl（mL/min）— 無體重時，填抽血報告數值即可</label>
+        <input id="crclManual" type="number" inputmode="decimal" placeholder="例如 23；留空則改用下方估算">
+      </div>
+    </div>
+    <div class="ordiv"><span>或，由下列估算</span></div>
     <div class="calc-grid">
       <div class="fld">
         <label>年齡（歲）</label>
@@ -92,7 +102,7 @@
       </div>
     </div>
     <div class="result">
-      <div class="crcl"><span id="crclVal">—</span> <small>mL/min · CrCl</small></div>
+      <div class="crcl"><span id="crclVal">—</span> <small id="crclUnit">mL/min · CrCl</small></div>
       <div class="band-pill" id="bandPill" style="display:none"></div>
     </div>
     <div class="hint">Cockcroft-Gault：(140−年齡)×體重×(女 ×0.85) ÷ (72×Cr)。肥胖/水腫病人建議用 IBW 或校正體重；數值僅供參考。</div>
@@ -127,18 +137,26 @@ document.getElementById('legVal').textContent = D.meta.legend.values;
 // ---- CrCl calculator ----
 let sex = 'M';
 const age_=document.getElementById('age'), wt_=document.getElementById('wt'), scr_=document.getElementById('scr');
+const crclManual_=document.getElementById('crclManual'), crclUnit_=document.getElementById('crclUnit');
 document.querySelectorAll('#sex button').forEach(b=>{
   b.onclick=()=>{ sex=b.dataset.sex;
     document.querySelectorAll('#sex button').forEach(x=>x.classList.toggle('on',x===b)); calc(); };
 });
-['age','wt','scr'].forEach(id=>document.getElementById(id).addEventListener('input',calc));
+['age','wt','scr','crclManual'].forEach(id=>document.getElementById(id).addEventListener('input',calc));
 function bandForCrCl(c){ if(c>50)return 'g50'; if(c>=10)return 'g1050'; return 'g10'; }
 function calc(){
-  const age=parseFloat(age_.value), wt=parseFloat(wt_.value), scr=parseFloat(scr_.value);
   const out=document.getElementById('crclVal'), pill=document.getElementById('bandPill');
-  if(!(age>0&&wt>0&&scr>0)){ out.textContent='—'; pill.style.display='none'; activeBand=null; render(); return; }
-  let c=Math.round(((140-age)*wt*(sex==='F'?0.85:1))/(72*scr));
-  out.textContent=c; activeBand=bandForCrCl(c);
+  const manual=parseFloat(crclManual_.value);
+  let c=null, byManual=false;
+  if(manual>0){ c=Math.round(manual); byManual=true; }
+  else {
+    const age=parseFloat(age_.value), wt=parseFloat(wt_.value), scr=parseFloat(scr_.value);
+    if(age>0&&wt>0&&scr>0) c=Math.round(((140-age)*wt*(sex==='F'?0.85:1))/(72*scr));
+  }
+  if(c===null){ out.textContent='—'; crclUnit_.textContent='mL/min · CrCl'; pill.style.display='none'; activeBand=null; render(); return; }
+  out.textContent=c;
+  crclUnit_.textContent='mL/min · CrCl'+(byManual?'（手動輸入）':'');
+  activeBand=bandForCrCl(c);
   pill.style.display='inline-block';
   pill.textContent='GFR '+bands.find(b=>b.key===activeBand).label+' 段';
   render();
