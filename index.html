@@ -49,6 +49,7 @@
   tr:last-child td{border-bottom:none}
   .drug{font-weight:600;font-size:13px}
   .route{display:inline-block;font-size:10.5px;color:var(--muted);margin-top:2px}
+  .brands{display:inline-block;font-size:10.5px;color:var(--accent);opacity:.75;margin-top:1px}
   td.band.hit{background:var(--hit);box-shadow:inset 3px 0 0 var(--hit-line)}
   .cmt{color:var(--muted);font-size:11.5px}
   col.c-drug{width:30%} col.c-band{width:20%} col.c-cmt{width:10%}
@@ -110,7 +111,7 @@
 
   <!-- search -->
   <div class="search">
-    <input id="q" type="search" placeholder="🔍 搜尋藥名（如 ceftriaxone、pip、vanco）">
+    <input id="q" type="search" placeholder="🔍 搜尋藥名或商品名（如 ceftriaxone、mepem、cravit、vanco）">
   </div>
 
   <div id="list"></div>
@@ -121,7 +122,8 @@
   </div>
 
   <div class="disc">
-    <b>⚠️ 免責：</b>本工具為個人臨床速查。最終劑量仍以主治醫師判斷與原始參考資料為準，開藥前請再次核對。Vancomycin/Aminoglycoside 等請依血中濃度調整。（資料校對：2026-06-29）
+    <b>⚠️ 免責：</b>本工具為個人臨床速查。最終劑量仍以主治醫師判斷與原始參考資料為準，開藥前請再次核對。Vancomycin/Aminoglycoside 等請依血中濃度調整。（資料校對：2026-06-29）<br>
+    藥名下方的商品名為院內歷年進藥品項別名，<b>僅供搜尋對照</b>，未必為現行品項（含已停用／缺藥者）；實際品項以院內系統為準。（商品名別名產生：2026-08-03）
   </div>
 </div>
 
@@ -170,7 +172,8 @@ function render(){
   const host=document.getElementById('list');
   host.innerHTML='';
   D.classes.forEach(cls=>{
-    const drugs=cls.drugs.filter(d=>!term || d.name.toLowerCase().includes(term));
+    const drugs=cls.drugs.filter(d=>!term || d.name.toLowerCase().includes(term) ||
+      (d.brands||[]).some(b=>b.toLowerCase().includes(term)));
     if(!drugs.length) return;
     const sec=document.createElement('div'); sec.className='cls';
     sec.innerHTML=`<h2>${cls.name}</h2>`;
@@ -181,7 +184,9 @@ function render(){
     drugs.forEach(d=>{
       const tr=document.createElement('tr');
       tr.innerHTML=
-        `<td><span class="drug">${d.name}</span><br><span class="route">${d.route}</span></td>`+
+        `<td><span class="drug">${d.name}</span>`+
+        (d.brands?`<br><span class="brands">${d.brands.join('、')}</span>`:'')+
+        `<br><span class="route">${d.route}</span></td>`+
         bands.map(b=>`<td class="band ${activeBand===b.key?'hit':''}">${d[b.key]||''}</td>`).join('')+
         `<td class="c-cmt cmt">${d.comment||''}</td>`;
       tb.appendChild(tr);
