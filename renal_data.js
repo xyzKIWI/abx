@@ -128,9 +128,9 @@ window.RENAL_DATA = {
     {
       "name": "Antimycobacterials 抗結核／分枝桿菌藥",
       "drugs": [
-        {"name": "Ethambutol", "route": "R", "g50": "q24h", "g1050": "N", "g10": "tiw", "comment": "", "brands": ["Epbutol", "Myambutol", "Trac"]},
-        {"name": "Isoniazid / Rifampin", "route": "H", "g50": "N", "g1050": "N", "g10": "N", "comment": "", "brands": ["Macox Plus", "RHZ", "RIF", "Rifater", "Rifinah", "Rifocin", "RINA", "Trac"]},
-        {"name": "Pyrazinamide", "route": "H,R", "g50": "N", "g1050": "N", "g10": "tiw", "comment": "", "brands": ["Pyramide", "RHZ", "Rifater", "Trac"]},
+        {"name": "Ethambutol", "route": "R", "g50": "q24h", "g1050": "N", "g10": "tiw", "comment": "", "brands": ["Epbutol", "Myambutol"]},
+        {"name": "Isoniazid / Rifampin", "route": "H", "g50": "N", "g1050": "N", "g10": "N", "comment": "", "brands": ["Macox Plus", "RIF", "Rifinah", "Rifocin", "RINA"]},
+        {"name": "Pyrazinamide", "route": "H,R", "g50": "N", "g1050": "N", "g10": "tiw", "comment": "", "brands": ["Pyramide"]},
         {"name": "Rifabutin", "route": "H,R", "g50": "N", "g1050": "Ccr<30：50%", "g10": "Ccr<30：50%", "comment": "", "brands": ["Mycobutin"]}
       ]
     },
