@@ -58,6 +58,13 @@
   .dz-k{flex:0 0 32px;color:var(--accent);font-weight:700;font-size:10px;padding-top:1px}
   .dz-none{color:var(--muted);opacity:.55}
   .dz-inline{display:none;margin-top:3px;font-size:11px;line-height:1.4}
+  /* 正常腎功能劑量：讓「q8h」這種只有間隔的欄位有劑量可對照 */
+  .nd{display:block;margin-top:3px;font-size:11.5px;line-height:1.4}
+  .nd b{color:var(--muted);font-weight:600;font-size:10px;margin-right:3px}
+  /* 未經原書核對的 Sanford 資料一律灰字＋待核標記 */
+  .unver{color:var(--muted)}
+  .chip{display:inline-block;margin-left:4px;padding:0 4px;border:1px solid var(--line);
+        border-radius:4px;font-size:9.5px;color:var(--muted);background:#f7f9fb;white-space:nowrap}
   col.c-drug{width:22%} col.c-band{width:17%} col.c-dz{width:17%} col.c-cmt{width:10%}
 
   .legend{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-top:14px;font-size:12px;color:var(--muted)}
@@ -134,7 +141,7 @@
   <div class="disc">
     <b>⚠️ 免責：</b>本工具為個人臨床速查。最終劑量仍以主治醫師判斷與原始參考資料為準，開藥前請再次核對。Vancomycin/Aminoglycoside 等請依血中濃度調整。（資料校對：2026-06-29；Pseudomonas 高劑量列 2026-08-04）<br>
     藥名下方的商品名為院內歷年進藥品項別名，<b>僅供搜尋對照</b>，未必為現行品項（含已停用／缺藥者）；實際品項以院內系統為準。（商品名別名產生：2026-08-03）<br>
-    <b>透析欄</b>來源為 Sanford Guide 2022 Table 17A，<b>僅列出已對照原書核對之品項</b>；顯示「—」代表尚未核對，<b>不代表不需調整</b>，請查原書或詢問藥劑科。（透析欄建立：2026-08-06）
+    <b>常規劑量與透析欄</b>（HD／CAPD／CRRT）來源為 Sanford Guide 2022 Table 17A。標示<b>灰字＋「待核」者尚未對照原書逐格核對</b>（同批資料曾出現轉錄錯誤），<b>開藥前務必翻原書或詢問藥劑科確認</b>；顯示「—」代表原書未列此藥透析劑量，<b>不代表不需調整</b>。三段 GFR 劑量欄仍為綠卡資料、已人工校對。（常規劑量與透析欄建立：2026-08-06）
   </div>
 </div>
 
@@ -192,7 +199,14 @@ function dialysisCell(d){
     .filter(([k])=>d[k])
     .map(([k,label,optional])=>
       `<div class="dz-row${optional?' opt':''}"><span class="dz-k">${label}</span><span>${dzClean(d[k])}</span></div>`);
-  return rows.length ? rows.join('') : '<span class="dz-none">—</span>';
+  if(!rows.length) return '<span class="dz-none">—</span>';
+  return `<div class="${d.ver?'':'unver'}">${rows.join('')}</div>`;
+}
+// 正常腎功能劑量：未核對者灰字＋「待核」標記（與透析欄同一份 Sanford 來源，核對狀態一致）
+function normalDose(d){
+  if(!d.nd) return '';
+  return `<div class="nd${d.ver?'':' unver'}"><b>常規</b>${d.nd}`+
+         (d.ver?'':'<span class="chip">待核</span>')+`</div>`;
 }
 
 // ---- render table ----
@@ -218,6 +232,7 @@ function render(){
         `<td><span class="drug">${d.name}</span>`+
         (d.brands?`<br><span class="brands">${d.brands.join('、')}</span>`:'')+
         `<br><span class="route">${d.route}</span>`+
+        normalDose(d)+
         (hasDialysis(d)?`<div class="dz-inline">${dialysisCell(d)}</div>`:'')+
         `</td>`+
         bands.map(b=>`<td class="band ${activeBand===b.key?'hit':''}">${d[b.key]||''}</td>`).join('')+
