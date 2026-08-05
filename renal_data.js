@@ -20,13 +20,28 @@ window.RENAL_DATA = {
     "legend": {
       "route": "R=腎排除 · H=肝排除 · HD=血液透析",
       "values": "純數字=給藥間隔 q__h · N=不需調整 · A=避免使用 · %=正常劑量的百分比 · ?=無資料"
-    }
+    },
+    "dialysis_note": "HD／CAPD／CRRT 欄位來源＝Sanford Guide 2022 Table 17A，僅填入已對照原書核對之品項；空白表示尚未核對，非表示不需調整。",
+    "bands_dialysis": [
+      {
+        "key": "hd",
+        "label": "HD"
+      },
+      {
+        "key": "capd",
+        "label": "CAPD"
+      },
+      {
+        "key": "crrt",
+        "label": "CRRT"
+      }
+    ]
   },
   "classes": [
     {
       "name": "Aminoglycosides 胺基醣苷類",
       "drugs": [
-        {"name": "Amikacin", "route": "R", "g50": "N", "g1050": "7.5 mg/kg q24–48h", "g10": "7.5 mg/kg q72h", "comment": "", "brands": ["Acemycin", "Amikin", "Aminfec", "Sikacin"]},
+        {"name": "Amikacin", "route": "R", "g50": "N", "g1050": "7.5 mg/kg q24–48h", "g10": "7.5 mg/kg q72h", "comment": "", "brands": ["Acemycin", "Amikin", "Aminfec", "Sikacin"], "hd": "7.5 mg/kg q48h (+extra 3.75 mg/kg AD)", "capd": "Peritonitis: 2 mg/kg IP once daily", "crrt": "7.5 mg/kg q24h"},
         {"name": "Amikacin / Streptomycin（TB）", "route": "R", "g50": "N", "g1050": "Ccr<30 或 HD：15 mg/kg biw–tiw", "g10": "Ccr<30 或 HD：15 mg/kg biw–tiw", "comment": "National TB Curriculum", "brands": ["Acemycin", "Amikin", "Aminfec", "Sikacin"]},
         {"name": "Gentamicin", "route": "R", "g50": "N", "g1050": "1.7 mg/kg q12–48h", "g10": "1.7 mg/kg q48–72h", "comment": "", "brands": ["Gentacin"]}
       ]
@@ -44,8 +59,8 @@ window.RENAL_DATA = {
         {"name": "Oxacillin", "route": "R,H", "g50": "N", "g1050": "N", "g10": "N", "comment": "", "brands": ["Prostaphlin"]},
         {"name": "Penicillin G", "route": "R,H", "g50": "N", "g1050": "75%", "g10": "25–50%", "comment": "", "brands": ["Penicilina Atral"]},
         {"name": "Piperacillin", "route": "R", "g50": "q6h", "g1050": "q6–8h", "g10": "q8h", "comment": "", "brands": ["Picillina", "Pipril", "Pitamycin"]},
-        {"name": "Piperacillin-tazobactam（non-Pseudomonas）", "route": "R,H", "g50": "q6h", "g1050": "Ccr<20：q8h", "g10": "2.25g q8–12h", "comment": "", "brands": ["Tapimycin", "Tazocin"]},
-        {"name": "Piperacillin-tazobactam（Pseudomonas）", "route": "R,H", "g50": "4.5g q6h", "g1050": "Ccr 40–50：4.5g q6h；20–40：3.375g q6h；<20：2.25g q6h", "g10": "2.25g q8h", "comment": "Sanford 17A；HD 2.25g q8h＋透析後補 0.75g", "brands": ["Tapimycin", "Tazocin"]},
+        {"name": "Piperacillin-tazobactam（non-Pseudomonas）", "route": "R,H", "g50": "q6h", "g1050": "Ccr<20：q8h", "g10": "2.25g q8–12h", "comment": "", "brands": ["Tapimycin", "Tazocin"], "hd": "2.25 gm q8h (+extra 0.75 gm AD)", "capd": "2.25 gm q12h", "crrt": "2.25 gm q8h"},
+        {"name": "Piperacillin-tazobactam（Pseudomonas）", "route": "R,H", "g50": "4.5g q6h", "g1050": "Ccr 40–50：4.5g q6h；20–40：3.375g q6h；<20：2.25g q6h", "g10": "2.25g q8h", "comment": "Sanford 17A；HD 2.25g q8h＋透析後補 0.75g", "brands": ["Tapimycin", "Tazocin"], "hd": "2.25 gm q8h (+extra 0.75 gm AD)", "capd": "2.25 gm q8h", "crrt": "MIC ≤16: 3.375 gm (over 30 min) See Nephrol 2012; 7:452; MIC >16 to 64: 4.5 gm (over 4h) q12h (Pharmacother 2015; 35:600)"},
         {"name": "Ticarcillin-clavulanate", "route": "R,H", "g50": "3.1g q4–6h", "g1050": "3.1g q8–12h", "g10": "2g q12h", "comment": "", "brands": ["Timentin"]}
       ]
     },
@@ -54,18 +69,18 @@ window.RENAL_DATA = {
       "drugs": [
         {"name": "Cefaclor（0.25–1g）", "route": "R", "g50": "q6–8h", "g1050": "50–100%", "g10": "50%", "comment": "", "brands": ["Cero", "Keflor", "Uclor"]},
         {"name": "Cefaclor（0.25–0.5g）", "route": "R", "g50": "N", "g1050": "N", "g10": "N", "comment": "Drug in renal failure", "brands": ["Cero", "Keflor", "Uclor"]},
-        {"name": "Cefazolin", "route": "R", "g50": "q8h", "g1050": "q12h", "g10": "q24–48h", "comment": "", "brands": ["Cefa", "Cefamezin", "Cefazo", "Stazolin"]},
-        {"name": "Cefepime", "route": "R", "g50": "q8h", "g1050": "q12–24h", "g10": "50% q24h", "comment": "", "brands": ["Cefim", "Maxipime", "Supecef"]},
+        {"name": "Cefazolin", "route": "R", "g50": "q8h", "g1050": "q12h", "g10": "q24–48h", "comment": "", "brands": ["Cefa", "Cefamezin", "Cefazo", "Stazolin"], "hd": "1-2 gm q24h", "capd": "0.5 gm IV q12h", "crrt": "1-2 gm q12h"},
+        {"name": "Cefepime", "route": "R", "g50": "q8h", "g1050": "q12–24h", "g10": "50% q24h", "comment": "", "brands": ["Cefim", "Maxipime", "Supecef"], "hd": "1 gm q24h", "capd": "1-2 gm q48h", "crrt": "2 gm q12-24h"},
         {"name": "Cefixime", "route": "R", "g50": "N", "g1050": "Ccr>20：75%", "g10": "Ccr<20：50%", "comment": "", "brands": ["Cefspan", "Cexime"]},
         {"name": "Cefoperazone", "route": "H", "g50": "N", "g1050": "N", "g10": "N", "comment": "", "brands": ["Cefobid"]},
         {"name": "Cefoperazone/sulbactam", "route": "Sulbactam: R", "g50": "N", "g1050": "Ccr≤30：2–4g q12h", "g10": "CRRT：2g q6h", "comment": "", "brands": ["Brosym"]},
-        {"name": "Cefotaxime", "route": "R,H", "g50": "N", "g1050": "q12–24h", "g10": "q24h 或 50%", "comment": "", "brands": ["Cetaxime", "Claforan"]},
-        {"name": "Cefoxitin", "route": "R", "g50": "q8h", "g1050": "q8–12h", "g10": "q24–48h", "comment": "", "brands": ["Cefotin", "Lofatin"]},
+        {"name": "Cefotaxime", "route": "R,H", "g50": "N", "g1050": "q12–24h", "g10": "q24h 或 50%", "comment": "", "brands": ["Cetaxime", "Claforan"], "hd": "2 gm q24-48h", "capd": "0.5-1 gm q24h", "crrt": "2 gm q12-24h"},
+        {"name": "Cefoxitin", "route": "R", "g50": "q8h", "g1050": "q8–12h", "g10": "q24–48h", "comment": "", "brands": ["Cefotin", "Lofatin"], "hd": "1 gm q24h", "capd": "1 gm q24h", "crrt": "2 gm q8-12h"},
         {"name": "Cefpirome", "route": "R", "g50": "q12h", "g1050": "50%", "g10": "50% q24h", "comment": "", "brands": ["Cefrom"]},
-        {"name": "Ceftazidime", "route": "R", "g50": "q8–12h", "g1050": "q12–24h", "g10": "q24–48h", "comment": "", "brands": ["Cefadime", "Cetazine", "Fortum", "Sintum", "Tatumcef", "Unizid"]},
+        {"name": "Ceftazidime", "route": "R", "g50": "q8–12h", "g1050": "q12–24h", "g10": "q24–48h", "comment": "", "brands": ["Cefadime", "Cetazine", "Fortum", "Sintum", "Tatumcef", "Unizid"], "hd": "0.5-1 gm q24-48h", "capd": "0.5-1 gm q24h", "crrt": "2 gm q12-24h"},
         {"name": "Ceftibuten", "route": "R", "g50": "q24h", "g1050": "Ccr≥30：50%", "g10": "Ccr<30：50%", "comment": "200–400mg after HD", "brands": ["Seftem"]},
-        {"name": "Ceftriaxone", "route": "R,H", "g50": "N", "g1050": "N", "g10": "N", "comment": "", "brands": ["Chef", "Rocephin", "Tricef"]},
-        {"name": "Cefuroxime", "route": "R", "g50": "q8h", "g1050": "q8–12h", "g10": "q24h", "comment": ""},
+        {"name": "Ceftriaxone", "route": "R,H", "g50": "N", "g1050": "N", "g10": "N", "comment": "", "brands": ["Chef", "Rocephin", "Tricef"], "hd": "1-2 gm q12-24h", "capd": "1-2 gm q48h", "crrt": "1-2 gm q12-24h"},
+        {"name": "Cefuroxime", "route": "R", "g50": "q8h", "g1050": "q8–12h", "g10": "q24h", "comment": "", "hd": "0.75-1.5 gm q24h", "capd": "0.75-1.5 gm q24h", "crrt": "0.75-1.5 gm q8-12h"},
         {"name": "Cefmetazole", "route": "R", "g50": "q8h", "g1050": "q12h", "g10": "q24h", "comment": "", "brands": ["Cefe", "Cefmetazon", "Cefmetazone", "Lofeta"]},
         {"name": "Cephalexin", "route": "R", "g50": "N", "g1050": "Ccr≤40：q8–12h", "g10": "q12–24h", "comment": "", "brands": ["Ulex", "Ulexin"]},
         {"name": "Cephradine（0.25–1g q6h）", "route": "R", "g50": "q6h", "g1050": "50% 或 0.25–0.5g q6h", "g10": "25% 或 0.25g q12h", "comment": "", "brands": ["Cekodin", "Cekodin-A", "Lacef", "Lisacef", "Nakacef", "U-Save-A", "Unifradine"]},
@@ -84,7 +99,7 @@ window.RENAL_DATA = {
     {
       "name": "Quinolones 喹諾酮類",
       "drugs": [
-        {"name": "Ciprofloxacin", "route": "R", "g50": "N", "g1050": "50–75% 或 q24h", "g10": "50% 或 q24h", "comment": "", "brands": ["Cinolone", "Ciprogen", "Ciproxin", "Seforce"]},
+        {"name": "Ciprofloxacin", "route": "R", "g50": "N", "g1050": "50–75% 或 q24h", "g10": "50% 或 q24h", "comment": "", "brands": ["Cinolone", "Ciprogen", "Ciproxin", "Seforce"], "hd": "500 mg q24h (dose AD on dialysis days)", "capd": "500 mg q24h", "crrt": "250-500 mg q12h"},
         {"name": "Moxifloxacin", "route": "R", "g50": "N", "g1050": "N", "g10": "N", "comment": "", "brands": ["Avelox", "Floxsafe", "Moflodal", "Mosflow", "Moxetero", "Moxicin"]},
         {"name": "Levofloxacin 750mg", "route": "R", "g50": "q24h", "g1050": "Ccr≥20：750mg q48h", "g10": "Ccr<20：750mg×1，之後 500mg q2d", "comment": "HD：同 <20", "brands": ["Cravit", "Leflodal", "Levocin", "Levonolon", "Rozoxin"]},
         {"name": "Levofloxacin 500mg", "route": "R", "g50": "q24h", "g1050": "Ccr≥20：500mg q48h", "g10": "Ccr<20：500mg×1，之後 250mg q2d", "comment": "HD：同 <20", "brands": ["Cravit", "Leflodal", "Levocin", "Levonolon", "Rozoxin"]},
@@ -110,7 +125,7 @@ window.RENAL_DATA = {
         {"name": "Nitroxoline", "route": "H", "g50": "N", "g1050": "Ccr<20：A", "g10": "A", "comment": "", "brands": ["Nibiol Forte", "Nice", "Yuro"]},
         {"name": "SMZ-TMP（治療）", "route": "R,H", "g50": "q6–12h", "g1050": "Ccr<30：50%", "g10": "A 或 5–10 mg/kg qd 或分次", "comment": "", "brands": ["Baktar", "ChEmix", "Morcasin", "Septrin", "Sevatrim SMZ", "Sulfacotrim", "Trimerin"]},
         {"name": "SMZ-TMP（預防）", "route": "R,H", "g50": "qd、biw–tiw", "g1050": "N", "g10": "N", "comment": "", "brands": ["Baktar", "ChEmix", "Morcasin", "Septrin", "Sevatrim SMZ", "Sulfacotrim", "Trimerin"]},
-        {"name": "Teicoplanin（維持劑量）", "route": "R", "g50": "N", "g1050": "q48h", "g10": "q72h", "comment": "Sanford Guide 熱病", "brands": ["Targocid", "Teiyu"]},
+        {"name": "Teicoplanin（維持劑量）", "route": "R", "g50": "N", "g1050": "q48h", "g10": "q72h", "comment": "Sanford Guide 熱病", "brands": ["Targocid", "Teiyu"], "hd": "6 mg/kg q72h; for peritonitis see Table 19", "capd": "6 mg/kg q48h", "crrt": "6 mg/kg q48h"},
         {"name": "Tetracycline", "route": "R,H", "g50": "q8–12h", "g1050": "q12–24h", "g10": "q24h", "comment": "", "brands": ["Tetralin", "Wintellin"]},
         {"name": "Tigecycline", "route": "H", "g50": "N", "g1050": "N", "g10": "N", "comment": "", "brands": ["Tygacil"]},
         {"name": "Vancomycin（IV）", "route": "R", "g50": "q12h", "g1050": "50% q12h", "g10": "0.5g after HD", "comment": "建議依血中濃度（trough/AUC）調整", "brands": ["U-Vanco", "Vanco", "Vancocin", "Vancover", "Vanlyo"]}
@@ -121,7 +136,7 @@ window.RENAL_DATA = {
       "drugs": [
         {"name": "Amphotericin B", "route": "?", "g50": "N", "g1050": "N", "g10": "N", "comment": "", "brands": ["Ambisome", "Ampholipad", "Fungizone", "Lipo-AB"]},
         {"name": "Fluconazole", "route": "R,H", "g50": "N", "g1050": "Ccr≤50：50% qd", "g10": "HD：50% qd 或僅 HD 後給全量", "comment": "", "brands": ["Diflucan", "Fluene", "Genazole"]},
-        {"name": "Flucytosine", "route": "R", "g50": "q12h", "g1050": "q12–24h", "g10": "q24h", "comment": "", "brands": ["Flusine"]},
+        {"name": "Flucytosine", "route": "R", "g50": "q12h", "g1050": "q12–24h", "g10": "q24h", "comment": "", "brands": ["Flusine"], "hd": "25 mg/kg q24h (give dialysis day dose AD)", "capd": "0.5-1 gm q24h", "crrt": "25 mg/kg q12h"},
         {"name": "Itraconazole（PO）", "route": "H,R", "g50": "N", "g1050": "N", "g10": "50%", "comment": "", "brands": ["Sporanox"]},
         {"name": "Terbinafine", "route": "H,R", "g50": "N", "g1050": "? 或 A", "g10": "? 或 A", "comment": "", "brands": ["Fungitech", "Lamisil"]}
       ]
