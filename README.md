@@ -2,7 +2,7 @@
 
 急診用的離線單檔網頁。輸入年齡 / 體重 / 血清 Cr / 性別自動算 **CrCl（Cockcroft-Gault）**，並把病人落在的 GFR 段（`>50 / 10–50 / <10`）對應劑量整欄高亮。
 
-**Live**：https://xyzKIWI.github.io/abx-tool/
+**Live**：https://xyzKIWI.github.io/abx/
 
 ## 內容
 
