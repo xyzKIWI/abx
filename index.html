@@ -65,7 +65,7 @@
   .uf{display:block;margin-top:2px;font-size:11px;line-height:1.4;color:#4a5b6b}
   .uf b{color:var(--muted);font-weight:600;font-size:10px;margin-right:3px}
   .uf .f{color:var(--muted);font-size:10px;margin-right:2px}
-  /* 未經原書核對的 Sanford 資料一律灰字＋待核標記 */
+  /* ver=0（未經原書核對）的 Sanford 資料灰字＋待核標記；2026-10-30 起全部改用線上版原文，目前沒有 ver=0 的列 */
   .unver{color:var(--muted)}
   .chip{display:inline-block;margin-left:4px;padding:0 4px;border:1px solid var(--line);
         border-radius:4px;font-size:9.5px;color:var(--muted);background:#f7f9fb;white-space:nowrap}
@@ -88,7 +88,7 @@
 <body>
 <header>
   <h1>抗微生物藥 · 腎功能調整劑量</h1>
-  <div class="sub">輸入數值算 CrCl，自動高亮對應劑量；資料逐字照綠卡（已人工校對）</div>
+  <div class="sub">輸入數值算 CrCl，自動高亮對應劑量；GFR 劑量逐字照綠卡（已人工校對）；常規與透析劑量取自 Sanford 線上版</div>
 </header>
 
 <div class="wrap">
@@ -191,8 +191,8 @@ function calc(){
 }
 
 // ---- 透析欄 ----
-// 只有「已對照 Sanford 原書核對過」的品項才有 hd/capd/crrt 欄位；
-// 空白代表尚未核對，不代表不需調整——這點在圖例講清楚，避免誤讀。
+// hd/capd/crrt 取自 Sanford 線上版（scripts/refresh_sanford_online.py）；
+// 空白代表 Sanford 無此藥資料，不代表不需調整——這點在圖例講清楚，避免誤讀。
 const DZ_KEYS=[['hd','HD',false],['capd','CAPD',true],['crrt','CRRT',true]];
 // 速查表裡文獻出處是雜訊，顯示時剝掉（原始值仍留在 renal_data.js）
 function dzClean(t){
@@ -209,7 +209,7 @@ function dialysisCell(d){
   if(!rows.length) return '<span class="dz-none">—</span>';
   return `<div class="${d.ver?'':'unver'}">${rows.join('')}</div>`;
 }
-// 正常腎功能劑量：未核對者灰字＋「待核」標記（與透析欄同一份 Sanford 來源，核對狀態一致）
+// 正常腎功能劑量：ver=0 者灰字＋「待核」標記（與透析欄同一份 Sanford 來源，核對狀態一致）
 function normalDose(d){
   if(!d.nd) return '';
   return `<div class="nd${d.ver?'':' unver'}"><b>常規</b>${d.nd}`+
