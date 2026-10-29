@@ -147,7 +147,7 @@
     <b>⚠️ 免責：</b>本工具為個人臨床速查，最終劑量以主治醫師判斷與原始資料為準，開藥前請再次確認。Vancomycin、Aminoglycoside 等請依血中濃度調整。<br>
     <b>資料來源</b><br>
     ・<b>三段 GFR 劑量</b>：綠卡《Guide to Drug Dosage in Renal Failure》，已人工校對（2026-06-29）。<br>
-    ・<b>常規劑量與透析（HD／CAPD／CRRT）</b>：Sanford Guide 線上版（高醫訂閱，2026-10-30 更新）。「—」或 No data 表示 Sanford 未列此藥透析劑量，<b>不代表不需調整</b>。<br>
+    ・<b>常規劑量、透析（HD／CAPD／CRRT）、肝功能與肥胖註記</b>：Sanford Guide 線上版（高醫訂閱，2026-10-30 更新）；肝功能與肥胖只列有具體建議的藥。「—」或 No data 表示 Sanford 未列此藥透析劑量，<b>不代表不需調整</b>。<br>
     ・<b>商品名</b>：院內歷年進藥品項別名，<b>僅供搜尋對照</b>，未必為現行品項（含已停用、缺藥者），實際以院內系統為準（2026-08-03）。<br>
     ・<b>院內</b>：高醫藥典所列的單位規格（1 vial／amp／tab 是多少），供換算要開幾瓶；含歷年品項，實際以藥局為準。
   </div>
@@ -217,6 +217,11 @@ function normalDose(d){
   return `<div class="nd${d.ver?'':' unver'}"><b>常規</b>${d.nd}`+
          (d.ver?'':'<span class="chip">待核</span>')+`</div>`;
 }
+// 肝功能／肥胖註記：只有 Sanford 線上版寫了具體建議的藥才有（不需調整、無資料者不顯示）
+function sideNotes(d){
+  return (d.hep?`<div class="nd"><b>肝</b>${d.hep}</div>`:'')+
+         (d.obese?`<div class="nd"><b>肥胖</b>${d.obese}</div>`:'');
+}
 // 院內品項規格（1 vial / 1 amp / 1 tab 是多少）——來源是高醫藥典品名，與 Sanford 核對狀態無關
 function unitLine(d){
   if(!d.unit) return '';
@@ -248,7 +253,7 @@ function render(){
         `<td><span class="drug">${d.name}</span>`+
         (d.brands?`<br><span class="brands">${d.brands.join('、')}</span>`:'')+
         `<br><span class="route">${d.route}</span>`+
-        normalDose(d)+
+        normalDose(d)+sideNotes(d)+
         unitLine(d)+
         (hasDialysis(d)?`<div class="dz-inline">${dialysisCell(d)}</div>`:'')+
         `</td>`+
