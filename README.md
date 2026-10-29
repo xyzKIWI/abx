@@ -10,8 +10,7 @@
 - 每藥顯示 Route（R 腎排 / H 肝排 / HD 透析）＋三段 GFR 劑量
 - **常規劑量**：藥名下方顯示正常腎功能劑量（如 `1 gm IV q8h`），讓只寫間隔的欄位（`q8h`）有劑量可對照
 - **院內規格**：1 vial／amp／tab 是多少（如 `vial 1g／0.5g／0.25g`），直接換算要開幾瓶；來源高醫藥典品名，含歷年品項
-- **透析欄**：HD／CAPD／CRRT 劑量（Sanford 17A）；「—」＝原書未列，非「不需調整」
-- **灰字＋「待核」**＝該列 Sanford 資料尚未對照原書核對（同批曾出現轉錄錯誤），開藥前務必確認
+- **透析欄**：HD／CAPD／CRRT 劑量（Sanford Guide 線上版，2026-10-30 擷取）；「—」＝原書未列，非「不需調整」
 - **菌種／適應症專屬劑量另立一列**（如 Piperacillin-tazobactam 的 non-Pseudomonas vs Pseudomonas、Ampicillin/sulbactam 的 Acinetobacter 高劑量、SMZ-TMP 治療 vs 預防），避免高低劑量混用
 - 藥名／**商品名**搜尋（如 `mepem`、`cravit`、`tazocin` 直接命中對應學名列）；85/89 藥附院內歷年進藥商品名別名，顯示於藥名下方——僅供搜尋對照，未必為現行品項
 - 商品名別名比對時已排除外用／眼用劑型，且不同複方（如 ceftazidime-avibactam）不會掛到單方列，避免劑量誤導
@@ -27,6 +26,7 @@
 
 ## 更新紀錄
 
+- **2026-10-30**　常規劑量與透析欄（HD／CAPD／CRRT）**改用 Sanford Guide 線上版**（高醫訂閱，2026-10-30 擷取；`scripts/refresh_sanford_online.py`），取代原本由 2022 紙本 Table 17A 讀圖轉錄的資料，54 列全部更新、不再有灰字「待核」。順帶修正舊資料的錯誤：Ganciclovir 維持列原本誤抄成誘導劑量（現為 5 mg/kg q24h，HD 0.625 mg/kg 3×/week）、Itraconazole（PO）列原本放的是 IV 資料。線上版欄尾註腳編號已剔除。三段 GFR 欄（綠卡）未動。舊的 `scripts/refresh_dialysis.py` 停用。
 - **2026-08-06（三次更新）**　新增**院內單位規格**（1 vial／amp／tab 是多少，83 種藥），來源高醫藥典品名。有了它才能從「常規 1 gm q8h」直接換算成「開 2 瓶 0.5g」。解析踩到的坑：無括號複方（`Piperacillin 2g+Tazobactam 0.25g/Vial`）若取最後一個數字會變成 0.25g／vial（實為 **2.25g**）→ 改為多成分相加；糖漿／外用藥水濃度（`25mg/mL`）不可當單位劑量 → 一律排除。
 - **2026-08-06（二次更新）**　補齊資料：**常規劑量**（正常腎功能劑量，如 `1 gm IV q8h`）與**透析欄**（HD／CAPD／CRRT）皆填入 Sanford 17A 全部可對應品項，共 54 列。其中 13 列已對照原書核對（正常字），**41 列尚未核對以灰字＋「待核」標籤標示**，開藥前須翻原書確認；36 列原書無對應資料留空。常規劑量解決了「劑量欄只寫 q8h 卻不知道是多少 mg」的問題。
 - **2026-08-06**　新增**透析劑量欄**（HD／CAPD／CRRT），來源 Sanford Guide 2022 Table 17A。**只填入已對照原書核對過的 13 種藥**，其餘顯示「—」＝尚未核對（不代表不需調整）——避免未核對資料進入臨床頁面。劑量主體維持綠卡不變。手機版空間不足時透析資訊改列於藥名下方，資訊不流失。同批經 Kiwi 核對的還有 Amikacin／Teicoplanin／Flucytosine／Ciprofloxacin po 四種（轉錄皆正確，未改值）。
