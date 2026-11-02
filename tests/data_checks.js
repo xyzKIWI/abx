@@ -20,8 +20,8 @@ const KNOWN_FIELDS = new Set([...REQUIRED_FIELDS, ...OPTIONAL_FIELDS]);
 const TEXT_FIELDS = ['name', 'route', 'g50', 'g1050', 'g10', 'comment', 'nd', 'hd', 'capd', 'crrt', 'hep', 'obese'];
 const UNIT_FORMS = ['vial', 'amp', 'tab', 'cap', 'bag', 'bot'];
 const UNIT_RE = /^(\d+(?:\.\d+)?)(mg|g|MU)(?:\/(\d+(?:\.\d+)?)mL)?$/;
-// index.html 的圖例只定義 R、H、HD 三種 route 代號
-const ROUTE_RE = /^(?:R|H|HD)(?:,(?:R|H|HD))*$/;
+// index.html 的圖例定義 R、H、HD 三種 route 代號，以及「?」＝排除途徑不明
+const ROUTE_RE = /^(?:\?|(?:R|H|HD)(?:,(?:R|H|HD))*)$/;
 
 const FIELD_LABEL = {
   name: '藥名', route: 'Route', g50: 'GFR >50', g1050: 'GFR 10–50', g10: 'GFR <10',
@@ -385,12 +385,12 @@ const CHECKS = [
     },
   },
   {
-    key: 'route', title: 'Route 寫法符合圖例（R／H／HD）',
+    key: 'route', title: 'Route 寫法符合圖例（R／H／HD／?）',
     run({ rows }) {
       const out = [];
       for (const r of rows) {
         const v = r.d.route;
-        if (typeof v === 'string' && v.trim() && !ROUTE_RE.test(v)) out.push(issue('route', r.label, 'route', `Route「${v}」不在圖例定義（R／H／HD）內`, v));
+        if (typeof v === 'string' && v.trim() && !ROUTE_RE.test(v)) out.push(issue('route', r.label, 'route', `Route「${v}」不在圖例定義（R／H／HD／?）內`, v));
       }
       return out;
     },
@@ -449,6 +449,38 @@ const CHECKS = [
           for (const v of used) {
             const n = inv[cat.key][gk][v].length;
             out.push(issue('units', `（${g.label}）`, cat.key, `${cat.title}：同一來源混用 ${used.join('、')}；其中「${v}」出現在 ${n} 個欄位`, `${gk}:${v}`));
+          }
+        }
+      }
+      return out;
+    },
+  },
+  {
+    key: 'style_rules', title: '2026-11-02 統一的寫法規則（綠卡欄間隔、空格、院內規格）', strict: true,
+    run({ rows }) {
+      const out = [];
+      const RULES = [
+        [/\bqd\b/, '用 q24h，不用 qd（QD／QOD 易看錯）'],
+        [/\b(?:qod|q2d)\b/, '用 q48h，不用 qod／q2d'],
+        [/\bqwk\b/, '用 q7d，不用 qwk'],
+        [/\d(?:mg|gm|g|MU)(?![a-zA-Z])/, '數字與單位之間要空一格（如 6 g、160 mg）'],
+        [/Ccr\s+(?=[<>≤≥\d])/, 'Ccr 與數值之間不空格（如 Ccr40–50）'],
+      ];
+      for (const r of rows) {
+        for (const f of GROUPS.gfr.fields) {
+          const v = r.d[f];
+          if (typeof v !== 'string') continue;
+          for (const [re, msg] of RULES) if (re.test(v)) out.push(issue('style_rules', r.label, f, `${msg}：${v}`, msg));
+        }
+        const u = r.d.unit;
+        if (u && typeof u === 'object') {
+          for (const [form, list] of Object.entries(u)) {
+            for (const s of Array.isArray(list) ? list : []) {
+              const m = String(s).match(UNIT_RE);
+              if (!m) continue;
+              if (m[2] === 'g' && +m[1] < 1) out.push(issue('style_rules', r.label, 'unit', `${form}「${s}」未滿 1 g 請寫成 mg`, s));
+              if (m[2] === 'mg' && +m[1] >= 1000) out.push(issue('style_rules', r.label, 'unit', `${form}「${s}」1 g 以上請寫成 g`, s));
+            }
           }
         }
       }

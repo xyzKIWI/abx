@@ -1,0 +1,571 @@
+{
+  "說明": "2026-11-02 經 Kiwi 同意的格式統一（間隔寫法、空格、Route、院內規格、商品名）。數值與 CrCl 切點未變。",
+  "changes": [
+    {
+      "drug": "Amoxicillin-clavulanate（PO/IV）",
+      "field": "unit",
+      "before": {
+        "vial": [
+          "0.6g",
+          "1.2g"
+        ],
+        "tab": [
+          "625mg"
+        ]
+      },
+      "after": {
+        "vial": [
+          "600mg",
+          "1.2g"
+        ],
+        "tab": [
+          "625mg"
+        ]
+      },
+      "why": "院內規格：未滿 1 g 改用 mg，並去除同量重複"
+    },
+    {
+      "drug": "Amoxicillin-clav 875mg tab（PO）",
+      "field": "unit",
+      "before": {
+        "vial": [
+          "0.6g",
+          "1.2g"
+        ],
+        "tab": [
+          "625mg"
+        ]
+      },
+      "after": {
+        "vial": [
+          "600mg",
+          "1.2g"
+        ],
+        "tab": [
+          "625mg"
+        ]
+      },
+      "why": "院內規格：未滿 1 g 改用 mg，並去除同量重複"
+    },
+    {
+      "drug": "Ampicillin/sulbactam — Acinetobacter / E. faecalis（高劑量）",
+      "field": "g50",
+      "before": "6g q8h",
+      "after": "6 g q8h",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Ampicillin/sulbactam — Acinetobacter / E. faecalis（高劑量）",
+      "field": "g1050",
+      "before": "Ccr<30：6g q12h",
+      "after": "Ccr<30：6 g q12h",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Ampicillin/sulbactam — Acinetobacter / E. faecalis（高劑量）",
+      "field": "g10",
+      "before": "3g q8h",
+      "after": "3 g q8h",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Piperacillin-tazobactam（non-Pseudomonas）",
+      "field": "g10",
+      "before": "2.25g q8–12h",
+      "after": "2.25 g q8–12h",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Piperacillin-tazobactam（Pseudomonas）",
+      "field": "g50",
+      "before": "4.5g q6h",
+      "after": "4.5 g q6h",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Piperacillin-tazobactam（Pseudomonas）",
+      "field": "g1050",
+      "before": "Ccr 40–50：4.5g q6h；20–40：3.375g q6h；<20：2.25g q6h",
+      "after": "Ccr40–50：4.5 g q6h；20–40：3.375 g q6h；<20：2.25 g q6h",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Piperacillin-tazobactam（Pseudomonas）",
+      "field": "g10",
+      "before": "2.25g q8h",
+      "after": "2.25 g q8h",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Piperacillin-tazobactam（Pseudomonas）",
+      "field": "comment",
+      "before": "Sanford 17A；HD 2.25g q8h＋透析後補 0.75g",
+      "after": "Sanford 17A；HD 2.25 g q8h＋透析後補 0.75 g",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Ticarcillin-clavulanate",
+      "field": "g50",
+      "before": "3.1g q4–6h",
+      "after": "3.1 g q4–6h",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Ticarcillin-clavulanate",
+      "field": "g1050",
+      "before": "3.1g q8–12h",
+      "after": "3.1 g q8–12h",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Ticarcillin-clavulanate",
+      "field": "g10",
+      "before": "2g q12h",
+      "after": "2 g q12h",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Cefazolin",
+      "field": "unit",
+      "before": {
+        "vial": [
+          "1g",
+          "0.5g"
+        ]
+      },
+      "after": {
+        "vial": [
+          "1g",
+          "500mg"
+        ]
+      },
+      "why": "院內規格：未滿 1 g 改用 mg，並去除同量重複"
+    },
+    {
+      "drug": "Cefepime",
+      "field": "unit",
+      "before": {
+        "vial": [
+          "1g",
+          "0.5g",
+          "500mg"
+        ]
+      },
+      "after": {
+        "vial": [
+          "1g",
+          "500mg"
+        ]
+      },
+      "why": "院內規格：未滿 1 g 改用 mg，並去除同量重複"
+    },
+    {
+      "drug": "Cefoperazone/sulbactam",
+      "field": "g1050",
+      "before": "Ccr≤30：2–4g q12h",
+      "after": "Ccr≤30：2–4 g q12h",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Cefoperazone/sulbactam",
+      "field": "g10",
+      "before": "CRRT：2g q6h",
+      "after": "CRRT：2 g q6h",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Cefoperazone/sulbactam",
+      "field": "route",
+      "before": "Sulbactam: R",
+      "after": "H,R",
+      "why": "Route 改用圖例代號"
+    },
+    {
+      "drug": "Cefoperazone/sulbactam",
+      "field": "comment",
+      "before": "",
+      "after": "R 指 sulbactam；cefoperazone 主要經膽道排除",
+      "why": "Route 原寫法改放備註"
+    },
+    {
+      "drug": "Ceftazidime",
+      "field": "unit",
+      "before": {
+        "vial": [
+          "1g",
+          "2g",
+          "0.5g",
+          "500mg"
+        ]
+      },
+      "after": {
+        "vial": [
+          "1g",
+          "2g",
+          "500mg"
+        ]
+      },
+      "why": "院內規格：未滿 1 g 改用 mg，並去除同量重複"
+    },
+    {
+      "drug": "Ceftibuten",
+      "field": "comment",
+      "before": "200–400mg after HD",
+      "after": "200–400 mg after HD",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Cephradine（0.25–1g q6h）",
+      "field": "g1050",
+      "before": "50% 或 0.25–0.5g q6h",
+      "after": "50% 或 0.25–0.5 g q6h",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Cephradine（0.25–1g q6h）",
+      "field": "g10",
+      "before": "25% 或 0.25g q12h",
+      "after": "25% 或 0.25 g q12h",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Flomoxef",
+      "field": "g10",
+      "before": "50–100% qd",
+      "after": "50–100% q24h",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Doripenem",
+      "field": "g1050",
+      "before": "Ccr30–50：0.25g q8h／Ccr<30：0.25g q12h",
+      "after": "Ccr30–50：0.25 g q8h／Ccr<30：0.25 g q12h",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Doripenem",
+      "field": "g10",
+      "before": "0.25g qd–q12h",
+      "after": "0.25 g q12–24h",
+      "why": "間隔寫法統一（個別改寫）"
+    },
+    {
+      "drug": "Doripenem",
+      "field": "comment",
+      "before": "HD：0.25–0.5g qd",
+      "after": "HD：0.25–0.5 g q24h",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Imipenem",
+      "field": "comment",
+      "before": "CRRT：0.5–1g q12h",
+      "after": "CRRT：0.5–1 g q12h",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Imipenem",
+      "field": "unit",
+      "before": {
+        "vial": [
+          "0.5g"
+        ]
+      },
+      "after": {
+        "vial": [
+          "500mg"
+        ]
+      },
+      "why": "院內規格：未滿 1 g 改用 mg，並去除同量重複"
+    },
+    {
+      "drug": "Meropenem",
+      "field": "unit",
+      "before": {
+        "vial": [
+          "1g",
+          "0.5g",
+          "0.25g"
+        ]
+      },
+      "after": {
+        "vial": [
+          "1g",
+          "500mg",
+          "250mg"
+        ]
+      },
+      "why": "院內規格：未滿 1 g 改用 mg，並去除同量重複"
+    },
+    {
+      "drug": "Levofloxacin 750mg",
+      "field": "g1050",
+      "before": "Ccr≥20：750mg q48h",
+      "after": "Ccr≥20：750 mg q48h",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Levofloxacin 750mg",
+      "field": "g10",
+      "before": "Ccr<20：750mg×1，之後 500mg q2d",
+      "after": "Ccr<20：750 mg×1，之後 500 mg q48h",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Levofloxacin 500mg",
+      "field": "g1050",
+      "before": "Ccr≥20：500mg q48h",
+      "after": "Ccr≥20：500 mg q48h",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Levofloxacin 500mg",
+      "field": "g10",
+      "before": "Ccr<20：500mg×1，之後 250mg q2d",
+      "after": "Ccr<20：500 mg×1，之後 250 mg q48h",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Gemifloxacin",
+      "field": "g1050",
+      "before": "Ccr≤40：160mg qd",
+      "after": "Ccr≤40：160 mg q24h",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Gemifloxacin",
+      "field": "g10",
+      "before": "160mg qd",
+      "after": "160 mg q24h",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Norfloxacin",
+      "field": "g10",
+      "before": "400mg qd",
+      "after": "400 mg q24h",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Fosfomycin（IV）",
+      "field": "g1050",
+      "before": "Ccr10–20：qd",
+      "after": "Ccr10–20：q24h",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Fosfomycin（IV）",
+      "field": "g10",
+      "before": "qod；HD：50–100% after HD",
+      "after": "q48h；HD：50–100% after HD",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "SMZ-TMP（治療）",
+      "field": "g10",
+      "before": "A 或 5–10 mg/kg qd 或分次",
+      "after": "A 或 5–10 mg/kg/day（一次或分次）",
+      "why": "間隔寫法統一（個別改寫）"
+    },
+    {
+      "drug": "SMZ-TMP（預防）",
+      "field": "g50",
+      "before": "qd、biw–tiw",
+      "after": "q24h、biw–tiw",
+      "why": "間隔寫法統一（個別改寫）"
+    },
+    {
+      "drug": "Vancomycin（IV）",
+      "field": "g10",
+      "before": "0.5g after HD",
+      "after": "0.5 g after HD",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Fluconazole",
+      "field": "g1050",
+      "before": "Ccr≤50：50% qd",
+      "after": "Ccr≤50：50% q24h",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Fluconazole",
+      "field": "g10",
+      "before": "HD：50% qd 或僅 HD 後給全量",
+      "after": "HD：50% q24h 或僅 HD 後給全量",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Acyclovir（IV）",
+      "field": "g10",
+      "before": "50% qd",
+      "after": "50% q24h",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Acyclovir（IV）",
+      "field": "brands",
+      "before": [
+        "Acylete",
+        "Acylo",
+        "Asimplex",
+        "Virless",
+        "Zovirax",
+        "Zovirx"
+      ],
+      "after": [
+        "Acylete",
+        "Acylo",
+        "Asimplex",
+        "Virless",
+        "Zovirax"
+      ],
+      "why": "刪除查無此品項的商品名 Zovirx（同列已有 Zovirax）"
+    },
+    {
+      "drug": "Acyclovir（PO）HSV",
+      "field": "g10",
+      "before": "0.2g q12h",
+      "after": "0.2 g q12h",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Acyclovir（PO）HSV",
+      "field": "brands",
+      "before": [
+        "Acylete",
+        "Acylo",
+        "Asimplex",
+        "Virless",
+        "Zovirax",
+        "Zovirx"
+      ],
+      "after": [
+        "Acylete",
+        "Acylo",
+        "Asimplex",
+        "Virless",
+        "Zovirax"
+      ],
+      "why": "刪除查無此品項的商品名 Zovirx（同列已有 Zovirax）"
+    },
+    {
+      "drug": "Acyclovir（PO）VZV",
+      "field": "g1050",
+      "before": "0.8g q8h",
+      "after": "0.8 g q8h",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Acyclovir（PO）VZV",
+      "field": "g10",
+      "before": "0.8g q12h",
+      "after": "0.8 g q12h",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Acyclovir（PO）VZV",
+      "field": "brands",
+      "before": [
+        "Acylete",
+        "Acylo",
+        "Asimplex",
+        "Virless",
+        "Zovirax",
+        "Zovirx"
+      ],
+      "after": [
+        "Acylete",
+        "Acylo",
+        "Asimplex",
+        "Virless",
+        "Zovirax"
+      ],
+      "why": "刪除查無此品項的商品名 Zovirx（同列已有 Zovirax）"
+    },
+    {
+      "drug": "Entecavir",
+      "field": "g10",
+      "before": "qwk",
+      "after": "q7d",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Famciclovir",
+      "field": "g1050",
+      "before": "0.5g q12–24h",
+      "after": "0.5 g q12–24h",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Famciclovir",
+      "field": "g10",
+      "before": "0.5g qd",
+      "after": "0.5 g q24h",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Ganciclovir（誘導）",
+      "field": "g1050",
+      "before": "Ccr25–49：50% qd／Ccr10–24：25% qd",
+      "after": "Ccr25–49：50% q24h／Ccr10–24：25% q24h",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Ganciclovir（維持）",
+      "field": "g1050",
+      "before": "Ccr25–49：25% qd／Ccr<25：0.625 mg/kg qd",
+      "after": "Ccr25–49：25% q24h／Ccr<25：0.625 mg/kg q24h",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Lamivudine",
+      "field": "g1050",
+      "before": "50–150 mg qd",
+      "after": "50–150 mg q24h",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Lamivudine",
+      "field": "g10",
+      "before": "25–50 mg qd",
+      "after": "25–50 mg q24h",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Valacyclovir",
+      "field": "g10",
+      "before": "0.5g q24h",
+      "after": "0.5 g q24h",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Valganciclovir（誘導）",
+      "field": "g1050",
+      "before": "Ccr25–49：50% qd／Ccr10–24：50% qod",
+      "after": "Ccr25–49：50% q24h／Ccr10–24：50% q48h",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Valganciclovir（誘導）",
+      "field": "g10",
+      "before": "A 或 50% qod",
+      "after": "A 或 50% q48h",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "Valganciclovir（維持）",
+      "field": "g1050",
+      "before": "Ccr25–49：50% qod／Ccr<25：50% biw",
+      "after": "Ccr25–49：50% q48h／Ccr<25：50% biw",
+      "why": "間隔寫法／空格統一"
+    },
+    {
+      "drug": "（圖例）",
+      "field": "meta.legend.route",
+      "before": "R=腎排除 · H=肝排除 · HD=血液透析",
+      "after": "R=腎排除 · H=肝排除 · HD=血液透析 · ?=排除途徑不明",
+      "why": "補上 Route「?」的定義（Amphotericin B）"
+    }
+  ]
+}

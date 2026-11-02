@@ -45,7 +45,7 @@ const today = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Asia/Taipei' }).form
 P('# 資料結構與格式檢查報告', '');
 P(`產生日期：${today}｜檢查對象：\`renal_data.js\`（${D.classes.length} 類、${rows.length} 列）與 \`index.html\``, '');
 P('> **這份報告只檢查資料完不完整、格式一不一致，不判斷劑量對不對。** 劑量正確性需另行對照原書核對。',
-  '> 本次**沒有修改 `renal_data.js` 與 `index.html` 的任何內容**（包括劑量數字、間隔、CrCl 切點、臨床文字，也沒有修純格式問題，理由見第 0 節）。', '');
+  '> 2026-11-02 依 Kiwi 確認，統一了綠卡欄的間隔與空格寫法、Route、院內規格寫法，並刪除一個查無此品項的商品名。**劑量數值與 CrCl 切點都沒有改**，逐項清單見第 0 節。', '');
 P('重新產生本報告：`node tests/make_report.js`；執行檢查：`node --test tests/data.test.js`。CI（GitHub Actions）會在每次 push 與 PR 時自動執行檢查。', '');
 
 // ---- 摘要 ----
@@ -58,18 +58,24 @@ P(table(['檢查項目', '類型', '結果', '問題數'], results.map(({ chk, i
 P('- ✅ 通過：沒有問題。', '- ⚠️ 已知問題（todo）：列在本報告，CI 不會因此變紅；之後新增的同類問題才會讓 CI 失敗。', '- 標示「強制」的項目（藥名、分級、CrCl 分段、欄位、待核標記、院內規格格式、頁面引用欄位）一有問題 CI 就會失敗，不接受列為已知問題。', '');
 
 // ---- 0. 本次修改 ----
-P('## 0. 本次修改的純格式問題', '');
-P('**無。** 檢查結果沒有多餘空白、tab、全形空白或 `undefined` 之類的純格式錯誤，因此沒有修改任何資料。', '');
-P('以下幾處看起來可能是拼字或寫法問題，但**拿不準是不是純格式**，依規定不修，只列出來：', '');
-const suspects = [];
-for (const r of rows) {
-  for (const b of r.d.brands || []) {
-    if (b === 'Aziciin') suspects.push([esc(r.label), '商品名', code(b), '疑似多一個 i（Azicin？）；商品名來自院內藥典擷取，需對照藥典確認']);
-    if (b === 'Zovirx') suspects.push([esc(r.label), '商品名', code(b), '疑似少一個 a（Zovirax 已同列）；需對照藥典確認']);
-  }
+P('## 0. 本次修改紀錄', '');
+P('### 0.1 第一輪（純格式檢查）', '');
+P('沒有找到多餘空白、tab、全形空白或 `undefined` 之類的純格式錯誤，沒有修改資料。網頁與 README 的來源說明拿掉「線上版」「高醫訂閱」等字眼（只動說明文字）。', '');
+const CHANGES_FILE = path.join(__dirname, 'changes_2026-11-02.json');
+if (fs.existsSync(CHANGES_FILE)) {
+  const ch = JSON.parse(fs.readFileSync(CHANGES_FILE, 'utf8')).changes;
+  const show = (v) => (typeof v === 'string' ? v : JSON.stringify(v));
+  P(`### 0.2 第二輪（Kiwi 確認後的寫法統一，共 ${ch.length} 處）`, '');
+  P('- 綠卡 GFR 欄與備註：`qd` → `q24h`；`qod`、`q2d` → `q48h`；`qwk` → `q7d`（QD／QOD 在 Joint Commission 禁用縮寫清單上，容易看錯）。',
+    '- 數字與單位之間空一格（`6g` → `6 g`），和 `7.5 mg/kg` 一致；`Ccr 40–50` → `Ccr40–50`。藥名不動，避免影響搜尋。',
+    '- 個別改寫 3 格：Doripenem <10 `0.25g qd–q12h` → `0.25 g q12–24h`；SMZ-TMP（治療）<10 `qd 或分次` → `/day（一次或分次）`；SMZ-TMP（預防）>50 只把 `qd` 改成 `q24h`，`biw–tiw` 保留，和其他列一致。',
+    '- Route：Cefoperazone/sulbactam `Sulbactam: R` → `H,R`，原意寫進備註；圖例補上「?＝排除途徑不明」（Amphotericin B 保留 `?`）。',
+    '- 院內規格：未滿 1 g 改用 mg（`0.5g` → `500mg`），並去除同量重複（Cefepime、Ceftazidime 原本同時列 `0.5g` 與 `500mg`）。',
+    '- 商品名：`Zovirx` 查無此品項，同列已有 `Zovirax`，刪除。`Aziciin` 經查是真實品名（侒舒芯亞膜衣錠），**保留不改**。',
+    '- 這些寫法規則已加入強制檢查，之後再出現 `qd`、`6g` 之類寫法 CI 會失敗。', '');
+  P(details(`逐項變更（${ch.length} 處，點開看明細）`, table(['藥名', '欄位', '修改前', '修改後', '原因'],
+    ch.map((c) => [esc(c.drug), fl(c.field), code(show(c.before)), code(show(c.after)), esc(c.why)]))));
 }
-P(table(['藥名', '欄位', '內容', '說明'], suspects));
-P('單位寫法不一致（例如 `6g` 與 `7.5 mg/kg` 空格不同、`qd` 與 `q24h` 混用）也都沒有統一，因為改寫法等於動到劑量或間隔的文字，詳見第 3 節。', '');
 
 // ---- 1. 結構問題清單 ----
 P('## 1. 結構問題清單', '');

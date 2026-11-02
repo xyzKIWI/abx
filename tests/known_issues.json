@@ -41,10 +41,6 @@
     "dialysis|Tigecycline|hd/capd/crrt|missing",
     "dialysis|Valganciclovir（維持）|hd/capd/crrt|missing",
     "dialysis|Valganciclovir（誘導）|hd/capd/crrt|missing",
-    "route|Amphotericin B|route|?",
-    "route|Cefoperazone/sulbactam|route|Sulbactam: R",
-    "unit_equiv|Cefepime|unit|vial:0.5g=500mg",
-    "unit_equiv|Ceftazidime|unit|vial:0.5g=500mg",
     "units|（Sanford 欄（常規／透析／肝／肥胖））|after_hd|sanford:AD",
     "units|（Sanford 欄（常規／透析／肝／肥胖））|after_hd|sanford:POST-HD",
     "units|（Sanford 欄（常規／透析／肝／肥胖））|after_hd|sanford:after HD／after each dialysis",
@@ -63,19 +59,8 @@
     "units|（Sanford 欄（常規／透析／肝／肥胖））|times_per_week|sanford:Nx/wk",
     "units|（綠卡 GFR 欄＋備註）|after_hd|gfr:after HD／after each dialysis",
     "units|（綠卡 GFR 欄＋備註）|after_hd|gfr:透析後",
-    "units|（綠卡 GFR 欄＋備註）|ccr_space|gfr:有空格（如 Ccr 40–50）",
-    "units|（綠卡 GFR 欄＋備註）|ccr_space|gfr:緊接（如 Ccr<30、Ccr30–49）",
-    "units|（綠卡 GFR 欄＋備註）|every_other_day|gfr:q2d",
-    "units|（綠卡 GFR 欄＋備註）|every_other_day|gfr:q48h",
-    "units|（綠卡 GFR 欄＋備註）|every_other_day|gfr:qod",
-    "units|（綠卡 GFR 欄＋備註）|num_unit_space|gfr:有空格（如 6 g、160 mg）",
-    "units|（綠卡 GFR 欄＋備註）|num_unit_space|gfr:緊接（如 6g、160mg）",
-    "units|（綠卡 GFR 欄＋備註）|once_daily|gfr:q24h",
-    "units|（綠卡 GFR 欄＋備註）|once_daily|gfr:qd",
     "units|（綠卡 GFR 欄＋備註）|segment_sep|gfr:、",
     "units|（綠卡 GFR 欄＋備註）|segment_sep|gfr:／",
-    "units|（綠卡 GFR 欄＋備註）|segment_sep|gfr:；",
-    "units|（綠卡 GFR 欄＋備註）|weekly|gfr:q7d",
-    "units|（綠卡 GFR 欄＋備註）|weekly|gfr:qwk"
+    "units|（綠卡 GFR 欄＋備註）|segment_sep|gfr:；"
   ]
 }
