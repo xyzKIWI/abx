@@ -353,6 +353,30 @@ const CHECKS = [
     },
   },
   {
+    key: 'coverage', title: 'GFR 欄內的 CrCl 條件涵蓋整欄（例如 10–50 欄只寫 Ccr>20，10–20 要去別欄找）',
+    run(ctx) {
+      const out = [];
+      for (const r of ctx.rows) {
+        for (const b of bandRanges(ctx.D)) {
+          const conds = cellConditions(r.d[b.key]).filter((c) => c.range);
+          if (!conds.length || !b.range) continue;
+          // 找出本欄範圍內沒有被任何條件涵蓋的整數 CrCl 區段
+          const hi = b.range.hi === Infinity ? 200 : b.range.hi;
+          const gaps = [];
+          for (let x = b.range.lo; x <= hi; x++) {
+            if (conds.some((c) => x >= c.range.lo && x <= c.range.hi)) continue;
+            const last = gaps[gaps.length - 1];
+            if (last && last.hi === x - 1) last.hi = x; else gaps.push({ lo: x, hi: x });
+          }
+          if (!gaps.length) continue;
+          const txt = gaps.map((g) => (g.hi >= 200 && b.range.hi === Infinity ? `≥${g.lo}` : g.lo === g.hi ? `${g.lo}` : `${g.lo}–${g.hi}`)).join('、');
+          out.push(issue('coverage', r.label, b.key, `「${b.label}」欄只寫了 ${conds.map((c) => c.text).join('、')}，本欄 CrCl ${txt} 沒有對應寫法`, txt, r.d[b.key]));
+        }
+      }
+      return out;
+    },
+  },
+  {
     key: 'dialysis', title: '透析欄位（HD／CAPD／CRRT）齊全或明確標示無資料',
     run({ rows }) {
       const out = [];

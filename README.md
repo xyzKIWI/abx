@@ -34,6 +34,7 @@
 
 ## 更新紀錄
 
+- **2026-11-02（二次更新）**　改用 Sanford Guide 資料：Fosfomycin（IV）、Telbivudine、Emtricitabine、Tenofovir 的 GFR 欄改用 Sanford 分段（原本 >50 欄寫的是 Ccr30–49 條件）；Tenofovir 標明為 TDF，新增 **Tenofovir alafenamide（TAF）** 列，Vemlidy、Biktarvy 等 TAF 商品名移過去（兩者腎功能調整不同）；Colistin 兩列合併為 Sanford 版（mg CBA）；30 列補上常規劑量與透析欄。逐項見 `DATA_REPORT.md`。
 - **2026-11-02**　新增資料結構與格式自動檢查（GitHub Actions）與檢查報告 `DATA_REPORT.md`。統一綠卡欄寫法：`qd` → `q24h`、`qod`／`q2d` → `q48h`、`qwk` → `q7d`，數字與單位間空一格（`6 g`）；Cefoperazone/sulbactam 的 Route 改為 `H,R`，圖例補上「?＝排除途徑不明」；院內規格未滿 1 g 改寫成 mg 並去除重複；刪除查無此品項的商品名 Zovirx。劑量數值與 CrCl 切點未變，逐項清單見 `DATA_REPORT.md`。README 新增英文版。
 - **2026-10-30**　常規劑量與透析欄（HD／CAPD／CRRT）更新為 Sanford Guide 2026 年資料；藥名下方新增**肝功能**（3 種）與**肥胖**（15 種）註記，「不需調整、無資料、資料不足」者不顯示。三段 GFR 欄（綠卡）未動。
 - **2026-08-06（三次更新）**　新增**院內單位規格**（1 vial／amp／tab 是多少，83 種藥），來源高醫藥典品名。有了它才能從「常規 1 gm q8h」直接換算成「開 2 瓶 0.5g」。解析踩到的坑：無括號複方（`Piperacillin 2g+Tazobactam 0.25g/Vial`）若取最後一個數字會變成 0.25g／vial（實為 **2.25g**）→ 改為多成分相加；糖漿／外用藥水濃度（`25mg/mL`）不可當單位劑量 → 一律排除。

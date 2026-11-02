@@ -3,7 +3,7 @@
 產生日期：2026-11-02｜檢查對象：`renal_data.js`（9 類、90 列）與 `index.html`
 
 > **這份報告只檢查資料完不完整、格式一不一致，不判斷劑量對不對。** 劑量正確性需另行對照原書核對。
-> 2026-11-02 依 Kiwi 確認，統一了綠卡欄的間隔與空格寫法、Route、院內規格寫法，並刪除一個查無此品項的商品名。**劑量數值與 CrCl 切點都沒有改**，逐項清單見第 0 節。
+> 2026-11-02 依 Kiwi 確認：第二輪統一綠卡欄寫法（劑量數值與 CrCl 切點未變）；第三輪改用 Sanford 資料（部分 GFR 欄、Colistin、TAF 新列、30 列透析欄）。逐項修改前後見第 0 節。
 
 重新產生本報告：`node tests/make_report.js`；執行檢查：`node --test tests/data.test.js`。CI（GitHub Actions）會在每次 push 與 PR 時自動執行檢查。
 
@@ -17,8 +17,9 @@
 | 欄位名稱與型別 | 強制 | ✅ 通過 | 0 |
 | 每個藥物都有完整的三段腎功能分級 | 強制 | ✅ 通過 | 0 |
 | CrCl 分段連續、不重疊、沒有缺口（meta.bands 與 index.html 一致） | 強制 | ✅ 通過 | 0 |
-| GFR 欄內的 CrCl 條件落在該欄範圍內 | 可列已知 | ⚠️ 已知問題（todo） | 4 |
-| 透析欄位（HD／CAPD／CRRT）齊全或明確標示無資料 | 可列已知 | ⚠️ 已知問題（todo） | 36 |
+| GFR 欄內的 CrCl 條件落在該欄範圍內 | 可列已知 | ✅ 通過 | 0 |
+| GFR 欄內的 CrCl 條件涵蓋整欄（例如 10–50 欄只寫 Ccr>20，10–20 要去別欄找） | 可列已知 | ⚠️ 已知問題（todo） | 34 |
+| 透析欄位（HD／CAPD／CRRT）齊全或明確標示無資料 | 可列已知 | ⚠️ 已知問題（todo） | 6 |
 | 「待核」標記方式一致（ver 欄位） | 強制 | ✅ 通過 | 0 |
 | Route 寫法符合圖例（R／H／HD／?） | 可列已知 | ✅ 通過 | 0 |
 | 院內規格（unit）格式 | 強制 | ✅ 通過 | 0 |
@@ -118,63 +119,243 @@
 
 </details>
 
+### 0.3 第三輪：改用 Sanford 資料（Kiwi 2026-11-02 確認）（163 處）
+
+- Fosfomycin（IV）、Telbivudine、Emtricitabine、Tenofovir 的三段 GFR 欄改用 Sanford 分段，原本放錯欄的 Ccr 條件不再出現在 >50 欄。
+- Tenofovir 改名為 Tenofovir（TDF）；新增 Tenofovir alafenamide（TAF）列，Vemlidy、Biktarvy、Odefsey、Symtuza 四個 TAF 商品名與 25 mg 錠移到 TAF 列（兩者腎功能調整不同）。
+- Colistin 參考 A／B 兩列合併為 Colistin / Colimycin（mg CBA），照 Sanford 分段；Sanford 未提供 MU 換算，備註提醒依院內藥典。
+- 30 列補上 Sanford 常規劑量與 HD／CAPD／CRRT（ver: 1）；合併列逐藥標示（INH／RIF、NVP／EFV／RTV、Streptomycin）。Acyclovir 口服 Sanford 為 800 mg（帶狀疱疹），只補 VZV 列。
+- Sanford 查無此藥、仍顯示「—」：Mezlocillin、Ticarcillin-clavulanate、Cephradine、Flomoxef、Nitroxoline；Acyclovir（PO）HSV 刻意不補。
+- Terbinafine 保留綠卡「? 或 A」，備註加 Sanford「Ccr≤50 No data」；Amphotericin B 補常規、透析與肥胖註記，Route 維持 ?。
+- Sanford 欄尾註腳編號已剔除（4 處）。
+
+<details><summary>逐項變更（163 處，點開看明細）</summary>
+
+| 藥名 | 欄位 | 修改前 | 修改後 | 原因 |
+| --- | --- | --- | --- | --- |
+| Gentamicin | 常規 | `（無）` | `G- (conventional): 1.7-2.0 mg/kg IV q8h G+ (synergy): 1 mg/kg IV q8h` | 補 Sanford 常規與透析欄 |
+| Gentamicin | HD | `（無）` | `G- (conventional): 1.7-2.0 mg/kg q48h (+ extra 0.85-1.0 mg/kg AD) G+ (synergy): 1 mg/kg q48-72h (dose AD)` | 補 Sanford 常規與透析欄 |
+| Gentamicin | CAPD | `（無）` | `For peritonitis only: 0.6 mg/kg IP once daily` | 補 Sanford 常規與透析欄 |
+| Gentamicin | CRRT | `（無）` | `G- (conventional): 1.7-2.0 mg/kg q24h` | 補 Sanford 常規與透析欄 |
+| Gentamicin | ver（核對狀態） | `（無）` | `1` | 補 Sanford 常規與透析欄 |
+| Amoxicillin-clav 875mg tab（PO） | 常規 | `（無）` | `500 mg po q8h (4:1) 875 mg po q12h (7:1) 1 gm IV q8h (5:1)` | 補 Sanford 常規與透析欄 |
+| Amoxicillin-clav 875mg tab（PO） | HD | `（無）` | `Oral: 250-500 mg q24h (+ extra dose AD) IV: 1 gm x1, then 500 mg q24h (+ extra dose AD)` | 補 Sanford 常規與透析欄 |
+| Amoxicillin-clav 875mg tab（PO） | CAPD | `（無）` | `No data` | 補 Sanford 常規與透析欄 |
+| Amoxicillin-clav 875mg tab（PO） | CRRT | `（無）` | `No data` | 補 Sanford 常規與透析欄 |
+| Amoxicillin-clav 875mg tab（PO） | ver（核對狀態） | `（無）` | `1` | 補 Sanford 常規與透析欄 |
+| Oxacillin | 常規 | `（無）` | `2 gm IV q4h` | 補 Sanford 常規與透析欄 |
+| Oxacillin | HD | `（無）` | `No data` | 補 Sanford 常規與透析欄 |
+| Oxacillin | CAPD | `（無）` | `No data` | 補 Sanford 常規與透析欄 |
+| Oxacillin | CRRT | `（無）` | `No data` | 補 Sanford 常規與透析欄 |
+| Oxacillin | ver（核對狀態） | `（無）` | `1` | 補 Sanford 常規與透析欄 |
+| Piperacillin | 常規 | `（無）` | `3-4 gm IV q4-6h` | 補 Sanford 常規與透析欄 |
+| Piperacillin | HD | `（無）` | `2 gm q8h (+ extra 1 gm AD)` | 補 Sanford 常規與透析欄 |
+| Piperacillin | CAPD | `（無）` | `3-4 gm q8h` | 補 Sanford 常規與透析欄 |
+| Piperacillin | CRRT | `（無）` | `3-4 gm q6-8h` | 補 Sanford 常規與透析欄 |
+| Piperacillin | ver（核對狀態） | `（無）` | `1` | 補 Sanford 常規與透析欄 |
+| Cefoperazone | 常規 | `（無）` | `1-2 gm IV q12h` | 補 Sanford 常規與透析欄 |
+| Cefoperazone | HD | `（無）` | `No dosage adjustment (AD on dialysis days)` | 補 Sanford 常規與透析欄 |
+| Cefoperazone | CAPD | `（無）` | `No data` | 補 Sanford 常規與透析欄 |
+| Cefoperazone | CRRT | `（無）` | `No data` | 補 Sanford 常規與透析欄 |
+| Cefoperazone | ver（核對狀態） | `（無）` | `1` | 補 Sanford 常規與透析欄 |
+| Cefoperazone/sulbactam | 常規 | `（無）` | `2-4 gm/day (divided q12h) (i.e., cefoperazone 1-2 gm/day)` | 補 Sanford 常規與透析欄 |
+| Cefoperazone/sulbactam | HD | `（無）` | `Sulbactam 500 mg q12h (AD on dialysis days)` | 補 Sanford 常規與透析欄 |
+| Cefoperazone/sulbactam | CAPD | `（無）` | `No data` | 補 Sanford 常規與透析欄 |
+| Cefoperazone/sulbactam | CRRT | `（無）` | `Sulbactam 1 gm q8h` | 補 Sanford 常規與透析欄 |
+| Cefoperazone/sulbactam | ver（核對狀態） | `（無）` | `1` | 補 Sanford 常規與透析欄 |
+| Cefpirome | 常規 | `（無）` | `2 gm IV q12h` | 補 Sanford 常規與透析欄 |
+| Cefpirome | HD | `（無）` | `1 gm q24h (AD on dialysis days)` | 補 Sanford 常規與透析欄 |
+| Cefpirome | CAPD | `（無）` | `0.5 gm 3x/wk` | 補 Sanford 常規與透析欄 |
+| Cefpirome | CRRT | `（無）` | `2 gm load, then 1 gm q12h` | 補 Sanford 常規與透析欄 |
+| Cefpirome | ver（核對狀態） | `（無）` | `1` | 補 Sanford 常規與透析欄 |
+| Cefmetazole | 常規 | `（無）` | `2 gm IV q8-12h` | 補 Sanford 常規與透析欄 |
+| Cefmetazole | HD | `（無）` | `1-2 gm q48h (AD on dialysis days)` | 補 Sanford 常規與透析欄 |
+| Cefmetazole | CAPD | `（無）` | `No data` | 補 Sanford 常規與透析欄 |
+| Cefmetazole | CRRT | `（無）` | `No data` | 補 Sanford 常規與透析欄 |
+| Cefmetazole | ver（核對狀態） | `（無）` | `1` | 補 Sanford 常規與透析欄 |
+| Imipenem | 常規 | `（無）` | `Variable` | 補 Sanford 常規與透析欄 |
+| Imipenem | HD | `（無）` | `If target dose 500 mg q6h: 200 mg q6h (dose AD) If target dose 1 gm q8h: 500 mg q12h (dose AD) If target dose 1 gm q6h: 500 mg q12h (dose AD)` | 補 Sanford 常規與透析欄 |
+| Imipenem | CAPD | `（無）` | `No data` | 補 Sanford 常規與透析欄 |
+| Imipenem | CRRT | `（無）` | `0.5-1 gm q6h (varies w/MIC, effluent rate)` | 補 Sanford 常規與透析欄 |
+| Imipenem | ver（核對狀態） | `（無）` | `1` | 補 Sanford 常規與透析欄 |
+| Moxifloxacin | 常規 | `（無）` | `400 mg po/IV q24h` | 補 Sanford 常規與透析欄 |
+| Moxifloxacin | HD | `（無）` | `No dosage adjustment` | 補 Sanford 常規與透析欄 |
+| Moxifloxacin | CAPD | `（無）` | `No dosage adjustment` | 補 Sanford 常規與透析欄 |
+| Moxifloxacin | CRRT | `（無）` | `No dosage adjustment` | 補 Sanford 常規與透析欄 |
+| Moxifloxacin | ver（核對狀態） | `（無）` | `1` | 補 Sanford 常規與透析欄 |
+| Clindamycin | 常規 | `（無）` | `900 mg IV q8h 150-450 mg po q6h` | 補 Sanford 常規與透析欄 |
+| Clindamycin | HD | `（無）` | `No dosage adjustment` | 補 Sanford 常規與透析欄 |
+| Clindamycin | CAPD | `（無）` | `No dosage adjustment` | 補 Sanford 常規與透析欄 |
+| Clindamycin | CRRT | `（無）` | `No dosage adjustment` | 補 Sanford 常規與透析欄 |
+| Clindamycin | ver（核對狀態） | `（無）` | `1` | 補 Sanford 常規與透析欄 |
+| Daptomycin | 常規 | `（無）` | `6-10 mg/kg IV q24h` | 補 Sanford 常規與透析欄 |
+| Daptomycin | HD | `（無）` | `6-10 mg/kg q48h (AD); if next planned dialysis is 72 hrs away, give 9-15 mg/kg` | 補 Sanford 常規與透析欄 |
+| Daptomycin | CAPD | `（無）` | `6-10 mg/kg q48h` | 補 Sanford 常規與透析欄 |
+| Daptomycin | CRRT | `（無）` | `6-8 mg/kg q24h` | 補 Sanford 常規與透析欄 |
+| Daptomycin | ver（核對狀態） | `（無）` | `1` | 補 Sanford 常規與透析欄 |
+| Doxycycline / Minocycline | 常規 | `（無）` | `100 mg po/IV q12h` | 補 Sanford 常規與透析欄 |
+| Doxycycline / Minocycline | HD | `（無）` | `No dosage adjustment` | 補 Sanford 常規與透析欄 |
+| Doxycycline / Minocycline | CAPD | `（無）` | `No dosage adjustment` | 補 Sanford 常規與透析欄 |
+| Doxycycline / Minocycline | CRRT | `（無）` | `No dosage adjustment` | 補 Sanford 常規與透析欄 |
+| Doxycycline / Minocycline | ver（核對狀態） | `（無）` | `1` | 補 Sanford 常規與透析欄 |
+| Erythromycin | 常規 | `（無）` | `250-500 mg po q6h` | 補 Sanford 常規與透析欄 |
+| Erythromycin | HD | `（無）` | `No dosage adjustment` | 補 Sanford 常規與透析欄 |
+| Erythromycin | CAPD | `（無）` | `No dosage adjustment` | 補 Sanford 常規與透析欄 |
+| Erythromycin | CRRT | `（無）` | `No dosage adjustment` | 補 Sanford 常規與透析欄 |
+| Erythromycin | ver（核對狀態） | `（無）` | `1` | 補 Sanford 常規與透析欄 |
+| Fusidate sodium | 常規 | `（無）` | `500 mg po/IV q8h` | 補 Sanford 常規與透析欄 |
+| Fusidate sodium | HD | `（無）` | `No data` | 補 Sanford 常規與透析欄 |
+| Fusidate sodium | CAPD | `（無）` | `No data` | 補 Sanford 常規與透析欄 |
+| Fusidate sodium | CRRT | `（無）` | `No data` | 補 Sanford 常規與透析欄 |
+| Fusidate sodium | ver（核對狀態） | `（無）` | `1` | 補 Sanford 常規與透析欄 |
+| SMZ-TMP（治療） | 常規 | `（無）` | `5-20 mg/kg/day po/IV (div q6-12h)` | 補 Sanford 常規與透析欄 |
+| SMZ-TMP（治療） | HD | `（無）` | `Same as CrCl <15 (AD on dialysis days)` | 補 Sanford 常規與透析欄 |
+| SMZ-TMP（治療） | CAPD | `（無）` | `Same as CrCl <15` | 補 Sanford 常規與透析欄 |
+| SMZ-TMP（治療） | CRRT | `（無）` | `PJP: 15 mg/kg/day (div q8h)` | 補 Sanford 常規與透析欄 |
+| SMZ-TMP（治療） | ver（核對狀態） | `（無）` | `1` | 補 Sanford 常規與透析欄 |
+| SMZ-TMP（預防） | 常規 | `（無）` | `5-20 mg/kg/day po/IV (div q6-12h)` | 補 Sanford 常規與透析欄 |
+| SMZ-TMP（預防） | HD | `（無）` | `Same as CrCl <15 (AD on dialysis days)` | 補 Sanford 常規與透析欄 |
+| SMZ-TMP（預防） | CAPD | `（無）` | `Same as CrCl <15` | 補 Sanford 常規與透析欄 |
+| SMZ-TMP（預防） | CRRT | `（無）` | `PJP: 15 mg/kg/day (div q8h)` | 補 Sanford 常規與透析欄 |
+| SMZ-TMP（預防） | ver（核對狀態） | `（無）` | `1` | 補 Sanford 常規與透析欄 |
+| Tigecycline | 常規 | `（無）` | `100 mg, then 50 mg IV q12h` | 補 Sanford 常規與透析欄 |
+| Tigecycline | HD | `（無）` | `No dosage adjustment` | 補 Sanford 常規與透析欄 |
+| Tigecycline | CAPD | `（無）` | `No dosage adjustment` | 補 Sanford 常規與透析欄 |
+| Tigecycline | CRRT | `（無）` | `No dosage adjustment` | 補 Sanford 常規與透析欄 |
+| Tigecycline | ver（核對狀態） | `（無）` | `1` | 補 Sanford 常規與透析欄 |
+| Amphotericin B | 常規 | `（無）` | `0.3-1.0 mg/kg/day (deoxycholate) 3-5 mg/kg/day (liposomal)` | 補 Sanford 常規與透析欄 |
+| Amphotericin B | HD | `（無）` | `No dosage adjustment` | 補 Sanford 常規與透析欄 |
+| Amphotericin B | CAPD | `（無）` | `No dosage adjustment` | 補 Sanford 常規與透析欄 |
+| Amphotericin B | CRRT | `（無）` | `No dosage adjustment` | 補 Sanford 常規與透析欄 |
+| Amphotericin B | ver（核對狀態） | `（無）` | `1` | 補 Sanford 常規與透析欄 |
+| Lamivudine | 常規 | `（無）` | `300 mg po q24h (HIV dose)` | 補 Sanford 常規與透析欄 |
+| Lamivudine | HD | `（無）` | `25-50 mg q24h (dose AD on dialysis days) (HIV)` | 補 Sanford 常規與透析欄 |
+| Lamivudine | CAPD | `（無）` | `25-50 mg po q24h (HIV)` | 補 Sanford 常規與透析欄 |
+| Lamivudine | CRRT | `（無）` | `100 mg first day, then 50 mg q24h (HIV)` | 補 Sanford 常規與透析欄 |
+| Lamivudine | ver（核對狀態） | `（無）` | `1` | 補 Sanford 常規與透析欄 |
+| Amikacin / Streptomycin（TB） | 常規 | `（無）` | `Streptomycin: 15 mg/kg (max 1 gm) IM q24h` | 補 Sanford 常規與透析欄（取 Streptomycin） |
+| Amikacin / Streptomycin（TB） | HD | `（無）` | `Streptomycin: 15 mg/kg q72-96h (+ extra 7.5 mg/kg AD)` | 補 Sanford 常規與透析欄（取 Streptomycin） |
+| Amikacin / Streptomycin（TB） | CAPD | `（無）` | `Streptomycin: 20-40 mg lost per L of dialysate/day` | 補 Sanford 常規與透析欄（取 Streptomycin） |
+| Amikacin / Streptomycin（TB） | CRRT | `（無）` | `Streptomycin: 15 mg/kg q24-72h` | 補 Sanford 常規與透析欄（取 Streptomycin） |
+| Amikacin / Streptomycin（TB） | ver（核對狀態） | `（無）` | `1` | 補 Sanford 常規與透析欄（取 Streptomycin） |
+| Isoniazid / Rifampin | 常規 | `（無）` | `INH: 5 mg/kg po q24h; RIF: 600 mg po q24h` | 補 Sanford 常規與透析欄（合併列，逐藥標示） |
+| Isoniazid / Rifampin | HD | `（無）` | `INH: No dosage adjustment (administer AD on dialysis days); RIF: 300-600 mg q24h` | 補 Sanford 常規與透析欄（合併列，逐藥標示） |
+| Isoniazid / Rifampin | CAPD | `（無）` | `INH: No dosage adjustment; RIF: 300-600 mg q24h` | 補 Sanford 常規與透析欄（合併列，逐藥標示） |
+| Isoniazid / Rifampin | CRRT | `（無）` | `INH: No dosage adjustment; RIF: 300-600 mg q24h` | 補 Sanford 常規與透析欄（合併列，逐藥標示） |
+| Isoniazid / Rifampin | ver（核對狀態） | `（無）` | `1` | 補 Sanford 常規與透析欄（合併列，逐藥標示） |
+| Nevirapine / Efavirenz / Ritonavir | 常規 | `（無）` | `NVP: 200 mg po q12h; EFV: 600 mg po q24h; RTV: Used as booster (dosage varies)` | 補 Sanford 常規與透析欄（合併列，逐藥標示） |
+| Nevirapine / Efavirenz / Ritonavir | HD | `（無）` | `NVP: Give extra 200 mg AD; EFV: No data; RTV: No data` | 補 Sanford 常規與透析欄（合併列，逐藥標示） |
+| Nevirapine / Efavirenz / Ritonavir | CAPD | `（無）` | `No data` | 補 Sanford 常規與透析欄（合併列，逐藥標示） |
+| Nevirapine / Efavirenz / Ritonavir | CRRT | `（無）` | `No data` | 補 Sanford 常規與透析欄（合併列，逐藥標示） |
+| Nevirapine / Efavirenz / Ritonavir | ver（核對狀態） | `（無）` | `1` | 補 Sanford 常規與透析欄（合併列，逐藥標示） |
+| Acyclovir（PO）VZV | 常規 | `（無）` | `800 mg po q4h (5x/day)` | 補 Sanford 常規與透析欄（Acyclovir 口服部分） |
+| Acyclovir（PO）VZV | HD | `（無）` | `800 mg po q12h (give extra dose AD)` | 補 Sanford 常規與透析欄（Acyclovir 口服部分） |
+| Acyclovir（PO）VZV | CAPD | `（無）` | `800 mg po q12h` | 補 Sanford 常規與透析欄（Acyclovir 口服部分） |
+| Acyclovir（PO）VZV | CRRT | `（無）` | `No data` | 補 Sanford 常規與透析欄（Acyclovir 口服部分） |
+| Acyclovir（PO）VZV | ver（核對狀態） | `（無）` | `1` | 補 Sanford 常規與透析欄（Acyclovir 口服部分） |
+| Valganciclovir（誘導） | 常規 | `（無）` | `900 mg po q12h` | 補 Sanford 常規與透析欄 |
+| Valganciclovir（誘導） | HD | `（無）` | `Not recommended` | 補 Sanford 常規與透析欄 |
+| Valganciclovir（誘導） | CAPD | `（無）` | `No data` | 補 Sanford 常規與透析欄 |
+| Valganciclovir（誘導） | CRRT | `（無）` | `No data` | 補 Sanford 常規與透析欄 |
+| Valganciclovir（誘導） | ver（核對狀態） | `（無）` | `1` | 補 Sanford 常規與透析欄 |
+| Valganciclovir（維持） | 常規 | `（無）` | `900 mg po q24h` | 補 Sanford 常規與透析欄 |
+| Valganciclovir（維持） | HD | `（無）` | `Not recommended` | 補 Sanford 常規與透析欄 |
+| Valganciclovir（維持） | CAPD | `（無）` | `No data` | 補 Sanford 常規與透析欄 |
+| Valganciclovir（維持） | CRRT | `（無）` | `CVVHD: 450 mg q24h` | 補 Sanford 常規與透析欄 |
+| Valganciclovir（維持） | ver（核對狀態） | `（無）` | `1` | 補 Sanford 常規與透析欄 |
+| Amphotericin B | 肥胖 | `（無）` | `Liposomal: Use adjusted BW, but consider actual BW if critically ill` | 補 Sanford 肥胖註記 |
+| Fosfomycin（IV） | GFR >50 | `Ccr20–40：bid` | `N` | GFR 欄改用 Sanford 分段（原綠卡條件放錯欄） |
+| Fosfomycin（IV） | GFR 10–50 | `Ccr10–20：q24h` | `Ccr>40：N／Ccr31–40：70%／Ccr21–30：60%／Ccr11–20：40%（分 q8–12h）` | GFR 欄改用 Sanford 分段（原綠卡條件放錯欄） |
+| Fosfomycin（IV） | GFR <10 | `q48h；HD：50–100% after HD` | `Ccr≤10：20%（分 q12–24h）` | GFR 欄改用 Sanford 分段（原綠卡條件放錯欄） |
+| Fosfomycin（IV） | 備註 | `Nottingham Univ. Hospital` | `Sanford（非美國劑型）：% 指正常一天總劑量的百分比；首劑加倍（最多 8 g）` | GFR 欄改用 Sanford 分段（原綠卡條件放錯欄） |
+| Telbivudine | GFR >50 | `Ccr30–49：q48h` | `N` | GFR 欄改用 Sanford 分段（原綠卡條件放錯欄） |
+| Telbivudine | GFR 10–50 | `Ccr<30：q72h` | `Ccr30–49：600 mg q48h／Ccr10–30：600 mg q72h` | GFR 欄改用 Sanford 分段（原綠卡條件放錯欄） |
+| Telbivudine | GFR <10 | `q96h` | `600 mg q96h` | GFR 欄改用 Sanford 分段（原綠卡條件放錯欄） |
+| Emtricitabine | GFR >50 | `Ccr30–49：q48h` | `N` | GFR 欄改用 Sanford 分段（原綠卡條件放錯欄） |
+| Emtricitabine | GFR 10–50 | `Ccr<30：q72h` | `Ccr30–49：200 mg q48h／Ccr10–29：200 mg q72h` | GFR 欄改用 Sanford 分段（原綠卡條件放錯欄） |
+| Emtricitabine | GFR <10 | `q96h` | `200 mg q96h` | GFR 欄改用 Sanford 分段（原綠卡條件放錯欄） |
+| Emtricitabine | 備註 | `` | `膠囊劑量（口服液不同）` | GFR 欄改用 Sanford 分段（原綠卡條件放錯欄） |
+| Emtricitabine | 常規 | `（無）` | `200 mg po q24h` | 補 Sanford 常規與透析欄（膠囊） |
+| Emtricitabine | HD | `（無）` | `200 mg q96h` | 補 Sanford 常規與透析欄（膠囊） |
+| Emtricitabine | CAPD | `（無）` | `No data` | 補 Sanford 常規與透析欄（膠囊） |
+| Emtricitabine | CRRT | `（無）` | `No data` | 補 Sanford 常規與透析欄（膠囊） |
+| Emtricitabine | ver（核對狀態） | `（無）` | `1` | 補 Sanford 常規與透析欄（膠囊） |
+| Tenofovir | GFR >50 | `Ccr30–49：q48h` | `N` | GFR 欄改用 Sanford 分段（原綠卡條件放錯欄） |
+| Tenofovir | GFR 10–50 | `Ccr<30：q72–96h` | `Ccr30–49：300 mg q48h／Ccr10–29：300 mg q72–96h` | GFR 欄改用 Sanford 分段（原綠卡條件放錯欄） |
+| Tenofovir | 備註 | `HD：q7d` | `` | HD 劑量改放透析欄 |
+| Tenofovir | 常規 | `（無）` | `300 mg po q24h` | 補 Sanford 常規與透析欄 |
+| Tenofovir | HD | `（無）` | `300 mg after every 3rd dialysis, or q7 days if no dialysis` | 補 Sanford 常規與透析欄 |
+| Tenofovir | CAPD | `（無）` | `No data` | 補 Sanford 常規與透析欄 |
+| Tenofovir | CRRT | `（無）` | `No data` | 補 Sanford 常規與透析欄 |
+| Tenofovir | ver（核對狀態） | `（無）` | `1` | 補 Sanford 常規與透析欄 |
+| Tenofovir | 商品名 | `["Atripla","Biktarvy","Complera","Delstrigo","Odefsey","Symtuza","Tenof","Truvada","Vemlidy","Viread"]` | `["Atripla","Complera","Delstrigo","Tenof","Truvada","Viread"]` | TAF 商品名移到 TAF 列 |
+| Tenofovir | 院內規格 | `{"tab":["25mg","300mg"]}` | `{"tab":["300mg"]}` | 25mg 為 TAF（Vemlidy），移到 TAF 列 |
+| Tenofovir | 藥名 | `Tenofovir` | `Tenofovir（TDF）` | 標明為 TDF，與 TAF 區分 |
+| Tenofovir alafenamide（TAF） | （新增列） | `（無）` | `{"name":"Tenofovir alafenamide（TAF）","route":"?","g50":"N","g1050":"Ccr≥15：N／Ccr<15：A（未透析）","g10":"A（未透析）；HD：N","comment":"Sanford；複方錠（Biktarvy 等）另有腎功能限制","brands":["Biktarvy","Odefsey","Symtuza","Vemlidy"],"nd":"25 mg po q24h","hd":"No dosage adjustment (dose AD on dialysis days)","capd":"No data","crrt":"No data","ver":1,"unit":{"tab":["25mg"]}}` | 新增 TAF 列（Sanford） |
+| Terbinafine | 備註 | `` | `Sanford：Ccr≤50 No data` | 補 Sanford 說明（保留綠卡 ? 或 A） |
+| Colistin / Colimycin（維持劑量・參考 A） | （刪除列） | `{"name":"Colistin / Colimycin（維持劑量・參考 A）","route":"R","g50":"N","g1050":"Ccr20–40：2–3 MU q12h／Ccr10–19：2 MU q12h","g10":"1 MU q12h","comment":"*CRRT 膜會吸附；CRRT：4.5 MU q12–8h","unit":{"vial":["2MU"]}}` | `（併入 Colistin / Colimycin（mg CBA））` | Colistin 改用 Sanford（選項 a） |
+| Colistin / Colimycin（維持劑量・參考 B） | （刪除列） | `{"name":"Colistin / Colimycin（維持劑量・參考 B）","route":"R","g50":"N","g1050":"4.5 MU q24h","g10":"2–2.5 MU q24h","comment":"CRRT：2–3 MU q8h","unit":{"vial":["2MU"]}}` | `（併入 Colistin / Colimycin（mg CBA））` | Colistin 改用 Sanford（選項 a） |
+| Colistin / Colimycin（mg CBA） | （新增列） | `（無）` | `{"name":"Colistin / Colimycin（mg CBA）","route":"R","g50":"Ccr≥90：180 mg q12h／Ccr80–89：170 mg q12h／Ccr70–79：150 mg q12h／Ccr60–69：137.5 mg q12h／Ccr50–59：122.5 mg q12h","g1050":"Ccr40–49：110 mg q12h／Ccr30–39：97.5 mg q12h／Ccr20–29：87.5 mg q12h／Ccr10–19：80 mg q12h","g10":"Ccr5–9：72.5 mg q12h／Ccr<5：65 mg q12h","comment":"Sanford：劑量以 mg CBA 計，與 MU 換算請依院內藥典；Load 4 × 體重（kg）mg CBA","nd":"Load: 4 x (wt in kg) Maintenance: 180 mg q12h","hd":"Non-HD days: give 65 mg IV q12h. HD days: give supplemental dose of 40-50 mg after a 3-4 hr session. Give this supplement with the next regular dose after the dialysis has ended.","capd":"No data","crrt":"220 mg q12h","ver":1,"unit":{"vial":["2MU"]}}` | Colistin 改用 Sanford（選項 a） |
+
+</details>
+
 ## 1. 結構問題清單
 
 下表是檢查腳本找到的所有結構問題（不含單位寫法，單位寫法見第 3 節）。
 
-### GFR 欄內的 CrCl 條件落在該欄範圍內（4 項）
+### GFR 欄內的 CrCl 條件涵蓋整欄（例如 10–50 欄只寫 Ccr>20，10–20 要去別欄找）（34 項）
 
-同一列在其他欄已有相同或相鄰的 CrCl 條件，看起來像原始資料的欄位對齊方式（綠卡把三段 Ccr 條件依序放進三欄），**不是本工具轉錄錯誤的判定**。但在頁面上，病人 CrCl >50 時會高亮這一格，而格子裡寫的卻是 CrCl 30–49 或 20–40 的條件，容易誤讀。需對照原書決定要不要改欄位或加註。
+格子裡寫了 CrCl 條件，但條件沒有涵蓋整欄。例如 Cefixime 10–50 欄只寫「Ccr>20：75%」，CrCl 10–20 的答案其實寫在 <10 欄的「Ccr<20：50%」；病人 CrCl 15 時頁面高亮的是 10–50 那格，容易看錯。只缺「50」或「10」一個點的，多半是 Sanford 分段（>50／30–49）和頁面分段（10–50 含 50）的邊界差異。
 
 | 藥名 | 欄位 | 問題描述 |
 | --- | --- | --- |
-| Fosfomycin（IV） | GFR >50 | 「>50」欄寫的是「Ccr20–40」（CrCl 20–40），與本欄範圍（≥51）完全沒有交集；CrCl 落在本欄時頁面會高亮這格 |
-| Telbivudine | GFR >50 | 「>50」欄寫的是「Ccr30–49」（CrCl 30–49），與本欄範圍（≥51）完全沒有交集；CrCl 落在本欄時頁面會高亮這格 |
-| Tenofovir | GFR >50 | 「>50」欄寫的是「Ccr30–49」（CrCl 30–49），與本欄範圍（≥51）完全沒有交集；CrCl 落在本欄時頁面會高亮這格 |
-| Emtricitabine | GFR >50 | 「>50」欄寫的是「Ccr30–49」（CrCl 30–49），與本欄範圍（≥51）完全沒有交集；CrCl 落在本欄時頁面會高亮這格 |
+| Amikacin / Streptomycin（TB） | GFR 10–50 | 「10–50」欄只寫了 Ccr<30，本欄 CrCl 30–50 沒有對應寫法 |
+| Amoxicillin-clavulanate（PO/IV） | GFR 10–50 | 「10–50」欄只寫了 Ccr<30，本欄 CrCl 30–50 沒有對應寫法 |
+| Amoxicillin-clav 875mg tab（PO） | GFR 10–50 | 「10–50」欄只寫了 Ccr<15，本欄 CrCl 15–50 沒有對應寫法 |
+| Amoxicillin-clav 875mg tab（PO） | GFR <10 | 「<10」欄只寫了 Ccr<5，本欄 CrCl 5–9 沒有對應寫法 |
+| Ampicillin | GFR 10–50 | 「10–50」欄只寫了 Ccr<30，本欄 CrCl 30–50 沒有對應寫法 |
+| Ampicillin/sulbactam | GFR 10–50 | 「10–50」欄只寫了 Ccr<30，本欄 CrCl 30–50 沒有對應寫法 |
+| Ampicillin/sulbactam — Acinetobacter / E. faecalis（高劑量） | GFR 10–50 | 「10–50」欄只寫了 Ccr<30，本欄 CrCl 30–50 沒有對應寫法 |
+| Piperacillin-tazobactam（non-Pseudomonas） | GFR 10–50 | 「10–50」欄只寫了 Ccr<20，本欄 CrCl 20–50 沒有對應寫法 |
+| Cefixime | GFR 10–50 | 「10–50」欄只寫了 Ccr>20，本欄 CrCl 10–20 沒有對應寫法 |
+| Cefoperazone/sulbactam | GFR 10–50 | 「10–50」欄只寫了 Ccr≤30，本欄 CrCl 31–50 沒有對應寫法 |
+| Ceftibuten | GFR 10–50 | 「10–50」欄只寫了 Ccr≥30，本欄 CrCl 10–29 沒有對應寫法 |
+| Cephalexin | GFR 10–50 | 「10–50」欄只寫了 Ccr≤40，本欄 CrCl 41–50 沒有對應寫法 |
+| Ertapenem | GFR 10–50 | 「10–50」欄只寫了 Ccr<30，本欄 CrCl 30–50 沒有對應寫法 |
+| Levofloxacin 750mg | GFR 10–50 | 「10–50」欄只寫了 Ccr≥20，本欄 CrCl 10–19 沒有對應寫法 |
+| Levofloxacin 500mg | GFR 10–50 | 「10–50」欄只寫了 Ccr≥20，本欄 CrCl 10–19 沒有對應寫法 |
+| Gemifloxacin | GFR 10–50 | 「10–50」欄只寫了 Ccr≤40，本欄 CrCl 41–50 沒有對應寫法 |
+| Colistin / Colimycin（mg CBA） | GFR 10–50 | 「10–50」欄只寫了 Ccr40–49、Ccr30–39、Ccr20–29、Ccr10–19，本欄 CrCl 50 沒有對應寫法 |
+| Daptomycin | GFR 10–50 | 「10–50」欄只寫了 Ccr<30，本欄 CrCl 30–50 沒有對應寫法 |
+| Fosfomycin（IV） | GFR 10–50 | 「10–50」欄只寫了 Ccr>40、Ccr31–40、Ccr21–30、Ccr11–20，本欄 CrCl 10 沒有對應寫法 |
+| Nitroxoline | GFR 10–50 | 「10–50」欄只寫了 Ccr<20，本欄 CrCl 20–50 沒有對應寫法 |
+| SMZ-TMP（治療） | GFR 10–50 | 「10–50」欄只寫了 Ccr<30，本欄 CrCl 30–50 沒有對應寫法 |
+| Rifabutin | GFR 10–50 | 「10–50」欄只寫了 Ccr<30，本欄 CrCl 30–50 沒有對應寫法 |
+| Entecavir | GFR 10–50 | 「10–50」欄只寫了 Ccr30–49、Ccr<30，本欄 CrCl 50 沒有對應寫法 |
+| Ganciclovir（誘導） | GFR >50 | 「>50」欄只寫了 Ccr50–69，本欄 CrCl ≥70 沒有對應寫法 |
+| Ganciclovir（誘導） | GFR 10–50 | 「10–50」欄只寫了 Ccr25–49、Ccr10–24，本欄 CrCl 50 沒有對應寫法 |
+| Ganciclovir（維持） | GFR >50 | 「>50」欄只寫了 Ccr50–69，本欄 CrCl ≥70 沒有對應寫法 |
+| Ganciclovir（維持） | GFR 10–50 | 「10–50」欄只寫了 Ccr25–49、Ccr<25，本欄 CrCl 50 沒有對應寫法 |
+| Telbivudine | GFR 10–50 | 「10–50」欄只寫了 Ccr30–49、Ccr10–30，本欄 CrCl 50 沒有對應寫法 |
+| Tenofovir（TDF） | GFR 10–50 | 「10–50」欄只寫了 Ccr30–49、Ccr10–29，本欄 CrCl 50 沒有對應寫法 |
+| Emtricitabine | GFR 10–50 | 「10–50」欄只寫了 Ccr30–49、Ccr10–29，本欄 CrCl 50 沒有對應寫法 |
+| Valganciclovir（誘導） | GFR >50 | 「>50」欄只寫了 Ccr50–69，本欄 CrCl ≥70 沒有對應寫法 |
+| Valganciclovir（誘導） | GFR 10–50 | 「10–50」欄只寫了 Ccr25–49、Ccr10–24，本欄 CrCl 50 沒有對應寫法 |
+| Valganciclovir（維持） | GFR >50 | 「>50」欄只寫了 Ccr50–69，本欄 CrCl ≥70 沒有對應寫法 |
+| Valganciclovir（維持） | GFR 10–50 | 「10–50」欄只寫了 Ccr25–49、Ccr<25，本欄 CrCl 50 沒有對應寫法 |
 
-### 透析欄位（HD／CAPD／CRRT）齊全或明確標示無資料（36 項）
+### 透析欄位（HD／CAPD／CRRT）齊全或明確標示無資料（6 項）
 
 這些藥沒有任何透析欄位，頁面顯示「—」。圖例已說明「—」＝原書未列此藥透析劑量、不代表不需調整，所以**不是缺漏錯誤**；只是不像其他 54 列那樣明確寫出「No data」。是否補上「No data」或 Sanford 資料，需人工決定。
 
 | 藥名 | 欄位 | 問題描述 |
 | --- | --- | --- |
-| Amikacin / Streptomycin（TB） | hd/capd/crrt | 三個透析欄位都沒有，頁面顯示「—」；未明確寫出「No data」 |
-| Gentamicin | hd/capd/crrt | 三個透析欄位都沒有，頁面顯示「—」；未明確寫出「No data」 |
-| Amoxicillin-clav 875mg tab（PO） | hd/capd/crrt | 三個透析欄位都沒有，頁面顯示「—」；未明確寫出「No data」 |
 | Mezlocillin | hd/capd/crrt | 三個透析欄位都沒有，頁面顯示「—」；未明確寫出「No data」 |
-| Oxacillin | hd/capd/crrt | 三個透析欄位都沒有，頁面顯示「—」；未明確寫出「No data」 |
-| Piperacillin | hd/capd/crrt | 三個透析欄位都沒有，頁面顯示「—」；未明確寫出「No data」 |
 | Ticarcillin-clavulanate | hd/capd/crrt | 三個透析欄位都沒有，頁面顯示「—」；未明確寫出「No data」 |
-| Cefoperazone | hd/capd/crrt | 三個透析欄位都沒有，頁面顯示「—」；未明確寫出「No data」 |
-| Cefoperazone/sulbactam | hd/capd/crrt | 三個透析欄位都沒有，頁面顯示「—」；未明確寫出「No data」 |
-| Cefpirome | hd/capd/crrt | 三個透析欄位都沒有，頁面顯示「—」；未明確寫出「No data」 |
-| Cefmetazole | hd/capd/crrt | 三個透析欄位都沒有，頁面顯示「—」；未明確寫出「No data」 |
 | Cephradine（0.25–1g q6h） | hd/capd/crrt | 三個透析欄位都沒有，頁面顯示「—」；未明確寫出「No data」 |
 | Flomoxef | hd/capd/crrt | 三個透析欄位都沒有，頁面顯示「—」；未明確寫出「No data」 |
-| Imipenem | hd/capd/crrt | 三個透析欄位都沒有，頁面顯示「—」；未明確寫出「No data」 |
-| Moxifloxacin | hd/capd/crrt | 三個透析欄位都沒有，頁面顯示「—」；未明確寫出「No data」 |
-| Clindamycin | hd/capd/crrt | 三個透析欄位都沒有，頁面顯示「—」；未明確寫出「No data」 |
-| Colistin / Colimycin（維持劑量・參考 A） | hd/capd/crrt | 三個透析欄位都沒有，頁面顯示「—」；未明確寫出「No data」 |
-| Colistin / Colimycin（維持劑量・參考 B） | hd/capd/crrt | 三個透析欄位都沒有，頁面顯示「—」；未明確寫出「No data」 |
-| Daptomycin | hd/capd/crrt | 三個透析欄位都沒有，頁面顯示「—」；未明確寫出「No data」 |
-| Doxycycline / Minocycline | hd/capd/crrt | 三個透析欄位都沒有，頁面顯示「—」；未明確寫出「No data」 |
-| Erythromycin | hd/capd/crrt | 三個透析欄位都沒有，頁面顯示「—」；未明確寫出「No data」 |
-| Fusidate sodium | hd/capd/crrt | 三個透析欄位都沒有，頁面顯示「—」；未明確寫出「No data」 |
 | Nitroxoline | hd/capd/crrt | 三個透析欄位都沒有，頁面顯示「—」；未明確寫出「No data」 |
-| SMZ-TMP（治療） | hd/capd/crrt | 三個透析欄位都沒有，頁面顯示「—」；未明確寫出「No data」 |
-| SMZ-TMP（預防） | hd/capd/crrt | 三個透析欄位都沒有，頁面顯示「—」；未明確寫出「No data」 |
-| Tigecycline | hd/capd/crrt | 三個透析欄位都沒有，頁面顯示「—」；未明確寫出「No data」 |
-| Amphotericin B | hd/capd/crrt | 三個透析欄位都沒有，頁面顯示「—」；未明確寫出「No data」 |
-| Isoniazid / Rifampin | hd/capd/crrt | 三個透析欄位都沒有，頁面顯示「—」；未明確寫出「No data」 |
 | Acyclovir（PO）HSV | hd/capd/crrt | 三個透析欄位都沒有，頁面顯示「—」；未明確寫出「No data」 |
-| Acyclovir（PO）VZV | hd/capd/crrt | 三個透析欄位都沒有，頁面顯示「—」；未明確寫出「No data」 |
-| Lamivudine | hd/capd/crrt | 三個透析欄位都沒有，頁面顯示「—」；未明確寫出「No data」 |
-| Nevirapine / Efavirenz / Ritonavir | hd/capd/crrt | 三個透析欄位都沒有，頁面顯示「—」；未明確寫出「No data」 |
-| Tenofovir | hd/capd/crrt | 三個透析欄位都沒有，頁面顯示「—」；未明確寫出「No data」 |
-| Emtricitabine | hd/capd/crrt | 三個透析欄位都沒有，頁面顯示「—」；未明確寫出「No data」 |
-| Valganciclovir（誘導） | hd/capd/crrt | 三個透析欄位都沒有，頁面顯示「—」；未明確寫出「No data」 |
-| Valganciclovir（維持） | hd/capd/crrt | 三個透析欄位都沒有，頁面顯示「—」；未明確寫出「No data」 |
 
 ### GFR 欄內 CrCl 條件總表（供核對參考）
 
@@ -210,11 +391,23 @@ GFR 三欄的分段為 `>50`、`10–50`、`<10`（頁面先把 CrCl 四捨五�
 | Levofloxacin 500mg | 10–50 | `Ccr≥20：500 mg q48h` | `Ccr≥20` | ≥20 | **部分超出欄位範圍** |
 | Levofloxacin 500mg | <10 | `Ccr<20：500 mg×1，之後 250 mg q48h` | `Ccr<20` | ≤19 | **部分超出欄位範圍** |
 | Gemifloxacin | 10–50 | `Ccr≤40：160 mg q24h` | `Ccr≤40` | ≤40 | **部分超出欄位範圍** |
-| Colistin / Colimycin（維持劑量・參考 A） | 10–50 | `Ccr20–40：2–3 MU q12h／Ccr10–19：2 MU q12h` | `Ccr20–40` | 20–40 | 在欄位範圍內 |
-| Colistin / Colimycin（維持劑量・參考 A） | 10–50 | `Ccr20–40：2–3 MU q12h／Ccr10–19：2 MU q12h` | `Ccr10–19` | 10–19 | 在欄位範圍內 |
+| Colistin / Colimycin（mg CBA） | >50 | `Ccr≥90：180 mg q12h／Ccr80–89：170 mg q12h／Ccr70–79：150 mg q12h／Ccr60–69：137.5 mg q12h／Ccr50–59：122.5 mg q12h` | `Ccr≥90` | ≥90 | 在欄位範圍內 |
+| Colistin / Colimycin（mg CBA） | >50 | `Ccr≥90：180 mg q12h／Ccr80–89：170 mg q12h／Ccr70–79：150 mg q12h／Ccr60–69：137.5 mg q12h／Ccr50–59：122.5 mg q12h` | `Ccr80–89` | 80–89 | 在欄位範圍內 |
+| Colistin / Colimycin（mg CBA） | >50 | `Ccr≥90：180 mg q12h／Ccr80–89：170 mg q12h／Ccr70–79：150 mg q12h／Ccr60–69：137.5 mg q12h／Ccr50–59：122.5 mg q12h` | `Ccr70–79` | 70–79 | 在欄位範圍內 |
+| Colistin / Colimycin（mg CBA） | >50 | `Ccr≥90：180 mg q12h／Ccr80–89：170 mg q12h／Ccr70–79：150 mg q12h／Ccr60–69：137.5 mg q12h／Ccr50–59：122.5 mg q12h` | `Ccr60–69` | 60–69 | 在欄位範圍內 |
+| Colistin / Colimycin（mg CBA） | >50 | `Ccr≥90：180 mg q12h／Ccr80–89：170 mg q12h／Ccr70–79：150 mg q12h／Ccr60–69：137.5 mg q12h／Ccr50–59：122.5 mg q12h` | `Ccr50–59` | 50–59 | **部分超出欄位範圍** |
+| Colistin / Colimycin（mg CBA） | 10–50 | `Ccr40–49：110 mg q12h／Ccr30–39：97.5 mg q12h／Ccr20–29：87.5 mg q12h／Ccr10–19：80 mg q12h` | `Ccr40–49` | 40–49 | 在欄位範圍內 |
+| Colistin / Colimycin（mg CBA） | 10–50 | `Ccr40–49：110 mg q12h／Ccr30–39：97.5 mg q12h／Ccr20–29：87.5 mg q12h／Ccr10–19：80 mg q12h` | `Ccr30–39` | 30–39 | 在欄位範圍內 |
+| Colistin / Colimycin（mg CBA） | 10–50 | `Ccr40–49：110 mg q12h／Ccr30–39：97.5 mg q12h／Ccr20–29：87.5 mg q12h／Ccr10–19：80 mg q12h` | `Ccr20–29` | 20–29 | 在欄位範圍內 |
+| Colistin / Colimycin（mg CBA） | 10–50 | `Ccr40–49：110 mg q12h／Ccr30–39：97.5 mg q12h／Ccr20–29：87.5 mg q12h／Ccr10–19：80 mg q12h` | `Ccr10–19` | 10–19 | 在欄位範圍內 |
+| Colistin / Colimycin（mg CBA） | <10 | `Ccr5–9：72.5 mg q12h／Ccr<5：65 mg q12h` | `Ccr5–9` | 5–9 | 在欄位範圍內 |
+| Colistin / Colimycin（mg CBA） | <10 | `Ccr5–9：72.5 mg q12h／Ccr<5：65 mg q12h` | `Ccr<5` | ≤4 | 在欄位範圍內 |
 | Daptomycin | 10–50 | `Ccr<30：q48h` | `Ccr<30` | ≤29 | **部分超出欄位範圍** |
-| Fosfomycin（IV） | >50 | `Ccr20–40：bid` | `Ccr20–40` | 20–40 | **完全不在欄位範圍內** |
-| Fosfomycin（IV） | 10–50 | `Ccr10–20：q24h` | `Ccr10–20` | 10–20 | 在欄位範圍內 |
+| Fosfomycin（IV） | 10–50 | `Ccr>40：N／Ccr31–40：70%／Ccr21–30：60%／Ccr11–20：40%（分 q8–12h）` | `Ccr>40` | ≥41 | **部分超出欄位範圍** |
+| Fosfomycin（IV） | 10–50 | `Ccr>40：N／Ccr31–40：70%／Ccr21–30：60%／Ccr11–20：40%（分 q8–12h）` | `Ccr31–40` | 31–40 | 在欄位範圍內 |
+| Fosfomycin（IV） | 10–50 | `Ccr>40：N／Ccr31–40：70%／Ccr21–30：60%／Ccr11–20：40%（分 q8–12h）` | `Ccr21–30` | 21–30 | 在欄位範圍內 |
+| Fosfomycin（IV） | 10–50 | `Ccr>40：N／Ccr31–40：70%／Ccr21–30：60%／Ccr11–20：40%（分 q8–12h）` | `Ccr11–20` | 11–20 | 在欄位範圍內 |
+| Fosfomycin（IV） | <10 | `Ccr≤10：20%（分 q12–24h）` | `Ccr≤10` | ≤10 | **部分超出欄位範圍** |
 | Nitroxoline | 10–50 | `Ccr<20：A` | `Ccr<20` | ≤19 | **部分超出欄位範圍** |
 | SMZ-TMP（治療） | 10–50 | `Ccr<30：50%` | `Ccr<30` | ≤29 | **部分超出欄位範圍** |
 | Fluconazole | 10–50 | `Ccr≤50：50% q24h` | `Ccr≤50` | ≤50 | **部分超出欄位範圍** |
@@ -228,12 +421,14 @@ GFR 三欄的分段為 `>50`、`10–50`、`<10`（頁面先把 CrCl 四捨五�
 | Ganciclovir（維持） | >50 | `Ccr50–69：50% q24h` | `Ccr50–69` | 50–69 | **部分超出欄位範圍** |
 | Ganciclovir（維持） | 10–50 | `Ccr25–49：25% q24h／Ccr<25：0.625 mg/kg q24h` | `Ccr25–49` | 25–49 | 在欄位範圍內 |
 | Ganciclovir（維持） | 10–50 | `Ccr25–49：25% q24h／Ccr<25：0.625 mg/kg q24h` | `Ccr<25` | ≤24 | **部分超出欄位範圍** |
-| Telbivudine | >50 | `Ccr30–49：q48h` | `Ccr30–49` | 30–49 | **完全不在欄位範圍內** |
-| Telbivudine | 10–50 | `Ccr<30：q72h` | `Ccr<30` | ≤29 | **部分超出欄位範圍** |
-| Tenofovir | >50 | `Ccr30–49：q48h` | `Ccr30–49` | 30–49 | **完全不在欄位範圍內** |
-| Tenofovir | 10–50 | `Ccr<30：q72–96h` | `Ccr<30` | ≤29 | **部分超出欄位範圍** |
-| Emtricitabine | >50 | `Ccr30–49：q48h` | `Ccr30–49` | 30–49 | **完全不在欄位範圍內** |
-| Emtricitabine | 10–50 | `Ccr<30：q72h` | `Ccr<30` | ≤29 | **部分超出欄位範圍** |
+| Telbivudine | 10–50 | `Ccr30–49：600 mg q48h／Ccr10–30：600 mg q72h` | `Ccr30–49` | 30–49 | 在欄位範圍內 |
+| Telbivudine | 10–50 | `Ccr30–49：600 mg q48h／Ccr10–30：600 mg q72h` | `Ccr10–30` | 10–30 | 在欄位範圍內 |
+| Tenofovir（TDF） | 10–50 | `Ccr30–49：300 mg q48h／Ccr10–29：300 mg q72–96h` | `Ccr30–49` | 30–49 | 在欄位範圍內 |
+| Tenofovir（TDF） | 10–50 | `Ccr30–49：300 mg q48h／Ccr10–29：300 mg q72–96h` | `Ccr10–29` | 10–29 | 在欄位範圍內 |
+| Tenofovir alafenamide（TAF） | 10–50 | `Ccr≥15：N／Ccr<15：A（未透析）` | `Ccr≥15` | ≥15 | **部分超出欄位範圍** |
+| Tenofovir alafenamide（TAF） | 10–50 | `Ccr≥15：N／Ccr<15：A（未透析）` | `Ccr<15` | ≤14 | **部分超出欄位範圍** |
+| Emtricitabine | 10–50 | `Ccr30–49：200 mg q48h／Ccr10–29：200 mg q72h` | `Ccr30–49` | 30–49 | 在欄位範圍內 |
+| Emtricitabine | 10–50 | `Ccr30–49：200 mg q48h／Ccr10–29：200 mg q72h` | `Ccr10–29` | 10–29 | 在欄位範圍內 |
 | Valganciclovir（誘導） | >50 | `Ccr50–69：50% q12h` | `Ccr50–69` | 50–69 | **部分超出欄位範圍** |
 | Valganciclovir（誘導） | 10–50 | `Ccr25–49：50% q24h／Ccr10–24：50% q48h` | `Ccr25–49` | 25–49 | 在欄位範圍內 |
 | Valganciclovir（誘導） | 10–50 | `Ccr25–49：50% q24h／Ccr10–24：50% q48h` | `Ccr10–24` | 10–24 | 在欄位範圍內 |
@@ -247,22 +442,20 @@ GFR 三欄的分段為 `>50`、`10–50`、`<10`（頁面先把 CrCl 四捨五�
 
 | 藥名 | 欄位 | 原文 | 透析欄是否有 Sanford 資料 |
 | --- | --- | --- | --- |
-| Amikacin / Streptomycin（TB） | GFR 10–50 | `Ccr<30 或 HD：15 mg/kg biw–tiw` | 無 |
-| Amikacin / Streptomycin（TB） | GFR <10 | `Ccr<30 或 HD：15 mg/kg biw–tiw` | 無 |
+| Amikacin / Streptomycin（TB） | GFR 10–50 | `Ccr<30 或 HD：15 mg/kg biw–tiw` | 有 |
+| Amikacin / Streptomycin（TB） | GFR <10 | `Ccr<30 或 HD：15 mg/kg biw–tiw` | 有 |
 | Piperacillin-tazobactam（Pseudomonas） | 備註 | `Sanford 17A；HD 2.25 g q8h＋透析後補 0.75 g` | 有 |
-| Cefoperazone/sulbactam | GFR <10 | `CRRT：2 g q6h` | 無 |
+| Cefoperazone/sulbactam | GFR <10 | `CRRT：2 g q6h` | 有 |
 | Ceftibuten | 備註 | `200–400 mg after HD` | 有 |
 | Doripenem | 備註 | `HD：0.25–0.5 g q24h` | 有 |
-| Imipenem | 備註 | `CRRT：0.5–1 g q12h` | 無 |
+| Imipenem | 備註 | `CRRT：0.5–1 g q12h` | 有 |
 | Levofloxacin 750mg | 備註 | `HD：同 <20` | 有 |
 | Levofloxacin 500mg | 備註 | `HD：同 <20` | 有 |
-| Colistin / Colimycin（維持劑量・參考 A） | 備註 | `*CRRT 膜會吸附；CRRT：4.5 MU q12–8h` | 無 |
-| Colistin / Colimycin（維持劑量・參考 B） | 備註 | `CRRT：2–3 MU q8h` | 無 |
-| Daptomycin | 備註 | `CRRT：8 mg/kg q48h` | 無 |
-| Fosfomycin（IV） | GFR <10 | `q48h；HD：50–100% after HD` | 有 |
+| Daptomycin | 備註 | `CRRT：8 mg/kg q48h` | 有 |
 | Vancomycin（IV） | GFR <10 | `0.5 g after HD` | 有 |
 | Fluconazole | GFR <10 | `HD：50% q24h 或僅 HD 後給全量` | 有 |
-| Tenofovir | 備註 | `HD：q7d` | 無 |
+| Tenofovir alafenamide（TAF） | GFR 10–50 | `Ccr≥15：N／Ccr<15：A（未透析）` | 有 |
+| Tenofovir alafenamide（TAF） | GFR <10 | `A（未透析）；HD：N` | 有 |
 
 ### 多列共用同一份 Sanford 常規／透析資料（觀察，未列為問題）
 
@@ -270,10 +463,12 @@ GFR 三欄的分段為 `>50`、`10–50`、`<10`（頁面先把 CrCl 四捨五�
 
 | 共用的列 | 常規（nd） |
 | --- | --- |
+| Amoxicillin-clavulanate（PO/IV）<br>Amoxicillin-clav 875mg tab（PO） | `500 mg po q8h (4:1) 875 mg po q12h (7:1) 1 gm IV q8h (5:1)` |
 | Ampicillin/sulbactam<br>Ampicillin/sulbactam — Acinetobacter / E. faecalis（高劑量） | `1.5-3 gm IV q6h` |
 | Piperacillin-tazobactam（non-Pseudomonas）<br>Piperacillin-tazobactam（Pseudomonas） | `Extended infusion: 4.5 gm IV (over 4 hr) q8h Intermittent infusion: Nosocomial pneumonia: 4.5 gm IV (over 30 min) q6h All other indications: 3.375 gm IV (over 30 min) q6h` |
 | Cefaclor（0.25–1g）<br>Cefaclor（0.25–0.5g） | `500 mg po q8h` |
 | Levofloxacin 750mg<br>Levofloxacin 500mg | `750 mg po/IV q24h` |
+| SMZ-TMP（治療）<br>SMZ-TMP（預防） | `5-20 mg/kg/day po/IV (div q6-12h)` |
 
 ### 透析欄「無資料／不需調整」的寫法（觀察）
 
@@ -281,8 +476,8 @@ GFR 三欄的分段為 `>50`、`10–50`、`<10`（頁面先把 CrCl 四捨五�
 
 | 寫法 | 次數 | 出現位置 |
 | --- | --- | --- |
-| `No data` | 36 | Amoxicillin-clavulanate（PO/IV）（CAPD）、Amoxicillin-clavulanate（PO/IV）（CRRT）、Dicloxacillin（HD）、Dicloxacillin（CAPD）、Dicloxacillin（CRRT）、Piperacillin-tazobactam（non-Pseudomonas）（CAPD，部分）、Piperacillin-tazobactam（Pseudomonas）（CAPD，部分）、Cefaclor（0.25–1g）（CRRT）、Cefaclor（0.25–0.5g）（CRRT）、Cefixime（CRRT）、Ceftazidime（CAPD）、Ceftibuten（CRRT）、Cephalexin（CRRT）、Doripenem（HD）、Doripenem（CAPD）、Gemifloxacin（CRRT）、Fosfomycin（IV）（CAPD）、Teicoplanin（維持劑量）（CAPD）、Flucytosine（CRRT）、Itraconazole（PO）（CRRT）、Terbinafine（HD）、Terbinafine（CAPD）、Terbinafine（CRRT）、Rifabutin（HD）、Rifabutin（CAPD）、Rifabutin（CRRT）、Amantadine（CAPD）、Amantadine（CRRT）、Didanosine（EC/SR）（CRRT）、Entecavir（CRRT）、Famciclovir（CAPD）、Famciclovir（CRRT）、Ganciclovir（維持）（CRRT）、Telbivudine（CAPD）、Telbivudine（CRRT）、Valacyclovir（CRRT） |
-| `No dosage adjustment` | 14 | Ceftriaxone（HD）、Ceftriaxone（CAPD）、Ceftriaxone（CRRT）、Azithromycin（HD）、Azithromycin（CAPD）、Azithromycin（CRRT）、Fosfomycin（IV）（CRRT，部分）、Linezolid（HD，部分）、Linezolid（CAPD）、Linezolid（CRRT）、Metronidazole（CAPD）、Metronidazole（CRRT）、Itraconazole（PO）（HD）、Itraconazole（PO）（CAPD） |
+| `No data` | 64 | Amoxicillin-clavulanate（PO/IV）（CAPD）、Amoxicillin-clavulanate（PO/IV）（CRRT）、Amoxicillin-clav 875mg tab（PO）（CAPD）、Amoxicillin-clav 875mg tab（PO）（CRRT）、Dicloxacillin（HD）、Dicloxacillin（CAPD）、Dicloxacillin（CRRT）、Oxacillin（HD）、Oxacillin（CAPD）、Oxacillin（CRRT）、Piperacillin-tazobactam（non-Pseudomonas）（CAPD，部分）、Piperacillin-tazobactam（Pseudomonas）（CAPD，部分）、Cefaclor（0.25–1g）（CRRT）、Cefaclor（0.25–0.5g）（CRRT）、Cefixime（CRRT）、Cefoperazone（CAPD）、Cefoperazone（CRRT）、Cefoperazone/sulbactam（CAPD）、Ceftazidime（CAPD）、Ceftibuten（CRRT）、Cefmetazole（CAPD）、Cefmetazole（CRRT）、Cephalexin（CRRT）、Doripenem（HD）、Doripenem（CAPD）、Imipenem（CAPD）、Gemifloxacin（CRRT）、Colistin / Colimycin（mg CBA）（CAPD）、Fosfomycin（IV）（CAPD）、Fusidate sodium（HD）、Fusidate sodium（CAPD）、Fusidate sodium（CRRT）、Teicoplanin（維持劑量）（CAPD）、Flucytosine（CRRT）、Itraconazole（PO）（CRRT）、Terbinafine（HD）、Terbinafine（CAPD）、Terbinafine（CRRT）、Rifabutin（HD）、Rifabutin（CAPD）、Rifabutin（CRRT）、Acyclovir（PO）VZV（CRRT）、Amantadine（CAPD）、Amantadine（CRRT）、Didanosine（EC/SR）（CRRT）、Entecavir（CRRT）、Famciclovir（CAPD）、Famciclovir（CRRT）、Ganciclovir（維持）（CRRT）、Nevirapine / Efavirenz / Ritonavir（HD，部分）、Nevirapine / Efavirenz / Ritonavir（CAPD）、Nevirapine / Efavirenz / Ritonavir（CRRT）、Telbivudine（CAPD）、Telbivudine（CRRT）、Tenofovir（TDF）（CAPD）、Tenofovir（TDF）（CRRT）、Tenofovir alafenamide（TAF）（CAPD）、Tenofovir alafenamide（TAF）（CRRT）、Emtricitabine（CAPD）、Emtricitabine（CRRT）、Valacyclovir（CRRT）、Valganciclovir（誘導）（CAPD）、Valganciclovir（誘導）（CRRT）、Valganciclovir（維持）（CAPD） |
+| `No dosage adjustment` | 37 | Cefoperazone（HD，部分）、Ceftriaxone（HD）、Ceftriaxone（CAPD）、Ceftriaxone（CRRT）、Moxifloxacin（HD）、Moxifloxacin（CAPD）、Moxifloxacin（CRRT）、Azithromycin（HD）、Azithromycin（CAPD）、Azithromycin（CRRT）、Clindamycin（HD）、Clindamycin（CAPD）、Clindamycin（CRRT）、Doxycycline / Minocycline（HD）、Doxycycline / Minocycline（CAPD）、Doxycycline / Minocycline（CRRT）、Erythromycin（HD）、Erythromycin（CAPD）、Erythromycin（CRRT）、Fosfomycin（IV）（CRRT，部分）、Linezolid（HD，部分）、Linezolid（CAPD）、Linezolid（CRRT）、Metronidazole（CAPD）、Metronidazole（CRRT）、Tigecycline（HD）、Tigecycline（CAPD）、Tigecycline（CRRT）、Amphotericin B（HD）、Amphotericin B（CAPD）、Amphotericin B（CRRT）、Itraconazole（PO）（HD）、Itraconazole（PO）（CAPD）、Isoniazid / Rifampin（HD，部分）、Isoniazid / Rifampin（CAPD，部分）、Isoniazid / Rifampin（CRRT，部分）、Tenofovir alafenamide（TAF）（HD，部分） |
 | `Not applicable` | 1 | Norfloxacin（CRRT） |
 | `Not removed by HD` | 1 | Teicoplanin（維持劑量）（HD，部分） |
 
@@ -299,8 +494,8 @@ GFR 三欄的分段為 `>50`、`10–50`、`<10`（頁面先把 CrCl 四捨五�
 | 位置 | 文件寫法 | 資料實際 |
 | --- | --- | --- |
 | README「內容」 | 89 種抗微生物藥 | 資料共 90 列（Piperacillin-tazobactam 拆成兩列等，「種」與「列」計法可能不同） |
-| README「內容」 | 85/89 藥附商品名 | 資料中 86/90 列有 brands |
-| README「內容」 | 肝 3 種、肥胖 15 種 | 資料中 hep 3 列、obese 15 列（一致） |
+| README「內容」 | 85/89 藥附商品名 | 資料中 87/90 列有 brands |
+| README「內容」 | 肝 3 種、肥胖 15 種 | 資料中 hep 3 列、obese 16 列（一致） |
 
 文件數字不影響頁面運作，本次未修改。
 
@@ -315,7 +510,7 @@ GFR 三欄的分段為 `>50`、`10–50`、`<10`（頁面先把 CrCl 四捨五�
 
 ### 2.2 目前標成「待核」的列：0 列
 
-**目前沒有任何一列是待核。** 有 Sanford 資料的 54 列全部是 `ver: 1`，與 README 更新紀錄「2026-10-30 已全部更新，不再有待核列」相符。資料檔內也沒有「待核」字樣。
+**目前沒有任何一列是待核。** 有 Sanford 資料的 84 列全部是 `ver: 1`，與 README 更新紀錄「2026-10-30 已全部更新，不再有待核列」相符。資料檔內也沒有「待核」字樣。
 
 （`index.html` 第 68 行的 CSS 註解也寫「目前沒有 ver=0 的列」，與資料一致。）
 
@@ -323,23 +518,21 @@ GFR 三欄的分段為 `>50`、`10–50`、`<10`（頁面先把 CrCl 四捨五�
 
 | 藥名 | 欄位 | 內容 | 說明 |
 | --- | --- | --- | --- |
-| Colistin / Colimycin（維持劑量・參考 A） | 藥名 | `Colistin / Colimycin（維持劑量・參考 A）` | 同一藥兩個參考來源並列，未標明採用哪一個 |
-| Colistin / Colimycin（維持劑量・參考 A） | 備註 | `*CRRT 膜會吸附；CRRT：4.5 MU q12–8h` | 以「*」開頭，頁面沒有對應的註腳說明 |
-| Colistin / Colimycin（維持劑量・參考 B） | 藥名 | `Colistin / Colimycin（維持劑量・參考 B）` | 同一藥兩個參考來源並列，未標明採用哪一個 |
 | Amphotericin B | Route | `?` | Route 寫「?」，圖例沒有定義 |
 | Terbinafine | GFR 10–50 | `? 或 A` | 圖例：「?」＝無資料 |
 | Terbinafine | GFR <10 | `? 或 A` | 圖例：「?」＝無資料 |
-| Tenofovir | GFR <10 | `?` | 圖例：「?」＝無資料 |
+| Tenofovir（TDF） | GFR <10 | `?` | 圖例：「?」＝無資料 |
+| Tenofovir alafenamide（TAF） | Route | `?` | Route 寫「?」，圖例沒有定義 |
 
 ### 2.4 各欄位的來源與核對狀態（摘自 README 與頁面說明）
 
 | 欄位 | 來源 | 列數 | 核對狀態 |
 | --- | --- | --- | --- |
 | 三段 GFR（>50／10–50／<10） | 綠卡《Guide to Drug Dosage in Renal Failure》 | 90 | 頁面與 README 註明「已人工校對（2026-06-29）」，無逐列標記 |
-| 常規、HD、CAPD、CRRT | Sanford Guide（2026-10-30 更新） | 54 | 全部 `ver: 1` |
-| 肝功能、肥胖 | Sanford Guide | 3／15 | 沒有 ver 標記機制 |
+| 常規、HD、CAPD、CRRT | Sanford Guide（2026-10-30 更新） | 84 | 全部 `ver: 1` |
+| 肝功能、肥胖 | Sanford Guide | 3／16 | 沒有 ver 標記機制 |
 | 院內規格 | 高醫藥典品名（程式擷取） | 83 | 非劑量資料，沒有核對標記 |
-| 備註 | 綠卡等 | 19 | 沒有核對標記 |
+| 備註 | 綠卡等 | 20 | 沒有核對標記 |
 
 ## 3. 單位寫法不一致清單
 
@@ -349,26 +542,26 @@ GFR 三欄的分段為 `>50`、`10–50`、`<10`（頁面先把 CrCl 四捨五�
 
 | 類別 | 綠卡 GFR 欄＋備註 | Sanford 欄（常規／透析／肝／肥胖） | 藥名 | 同來源內不一致 |
 | --- | --- | --- | --- | --- |
-| 公克寫法（g／gm） | g：26 | gm：59 | g：3 | — |
-| 數字與單位之間的空格 | 有空格（如 6 g、160 mg）：54 | 有空格（如 6 g、160 mg）：164 | 緊接（如 6g、160mg）：6 | — |
-| 百萬單位寫法（MU／million U） | MU：6 | million U：4 | — | — |
-| 數字範圍連接號（–／-） | en dash（–）：77 | hyphen（-）：75 | en dash（–）：3 | — |
-| 給藥間隔大小寫（q8h／Q8H） | 小寫 q…h：155 | 小寫 q…h：158 | 小寫 q…h：1 | — |
-| 每日一次寫法 | q24h：44 | q24h：64<br>once daily：1<br>daily（單獨）：1 | — | ⚠️ Sanford |
-| 每日總量寫法（/day／每日） | /day：1 | /day：1 | — | — |
-| 隔日一次寫法 | q48h：16 | q48h：12 | — | — |
-| 每週數次寫法 | biw／tiw：9 | Nx/wk：3<br>Nx/week：4 | — | ⚠️ Sanford |
-| 每週一次寫法 | q7d：3 | once weekly：1 | — | — |
-| 乘號／次數（x／×） | ×（如 ×1）：2 | x（如 x1、3x/wk）：19 | — | — |
+| 公克寫法（g／gm） | g：27 | gm：78 | g：3 | — |
+| 數字與單位之間的空格 | 有空格（如 6 g、160 mg）：57 | 有空格（如 6 g、160 mg）：230 | 緊接（如 6g、160mg）：6 | — |
+| 百萬單位寫法（MU／million U） | — | million U：4 | — | — |
+| 數字範圍連接號（–／-） | en dash（–）：74 | hyphen（-）：105 | en dash（–）：3 | — |
+| 給藥間隔大小寫（q8h／Q8H） | 小寫 q…h：149 | 小寫 q…h：218 | 小寫 q…h：1 | — |
+| 每日一次寫法 | q24h：41 | q24h：85<br>once daily：2<br>daily（單獨）：1 | — | ⚠️ Sanford |
+| 每日總量寫法（/day／每日） | /day：1 | /day：9 | — | — |
+| 隔日一次寫法 | q48h：15 | q48h：16 | — | — |
+| 每週數次寫法 | biw／tiw：9 | Nx/wk：4<br>Nx/week：4 | — | ⚠️ Sanford |
+| 每週一次寫法 | q7d：2 | once weekly：1 | — | — |
+| 乘號／次數（x／×） | ×（如 ×1）：3 | x（如 x1、3x/wk）：22 | — | — |
 | 毫升大小寫（mL／ml） | — | ml：1<br>mL：2 | — | ⚠️ Sanford |
-| 腎功能縮寫（Ccr／CrCl／eGFR） | Ccr：47 | eGFR：1<br>CrCl：2 | — | ⚠️ Sanford |
-| Ccr 與數值之間的空格 | 緊接（如 Ccr<30、Ccr30–49）：47 | — | — | — |
-| 同一格多段條件的分隔符（／；、） | ；：5<br>／：7<br>、：1 | — | — | ⚠️ 綠卡 |
-| 冒號全形／半形 | 全形「：」：58 | 半形「:」：31<br>全形「：」：3 | — | ⚠️ Sanford |
-| 「或」的寫法 | 或：15 | OR／or：1 | — | — |
-| 透析後給藥寫法 | 透析後：1<br>after HD／after each dialysis：3 | AD：40<br>POST-HD：2<br>after HD／after each dialysis：1 | — | ⚠️ 綠卡、Sanford |
-| 給藥途徑順序（IV/po／po/IV） | — | po/IV：3<br>IV/po：3 | — | ⚠️ Sanford |
-| 口服大小寫（po／PO） | — | po：31 | PO：5 | — |
+| 腎功能縮寫（Ccr／CrCl／eGFR） | Ccr：48 | CrCl：6<br>eGFR：1 | — | ⚠️ Sanford |
+| Ccr 與數值之間的空格 | 緊接（如 Ccr<30、Ccr30–49）：48 | — | — | — |
+| 同一格多段條件的分隔符（／；、） | ；：7<br>／：14<br>、：1 | — | — | ⚠️ 綠卡 |
+| 冒號全形／半形 | 全形「：」：58 | 半形「:」：53<br>全形「：」：3 | — | ⚠️ Sanford |
+| 「或」的寫法 | 或：15 | OR／or：2 | — | — |
+| 透析後給藥寫法 | 透析後：1<br>after HD／after each dialysis：2 | AD：57<br>POST-HD：2<br>after HD／after each dialysis：1 | — | ⚠️ 綠卡、Sanford |
+| 給藥途徑順序（IV/po／po/IV） | — | po/IV：8<br>IV/po：3 | — | ⚠️ Sanford |
+| 口服大小寫（po／PO） | — | po：51 | PO：5 | — |
 
 數字是出現該寫法的欄位數（同一格出現多次只算一次）。
 
@@ -376,24 +569,28 @@ GFR 三欄的分段為 `>50`、`10–50`、`<10`（頁面先把 CrCl 四捨五�
 
 #### 每日一次寫法｜Sanford 欄（常規／透析／肝／肥胖）
 
-「once daily」1 處：
-
-| 藥名 | 欄位 | 比對到的文字 |
-| --- | --- | --- |
-| Amikacin | CAPD | `once daily` |
-
 「daily（單獨）」1 處：
 
 | 藥名 | 欄位 | 比對到的文字 |
 | --- | --- | --- |
 | Rifabutin | 肝 | `daily` |
 
-<details><summary>「q24h」64 處（點開看明細）</summary>
+「once daily」2 處：
+
+| 藥名 | 欄位 | 比對到的文字 |
+| --- | --- | --- |
+| Amikacin | CAPD | `once daily` |
+| Gentamicin | CAPD | `once daily` |
+
+<details><summary>「q24h」85 處（點開看明細）</summary>
 
 | 藥名 | 欄位 | 比對到的文字 |
 | --- | --- | --- |
 | Amikacin | 常規 | `q24h` |
+| Amikacin / Streptomycin（TB） | 常規 | `q24h` |
+| Gentamicin | CRRT | `q24h` |
 | Amoxicillin-clavulanate（PO/IV） | HD | `q24h、q24h` |
+| Amoxicillin-clav 875mg tab（PO） | HD | `q24h、q24h` |
 | Ampicillin/sulbactam | HD | `q24h` |
 | Ampicillin/sulbactam | CAPD | `q24h` |
 | Ampicillin/sulbactam — Acinetobacter / E. faecalis（高劑量） | HD | `q24h` |
@@ -406,6 +603,7 @@ GFR 三欄的分段為 `>50`、`10–50`、`<10`（頁面先把 CrCl 四捨五�
 | Cefotaxime | HD | `q24h` |
 | Cefotaxime | CAPD | `q24h` |
 | Cefoxitin | CAPD | `q24h` |
+| Cefpirome | HD | `q24h` |
 | Ceftazidime | HD | `q24h` |
 | Ceftibuten | 常規 | `q24h` |
 | Ceftibuten | HD | `q24h` |
@@ -420,6 +618,7 @@ GFR 三欄的分段為 `>50`、`10–50`、`<10`（頁面先把 CrCl 四捨五�
 | Ertapenem | CRRT | `q24h` |
 | Ciprofloxacin | HD | `q24h` |
 | Ciprofloxacin | CAPD | `q24h` |
+| Moxifloxacin | 常規 | `q24h` |
 | Levofloxacin 750mg | 常規 | `q24h` |
 | Levofloxacin 500mg | 常規 | `q24h` |
 | Gemifloxacin | 常規 | `q24h` |
@@ -430,6 +629,8 @@ GFR 三欄的分段為 `>50`、`10–50`、`<10`（頁面先把 CrCl 四捨五�
 | Azithromycin | 常規 | `q24h` |
 | Clarithromycin | HD | `q24h` |
 | Clarithromycin | CAPD | `q24h` |
+| Daptomycin | 常規 | `q24h` |
+| Daptomycin | CRRT | `q24h` |
 | Teicoplanin（維持劑量） | 常規 | `q24h` |
 | Teicoplanin（維持劑量） | CRRT | `q24h` |
 | Tetracycline | HD | `q24h` |
@@ -440,6 +641,10 @@ GFR 三欄的分段為 `>50`、`10–50`、`<10`（頁面先把 CrCl 四捨五�
 | Flucytosine | CAPD | `q24h` |
 | Terbinafine | 常規 | `q24h` |
 | Ethambutol | 常規 | `q24h` |
+| Isoniazid / Rifampin | 常規 | `q24h、q24h` |
+| Isoniazid / Rifampin | HD | `q24h` |
+| Isoniazid / Rifampin | CAPD | `q24h` |
+| Isoniazid / Rifampin | CRRT | `q24h` |
 | Pyrazinamide | 常規 | `q24h` |
 | Pyrazinamide | CAPD | `q24h` |
 | Pyrazinamide | CRRT | `q24h` |
@@ -453,19 +658,30 @@ GFR 三欄的分段為 `>50`、`10–50`、`<10`（頁面先把 CrCl 四捨五�
 | Entecavir | CAPD | `q24h、q24h` |
 | Ganciclovir（誘導） | CRRT | `q24h` |
 | Ganciclovir（維持） | 常規 | `q24h` |
+| Lamivudine | 常規 | `q24h` |
+| Lamivudine | HD | `q24h` |
+| Lamivudine | CAPD | `q24h` |
+| Lamivudine | CRRT | `q24h` |
+| Nevirapine / Efavirenz / Ritonavir | 常規 | `q24h` |
 | Telbivudine | 常規 | `q24h` |
+| Tenofovir（TDF） | 常規 | `q24h` |
+| Tenofovir alafenamide（TAF） | 常規 | `q24h` |
+| Emtricitabine | 常規 | `q24h` |
 | Valacyclovir | HD | `q24h` |
 | Valacyclovir | CAPD | `q24h` |
+| Valganciclovir（維持） | 常規 | `q24h` |
+| Valganciclovir（維持） | CRRT | `q24h` |
 
 </details>
 
 #### 每週數次寫法｜Sanford 欄（常規／透析／肝／肥胖）
 
-「Nx/wk」3 處：
+「Nx/wk」4 處：
 
 | 藥名 | 欄位 | 比對到的文字 |
 | --- | --- | --- |
 | Cefepime | HD | `3x/wk` |
+| Cefpirome | CAPD | `3x/wk` |
 | Ertapenem | HD | `3x/wk` |
 | Ethambutol | HD | `3x/wk` |
 
@@ -501,10 +717,14 @@ GFR 三欄的分段為 `>50`、`10–50`、`<10`（頁面先把 CrCl 四捨五�
 | --- | --- | --- |
 | Teicoplanin（維持劑量） | HD | `eGFR` |
 
-「CrCl」2 處：
+「CrCl」6 處：
 
 | 藥名 | 欄位 | 比對到的文字 |
 | --- | --- | --- |
+| SMZ-TMP（治療） | HD | `CrCl` |
+| SMZ-TMP（治療） | CAPD | `CrCl` |
+| SMZ-TMP（預防） | HD | `CrCl` |
+| SMZ-TMP（預防） | CAPD | `CrCl` |
 | Didanosine（EC/SR） | HD | `CrCl` |
 | Didanosine（EC/SR） | CAPD | `CrCl` |
 
@@ -516,27 +736,38 @@ GFR 三欄的分段為 `>50`、`10–50`、`<10`（頁面先把 CrCl 四捨五�
 | --- | --- | --- |
 | SMZ-TMP（預防） | GFR >50 | `、` |
 
-「；」5 處：
+「；」7 處：
 
 | 藥名 | 欄位 | 比對到的文字 |
 | --- | --- | --- |
 | Piperacillin-tazobactam（Pseudomonas） | GFR 10–50 | `；、；` |
 | Piperacillin-tazobactam（Pseudomonas） | 備註 | `；` |
 | Cefoperazone/sulbactam | 備註 | `；` |
-| Colistin / Colimycin（維持劑量・參考 A） | 備註 | `；` |
-| Fosfomycin（IV） | GFR <10 | `；` |
+| Colistin / Colimycin（mg CBA） | 備註 | `；` |
+| Fosfomycin（IV） | 備註 | `；` |
+| Tenofovir alafenamide（TAF） | GFR <10 | `；` |
+| Tenofovir alafenamide（TAF） | 備註 | `；` |
 
-「／」7 處：
+<details><summary>「／」14 處（點開看明細）</summary>
 
 | 藥名 | 欄位 | 比對到的文字 |
 | --- | --- | --- |
 | Doripenem | GFR 10–50 | `／` |
-| Colistin / Colimycin（維持劑量・參考 A） | GFR 10–50 | `／` |
+| Colistin / Colimycin（mg CBA） | GFR >50 | `／、／、／、／` |
+| Colistin / Colimycin（mg CBA） | GFR 10–50 | `／、／、／` |
+| Colistin / Colimycin（mg CBA） | GFR <10 | `／` |
+| Fosfomycin（IV） | GFR 10–50 | `／、／、／` |
 | Entecavir | GFR 10–50 | `／` |
 | Ganciclovir（誘導） | GFR 10–50 | `／` |
 | Ganciclovir（維持） | GFR 10–50 | `／` |
+| Telbivudine | GFR 10–50 | `／` |
+| Tenofovir（TDF） | GFR 10–50 | `／` |
+| Tenofovir alafenamide（TAF） | GFR 10–50 | `／` |
+| Emtricitabine | GFR 10–50 | `／` |
 | Valganciclovir（誘導） | GFR 10–50 | `／` |
 | Valganciclovir（維持） | GFR 10–50 | `／` |
+
+</details>
 
 #### 冒號全形／半形｜Sanford 欄（常規／透析／肝／肥胖）
 
@@ -548,7 +779,7 @@ GFR 三欄的分段為 `>50`、`10–50`、`<10`（頁面先把 CrCl 四捨五�
 | Terbinafine | 肝 | `：` |
 | Rifabutin | 肝 | `：` |
 
-<details><summary>「半形「:」」31 處（點開看明細）</summary>
+<details><summary>「半形「:」」53 處（點開看明細）</summary>
 
 | 藥名 | 欄位 | 比對到的文字 |
 | --- | --- | --- |
@@ -556,7 +787,16 @@ GFR 三欄的分段為 `>50`、`10–50`、`<10`（頁面先把 CrCl 四捨五�
 | Amikacin | HD | `:` |
 | Amikacin | CAPD | `:` |
 | Amikacin | CRRT | `:、:` |
+| Amikacin / Streptomycin（TB） | 常規 | `:` |
+| Amikacin / Streptomycin（TB） | HD | `:` |
+| Amikacin / Streptomycin（TB） | CAPD | `:` |
+| Amikacin / Streptomycin（TB） | CRRT | `:` |
+| Gentamicin | 常規 | `:、:` |
+| Gentamicin | HD | `:、:` |
+| Gentamicin | CAPD | `:` |
+| Gentamicin | CRRT | `:` |
 | Amoxicillin-clavulanate（PO/IV） | HD | `:、:` |
+| Amoxicillin-clav 875mg tab（PO） | HD | `:、:` |
 | Piperacillin-tazobactam（non-Pseudomonas） | 常規 | `:、:、:、:` |
 | Piperacillin-tazobactam（non-Pseudomonas） | HD | `:、:、:、:` |
 | Piperacillin-tazobactam（non-Pseudomonas） | CAPD | `:、:、:、:` |
@@ -569,20 +809,33 @@ GFR 三欄的分段為 `>50`、`10–50`、`<10`（頁面先把 CrCl 四捨五�
 | Cefepime | HD | `:、:、:、:` |
 | Cefepime | CAPD | `:、:` |
 | Cefepime | CRRT | `:、:、:、:` |
+| Imipenem | HD | `:、:、:` |
+| Colistin / Colimycin（mg CBA） | 常規 | `:、:` |
+| Colistin / Colimycin（mg CBA） | HD | `:、:` |
 | Fosfomycin（IV） | 常規 | `:、:` |
 | Fosfomycin（IV） | CRRT | `:` |
+| SMZ-TMP（治療） | CRRT | `:` |
+| SMZ-TMP（預防） | CRRT | `:` |
 | Teicoplanin（維持劑量） | 常規 | `:` |
 | Teicoplanin（維持劑量） | CRRT | `:、:、:、:、:、:、:、:、:、:、:、:` |
 | Vancomycin（IV） | HD | `:、:、:、:、:、:、:、:、:、:、:、:` |
 | Vancomycin（IV） | CRRT | `:、:` |
+| Amphotericin B | 肥胖 | `:` |
 | Flucytosine | CAPD | `:` |
+| Isoniazid / Rifampin | 常規 | `:、:` |
+| Isoniazid / Rifampin | HD | `:、:` |
+| Isoniazid / Rifampin | CAPD | `:、:` |
+| Isoniazid / Rifampin | CRRT | `:、:` |
 | Entecavir | 常規 | `:、:` |
 | Entecavir | HD | `:、:` |
 | Entecavir | CAPD | `:、:` |
 | Famciclovir | 常規 | `:、:` |
 | Famciclovir | HD | `:、:、:、:` |
 | Ganciclovir（誘導） | CRRT | `:` |
+| Nevirapine / Efavirenz / Ritonavir | 常規 | `:、:、:` |
+| Nevirapine / Efavirenz / Ritonavir | HD | `:、:、:` |
 | Valacyclovir | 常規 | `:、:` |
+| Valganciclovir（維持） | CRRT | `:` |
 
 </details>
 
@@ -594,12 +847,11 @@ GFR 三欄的分段為 `>50`、`10–50`、`<10`（頁面先把 CrCl 四捨五�
 | --- | --- | --- |
 | Piperacillin-tazobactam（Pseudomonas） | 備註 | `透析後` |
 
-「after HD／after each dialysis」3 處：
+「after HD／after each dialysis」2 處：
 
 | 藥名 | 欄位 | 比對到的文字 |
 | --- | --- | --- |
 | Ceftibuten | 備註 | `after HD` |
-| Fosfomycin（IV） | GFR <10 | `after HD` |
 | Vancomycin（IV） | GFR <10 | `after HD` |
 
 #### 透析後給藥寫法｜Sanford 欄（常規／透析／肝／肥胖）
@@ -617,16 +869,20 @@ GFR 三欄的分段為 `>50`、`10–50`、`<10`（頁面先把 CrCl 四捨五�
 | Vancomycin（IV） | HD | `POST-HD` |
 | Didanosine（EC/SR） | HD | `post HD` |
 
-<details><summary>「AD」40 處（點開看明細）</summary>
+<details><summary>「AD」57 處（點開看明細）</summary>
 
 | 藥名 | 欄位 | 比對到的文字 |
 | --- | --- | --- |
 | Amikacin | HD | `AD` |
+| Amikacin / Streptomycin（TB） | HD | `AD` |
+| Gentamicin | HD | `AD、AD` |
 | Amoxicillin-clavulanate（PO/IV） | HD | `AD、AD` |
+| Amoxicillin-clav 875mg tab（PO） | HD | `AD、AD` |
 | Ampicillin | HD | `AD` |
 | Ampicillin/sulbactam | HD | `AD` |
 | Ampicillin/sulbactam — Acinetobacter / E. faecalis（高劑量） | HD | `AD` |
 | Penicillin G | HD | `AD` |
+| Piperacillin | HD | `AD` |
 | Piperacillin-tazobactam（non-Pseudomonas） | HD | `AD、AD` |
 | Piperacillin-tazobactam（Pseudomonas） | HD | `AD、AD` |
 | Cefaclor（0.25–1g） | HD | `AD` |
@@ -634,45 +890,50 @@ GFR 三欄的分段為 `>50`、`10–50`、`<10`（頁面先把 CrCl 四捨五�
 | Cefazolin | HD | `AD、AD、AD` |
 | Cefepime | HD | `AD、AD` |
 | Cefixime | HD | `AD` |
+| Cefoperazone | HD | `AD` |
+| Cefoperazone/sulbactam | HD | `AD` |
 | Cefotaxime | HD | `AD` |
 | Cefoxitin | HD | `AD` |
+| Cefpirome | HD | `AD` |
 | Ceftazidime | HD | `AD` |
 | Ceftibuten | HD | `AD` |
 | Cefuroxime | HD | `AD` |
+| Cefmetazole | HD | `AD` |
 | Cephalexin | HD | `AD` |
+| Imipenem | HD | `AD、AD、AD` |
 | Meropenem | HD | `AD` |
 | Ertapenem | HD | `AD、AD` |
 | Ciprofloxacin | HD | `AD` |
 | Gemifloxacin | HD | `AD` |
 | Clarithromycin | HD | `AD` |
+| Daptomycin | HD | `AD` |
 | Fosfomycin（IV） | HD | `AD` |
 | Linezolid | HD | `AD` |
 | Metronidazole | HD | `AD` |
+| SMZ-TMP（治療） | HD | `AD` |
+| SMZ-TMP（預防） | HD | `AD` |
 | Vancomycin（IV） | HD | `AD、AD` |
 | Fluconazole | HD | `AD` |
 | Flucytosine | HD | `AD` |
 | Ethambutol | HD | `AD` |
+| Isoniazid / Rifampin | HD | `AD` |
 | Pyrazinamide | HD | `AD` |
 | Acyclovir（IV） | HD | `AD` |
+| Acyclovir（PO）VZV | HD | `AD` |
 | Entecavir | HD | `AD` |
 | Famciclovir | HD | `AD、AD` |
 | Ganciclovir（誘導） | HD | `AD` |
 | Ganciclovir（維持） | HD | `AD` |
+| Lamivudine | HD | `AD` |
+| Nevirapine / Efavirenz / Ritonavir | HD | `AD` |
 | Telbivudine | HD | `AD` |
+| Tenofovir alafenamide（TAF） | HD | `AD` |
 | Valacyclovir | HD | `AD` |
 | Zidovudine | HD | `AD` |
 
 </details>
 
 #### 給藥途徑順序（IV/po／po/IV）｜Sanford 欄（常規／透析／肝／肥胖）
-
-「po/IV」3 處：
-
-| 藥名 | 欄位 | 比對到的文字 |
-| --- | --- | --- |
-| Levofloxacin 750mg | 常規 | `po/IV` |
-| Levofloxacin 500mg | 常規 | `po/IV` |
-| Linezolid | 常規 | `po/IV` |
 
 「IV/po」3 處：
 
@@ -682,13 +943,25 @@ GFR 三欄的分段為 `>50`、`10–50`、`<10`（頁面先把 CrCl 四捨五�
 | Metronidazole | 常規 | `IV/po` |
 | Fluconazole | 常規 | `IV/po` |
 
+「po/IV」8 處：
+
+| 藥名 | 欄位 | 比對到的文字 |
+| --- | --- | --- |
+| Moxifloxacin | 常規 | `po/IV` |
+| Levofloxacin 750mg | 常規 | `po/IV` |
+| Levofloxacin 500mg | 常規 | `po/IV` |
+| Doxycycline / Minocycline | 常規 | `po/IV` |
+| Fusidate sodium | 常規 | `po/IV` |
+| Linezolid | 常規 | `po/IV` |
+| SMZ-TMP（治療） | 常規 | `po/IV` |
+| SMZ-TMP（預防） | 常規 | `po/IV` |
+
 ### 3.3 跨來源的寫法差異（不算問題，僅供參考）
 
 | 類別 | 各來源寫法 |
 | --- | --- |
 | 公克寫法（g／gm） | 綠卡 GFR 欄＋備註：g<br>Sanford 欄（常規／透析／肝／肥胖）：gm<br>藥名：g |
 | 數字與單位之間的空格 | 綠卡 GFR 欄＋備註：有空格（如 6 g、160 mg）<br>Sanford 欄（常規／透析／肝／肥胖）：有空格（如 6 g、160 mg）<br>藥名：緊接（如 6g、160mg） |
-| 百萬單位寫法（MU／million U） | 綠卡 GFR 欄＋備註：MU<br>Sanford 欄（常規／透析／肝／肥胖）：million U<br>藥名：— |
 | 數字範圍連接號（–／-） | 綠卡 GFR 欄＋備註：en dash（–）<br>Sanford 欄（常規／透析／肝／肥胖）：hyphen（-）<br>藥名：en dash（–） |
 | 每週一次寫法 | 綠卡 GFR 欄＋備註：q7d<br>Sanford 欄（常規／透析／肝／肥胖）：once weekly<br>藥名：— |
 | 乘號／次數（x／×） | 綠卡 GFR 欄＋備註：×（如 ×1）<br>Sanford 欄（常規／透析／肝／肥胖）：x（如 x1、3x/wk）<br>藥名：— |

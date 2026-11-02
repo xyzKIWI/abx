@@ -45,7 +45,7 @@ const today = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Asia/Taipei' }).form
 P('# 資料結構與格式檢查報告', '');
 P(`產生日期：${today}｜檢查對象：\`renal_data.js\`（${D.classes.length} 類、${rows.length} 列）與 \`index.html\``, '');
 P('> **這份報告只檢查資料完不完整、格式一不一致，不判斷劑量對不對。** 劑量正確性需另行對照原書核對。',
-  '> 2026-11-02 依 Kiwi 確認，統一了綠卡欄的間隔與空格寫法、Route、院內規格寫法，並刪除一個查無此品項的商品名。**劑量數值與 CrCl 切點都沒有改**，逐項清單見第 0 節。', '');
+  '> 2026-11-02 依 Kiwi 確認：第二輪統一綠卡欄寫法（劑量數值與 CrCl 切點未變）；第三輪改用 Sanford 資料（部分 GFR 欄、Colistin、TAF 新列、30 列透析欄）。逐項修改前後見第 0 節。', '');
 P('重新產生本報告：`node tests/make_report.js`；執行檢查：`node --test tests/data.test.js`。CI（GitHub Actions）會在每次 push 與 PR 時自動執行檢查。', '');
 
 // ---- 摘要 ----
@@ -77,6 +77,15 @@ if (fs.existsSync(CHANGES_FILE)) {
     ch.map((c) => [esc(c.drug), fl(c.field), code(show(c.before)), code(show(c.after)), esc(c.why)]))));
 }
 
+for (const f of fs.readdirSync(__dirname).filter((x) => /^changes_.+_sanford\.json$/.test(x)).sort()) {
+  const j = JSON.parse(fs.readFileSync(path.join(__dirname, f), 'utf8'));
+  const show = (v) => (typeof v === 'string' ? v : JSON.stringify(v));
+  P(`### ${j.標題}（${j.changes.length} 處）`, '');
+  P(...j.摘要.map((x) => `- ${x}`), '');
+  P(details(`逐項變更（${j.changes.length} 處，點開看明細）`, table(['藥名', '欄位', '修改前', '修改後', '原因'],
+    j.changes.map((c) => [esc(c.drug), fl(c.field), code(show(c.before)), code(show(c.after)), esc(c.why)]))));
+}
+
 // ---- 1. 結構問題清單 ----
 P('## 1. 結構問題清單', '');
 P('下表是檢查腳本找到的所有結構問題（不含單位寫法，單位寫法見第 3 節）。', '');
@@ -91,6 +100,9 @@ for (const [key, list] of Object.entries(byCheck)) {
   }
   if (key === 'dialysis') {
     P('這些藥沒有任何透析欄位，頁面顯示「—」。圖例已說明「—」＝原書未列此藥透析劑量、不代表不需調整，所以**不是缺漏錯誤**；只是不像其他 54 列那樣明確寫出「No data」。是否補上「No data」或 Sanford 資料，需人工決定。', '');
+  }
+  if (key === 'coverage') {
+    P('格子裡寫了 CrCl 條件，但條件沒有涵蓋整欄。例如 Cefixime 10–50 欄只寫「Ccr>20：75%」，CrCl 10–20 的答案其實寫在 <10 欄的「Ccr<20：50%」；病人 CrCl 15 時頁面高亮的是 10–50 那格，容易看錯。只缺「50」或「10」一個點的，多半是 Sanford 分段（>50／30–49）和頁面分段（10–50 含 50）的邊界差異。', '');
   }
   if (key === 'route') {
     P('圖例只定義 `R`（腎排除）、`H`（肝排除）、`HD`（血液透析）。以下兩列的寫法圖例沒有說明，請確認是否保留。', '');
