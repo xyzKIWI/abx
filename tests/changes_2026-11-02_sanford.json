@@ -1,0 +1,1246 @@
+{
+  "標題": "0.3 第三輪：改用 Sanford 資料（Kiwi 2026-11-02 確認）",
+  "摘要": [
+    "Fosfomycin（IV）、Telbivudine、Emtricitabine、Tenofovir 的三段 GFR 欄改用 Sanford 分段，原本放錯欄的 Ccr 條件不再出現在 >50 欄。",
+    "Tenofovir 改名為 Tenofovir（TDF）；新增 Tenofovir alafenamide（TAF）列，Vemlidy、Biktarvy、Odefsey、Symtuza 四個 TAF 商品名與 25 mg 錠移到 TAF 列（兩者腎功能調整不同）。",
+    "Colistin 參考 A／B 兩列合併為 Colistin / Colimycin（mg CBA），照 Sanford 分段；Sanford 未提供 MU 換算，備註提醒依院內藥典。",
+    "30 列補上 Sanford 常規劑量與 HD／CAPD／CRRT（ver: 1）；合併列逐藥標示（INH／RIF、NVP／EFV／RTV、Streptomycin）。Acyclovir 口服 Sanford 為 800 mg（帶狀疱疹），只補 VZV 列。",
+    "Sanford 查無此藥、仍顯示「—」：Mezlocillin、Ticarcillin-clavulanate、Cephradine、Flomoxef、Nitroxoline；Acyclovir（PO）HSV 刻意不補。",
+    "Terbinafine 保留綠卡「? 或 A」，備註加 Sanford「Ccr≤50 No data」；Amphotericin B 補常規、透析與肥胖註記，Route 維持 ?。",
+    "Sanford 欄尾註腳編號已剔除（4 處）。"
+  ],
+  "changes": [
+    {
+      "drug": "Gentamicin",
+      "field": "nd",
+      "before": "（無）",
+      "after": "G- (conventional): 1.7-2.0 mg/kg IV q8h G+ (synergy): 1 mg/kg IV q8h",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Gentamicin",
+      "field": "hd",
+      "before": "（無）",
+      "after": "G- (conventional): 1.7-2.0 mg/kg q48h (+ extra 0.85-1.0 mg/kg AD) G+ (synergy): 1 mg/kg q48-72h (dose AD)",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Gentamicin",
+      "field": "capd",
+      "before": "（無）",
+      "after": "For peritonitis only: 0.6 mg/kg IP once daily",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Gentamicin",
+      "field": "crrt",
+      "before": "（無）",
+      "after": "G- (conventional): 1.7-2.0 mg/kg q24h",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Gentamicin",
+      "field": "ver",
+      "before": "（無）",
+      "after": 1,
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Amoxicillin-clav 875mg tab（PO）",
+      "field": "nd",
+      "before": "（無）",
+      "after": "500 mg po q8h (4:1) 875 mg po q12h (7:1) 1 gm IV q8h (5:1)",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Amoxicillin-clav 875mg tab（PO）",
+      "field": "hd",
+      "before": "（無）",
+      "after": "Oral: 250-500 mg q24h (+ extra dose AD) IV: 1 gm x1, then 500 mg q24h (+ extra dose AD)",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Amoxicillin-clav 875mg tab（PO）",
+      "field": "capd",
+      "before": "（無）",
+      "after": "No data",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Amoxicillin-clav 875mg tab（PO）",
+      "field": "crrt",
+      "before": "（無）",
+      "after": "No data",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Amoxicillin-clav 875mg tab（PO）",
+      "field": "ver",
+      "before": "（無）",
+      "after": 1,
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Oxacillin",
+      "field": "nd",
+      "before": "（無）",
+      "after": "2 gm IV q4h",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Oxacillin",
+      "field": "hd",
+      "before": "（無）",
+      "after": "No data",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Oxacillin",
+      "field": "capd",
+      "before": "（無）",
+      "after": "No data",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Oxacillin",
+      "field": "crrt",
+      "before": "（無）",
+      "after": "No data",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Oxacillin",
+      "field": "ver",
+      "before": "（無）",
+      "after": 1,
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Piperacillin",
+      "field": "nd",
+      "before": "（無）",
+      "after": "3-4 gm IV q4-6h",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Piperacillin",
+      "field": "hd",
+      "before": "（無）",
+      "after": "2 gm q8h (+ extra 1 gm AD)",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Piperacillin",
+      "field": "capd",
+      "before": "（無）",
+      "after": "3-4 gm q8h",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Piperacillin",
+      "field": "crrt",
+      "before": "（無）",
+      "after": "3-4 gm q6-8h",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Piperacillin",
+      "field": "ver",
+      "before": "（無）",
+      "after": 1,
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Cefoperazone",
+      "field": "nd",
+      "before": "（無）",
+      "after": "1-2 gm IV q12h",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Cefoperazone",
+      "field": "hd",
+      "before": "（無）",
+      "after": "No dosage adjustment (AD on dialysis days)",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Cefoperazone",
+      "field": "capd",
+      "before": "（無）",
+      "after": "No data",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Cefoperazone",
+      "field": "crrt",
+      "before": "（無）",
+      "after": "No data",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Cefoperazone",
+      "field": "ver",
+      "before": "（無）",
+      "after": 1,
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Cefoperazone/sulbactam",
+      "field": "nd",
+      "before": "（無）",
+      "after": "2-4 gm/day (divided q12h) (i.e., cefoperazone 1-2 gm/day)",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Cefoperazone/sulbactam",
+      "field": "hd",
+      "before": "（無）",
+      "after": "Sulbactam 500 mg q12h (AD on dialysis days)",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Cefoperazone/sulbactam",
+      "field": "capd",
+      "before": "（無）",
+      "after": "No data",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Cefoperazone/sulbactam",
+      "field": "crrt",
+      "before": "（無）",
+      "after": "Sulbactam 1 gm q8h",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Cefoperazone/sulbactam",
+      "field": "ver",
+      "before": "（無）",
+      "after": 1,
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Cefpirome",
+      "field": "nd",
+      "before": "（無）",
+      "after": "2 gm IV q12h",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Cefpirome",
+      "field": "hd",
+      "before": "（無）",
+      "after": "1 gm q24h (AD on dialysis days)",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Cefpirome",
+      "field": "capd",
+      "before": "（無）",
+      "after": "0.5 gm 3x/wk",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Cefpirome",
+      "field": "crrt",
+      "before": "（無）",
+      "after": "2 gm load, then 1 gm q12h",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Cefpirome",
+      "field": "ver",
+      "before": "（無）",
+      "after": 1,
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Cefmetazole",
+      "field": "nd",
+      "before": "（無）",
+      "after": "2 gm IV q8-12h",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Cefmetazole",
+      "field": "hd",
+      "before": "（無）",
+      "after": "1-2 gm q48h (AD on dialysis days)",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Cefmetazole",
+      "field": "capd",
+      "before": "（無）",
+      "after": "No data",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Cefmetazole",
+      "field": "crrt",
+      "before": "（無）",
+      "after": "No data",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Cefmetazole",
+      "field": "ver",
+      "before": "（無）",
+      "after": 1,
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Imipenem",
+      "field": "nd",
+      "before": "（無）",
+      "after": "Variable",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Imipenem",
+      "field": "hd",
+      "before": "（無）",
+      "after": "If target dose 500 mg q6h: 200 mg q6h (dose AD) If target dose 1 gm q8h: 500 mg q12h (dose AD) If target dose 1 gm q6h: 500 mg q12h (dose AD)",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Imipenem",
+      "field": "capd",
+      "before": "（無）",
+      "after": "No data",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Imipenem",
+      "field": "crrt",
+      "before": "（無）",
+      "after": "0.5-1 gm q6h (varies w/MIC, effluent rate)",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Imipenem",
+      "field": "ver",
+      "before": "（無）",
+      "after": 1,
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Moxifloxacin",
+      "field": "nd",
+      "before": "（無）",
+      "after": "400 mg po/IV q24h",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Moxifloxacin",
+      "field": "hd",
+      "before": "（無）",
+      "after": "No dosage adjustment",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Moxifloxacin",
+      "field": "capd",
+      "before": "（無）",
+      "after": "No dosage adjustment",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Moxifloxacin",
+      "field": "crrt",
+      "before": "（無）",
+      "after": "No dosage adjustment",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Moxifloxacin",
+      "field": "ver",
+      "before": "（無）",
+      "after": 1,
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Clindamycin",
+      "field": "nd",
+      "before": "（無）",
+      "after": "900 mg IV q8h 150-450 mg po q6h",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Clindamycin",
+      "field": "hd",
+      "before": "（無）",
+      "after": "No dosage adjustment",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Clindamycin",
+      "field": "capd",
+      "before": "（無）",
+      "after": "No dosage adjustment",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Clindamycin",
+      "field": "crrt",
+      "before": "（無）",
+      "after": "No dosage adjustment",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Clindamycin",
+      "field": "ver",
+      "before": "（無）",
+      "after": 1,
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Daptomycin",
+      "field": "nd",
+      "before": "（無）",
+      "after": "6-10 mg/kg IV q24h",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Daptomycin",
+      "field": "hd",
+      "before": "（無）",
+      "after": "6-10 mg/kg q48h (AD); if next planned dialysis is 72 hrs away, give 9-15 mg/kg",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Daptomycin",
+      "field": "capd",
+      "before": "（無）",
+      "after": "6-10 mg/kg q48h",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Daptomycin",
+      "field": "crrt",
+      "before": "（無）",
+      "after": "6-8 mg/kg q24h",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Daptomycin",
+      "field": "ver",
+      "before": "（無）",
+      "after": 1,
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Doxycycline / Minocycline",
+      "field": "nd",
+      "before": "（無）",
+      "after": "100 mg po/IV q12h",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Doxycycline / Minocycline",
+      "field": "hd",
+      "before": "（無）",
+      "after": "No dosage adjustment",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Doxycycline / Minocycline",
+      "field": "capd",
+      "before": "（無）",
+      "after": "No dosage adjustment",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Doxycycline / Minocycline",
+      "field": "crrt",
+      "before": "（無）",
+      "after": "No dosage adjustment",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Doxycycline / Minocycline",
+      "field": "ver",
+      "before": "（無）",
+      "after": 1,
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Erythromycin",
+      "field": "nd",
+      "before": "（無）",
+      "after": "250-500 mg po q6h",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Erythromycin",
+      "field": "hd",
+      "before": "（無）",
+      "after": "No dosage adjustment",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Erythromycin",
+      "field": "capd",
+      "before": "（無）",
+      "after": "No dosage adjustment",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Erythromycin",
+      "field": "crrt",
+      "before": "（無）",
+      "after": "No dosage adjustment",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Erythromycin",
+      "field": "ver",
+      "before": "（無）",
+      "after": 1,
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Fusidate sodium",
+      "field": "nd",
+      "before": "（無）",
+      "after": "500 mg po/IV q8h",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Fusidate sodium",
+      "field": "hd",
+      "before": "（無）",
+      "after": "No data",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Fusidate sodium",
+      "field": "capd",
+      "before": "（無）",
+      "after": "No data",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Fusidate sodium",
+      "field": "crrt",
+      "before": "（無）",
+      "after": "No data",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Fusidate sodium",
+      "field": "ver",
+      "before": "（無）",
+      "after": 1,
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "SMZ-TMP（治療）",
+      "field": "nd",
+      "before": "（無）",
+      "after": "5-20 mg/kg/day po/IV (div q6-12h)",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "SMZ-TMP（治療）",
+      "field": "hd",
+      "before": "（無）",
+      "after": "Same as CrCl <15 (AD on dialysis days)",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "SMZ-TMP（治療）",
+      "field": "capd",
+      "before": "（無）",
+      "after": "Same as CrCl <15",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "SMZ-TMP（治療）",
+      "field": "crrt",
+      "before": "（無）",
+      "after": "PJP: 15 mg/kg/day (div q8h)",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "SMZ-TMP（治療）",
+      "field": "ver",
+      "before": "（無）",
+      "after": 1,
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "SMZ-TMP（預防）",
+      "field": "nd",
+      "before": "（無）",
+      "after": "5-20 mg/kg/day po/IV (div q6-12h)",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "SMZ-TMP（預防）",
+      "field": "hd",
+      "before": "（無）",
+      "after": "Same as CrCl <15 (AD on dialysis days)",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "SMZ-TMP（預防）",
+      "field": "capd",
+      "before": "（無）",
+      "after": "Same as CrCl <15",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "SMZ-TMP（預防）",
+      "field": "crrt",
+      "before": "（無）",
+      "after": "PJP: 15 mg/kg/day (div q8h)",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "SMZ-TMP（預防）",
+      "field": "ver",
+      "before": "（無）",
+      "after": 1,
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Tigecycline",
+      "field": "nd",
+      "before": "（無）",
+      "after": "100 mg, then 50 mg IV q12h",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Tigecycline",
+      "field": "hd",
+      "before": "（無）",
+      "after": "No dosage adjustment",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Tigecycline",
+      "field": "capd",
+      "before": "（無）",
+      "after": "No dosage adjustment",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Tigecycline",
+      "field": "crrt",
+      "before": "（無）",
+      "after": "No dosage adjustment",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Tigecycline",
+      "field": "ver",
+      "before": "（無）",
+      "after": 1,
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Amphotericin B",
+      "field": "nd",
+      "before": "（無）",
+      "after": "0.3-1.0 mg/kg/day (deoxycholate) 3-5 mg/kg/day (liposomal)",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Amphotericin B",
+      "field": "hd",
+      "before": "（無）",
+      "after": "No dosage adjustment",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Amphotericin B",
+      "field": "capd",
+      "before": "（無）",
+      "after": "No dosage adjustment",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Amphotericin B",
+      "field": "crrt",
+      "before": "（無）",
+      "after": "No dosage adjustment",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Amphotericin B",
+      "field": "ver",
+      "before": "（無）",
+      "after": 1,
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Lamivudine",
+      "field": "nd",
+      "before": "（無）",
+      "after": "300 mg po q24h (HIV dose)",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Lamivudine",
+      "field": "hd",
+      "before": "（無）",
+      "after": "25-50 mg q24h (dose AD on dialysis days) (HIV)",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Lamivudine",
+      "field": "capd",
+      "before": "（無）",
+      "after": "25-50 mg po q24h (HIV)",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Lamivudine",
+      "field": "crrt",
+      "before": "（無）",
+      "after": "100 mg first day, then 50 mg q24h (HIV)",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Lamivudine",
+      "field": "ver",
+      "before": "（無）",
+      "after": 1,
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Amikacin / Streptomycin（TB）",
+      "field": "nd",
+      "before": "（無）",
+      "after": "Streptomycin: 15 mg/kg (max 1 gm) IM q24h",
+      "why": "補 Sanford 常規與透析欄（取 Streptomycin）"
+    },
+    {
+      "drug": "Amikacin / Streptomycin（TB）",
+      "field": "hd",
+      "before": "（無）",
+      "after": "Streptomycin: 15 mg/kg q72-96h (+ extra 7.5 mg/kg AD)",
+      "why": "補 Sanford 常規與透析欄（取 Streptomycin）"
+    },
+    {
+      "drug": "Amikacin / Streptomycin（TB）",
+      "field": "capd",
+      "before": "（無）",
+      "after": "Streptomycin: 20-40 mg lost per L of dialysate/day",
+      "why": "補 Sanford 常規與透析欄（取 Streptomycin）"
+    },
+    {
+      "drug": "Amikacin / Streptomycin（TB）",
+      "field": "crrt",
+      "before": "（無）",
+      "after": "Streptomycin: 15 mg/kg q24-72h",
+      "why": "補 Sanford 常規與透析欄（取 Streptomycin）"
+    },
+    {
+      "drug": "Amikacin / Streptomycin（TB）",
+      "field": "ver",
+      "before": "（無）",
+      "after": 1,
+      "why": "補 Sanford 常規與透析欄（取 Streptomycin）"
+    },
+    {
+      "drug": "Isoniazid / Rifampin",
+      "field": "nd",
+      "before": "（無）",
+      "after": "INH: 5 mg/kg po q24h; RIF: 600 mg po q24h",
+      "why": "補 Sanford 常規與透析欄（合併列，逐藥標示）"
+    },
+    {
+      "drug": "Isoniazid / Rifampin",
+      "field": "hd",
+      "before": "（無）",
+      "after": "INH: No dosage adjustment (administer AD on dialysis days); RIF: 300-600 mg q24h",
+      "why": "補 Sanford 常規與透析欄（合併列，逐藥標示）"
+    },
+    {
+      "drug": "Isoniazid / Rifampin",
+      "field": "capd",
+      "before": "（無）",
+      "after": "INH: No dosage adjustment; RIF: 300-600 mg q24h",
+      "why": "補 Sanford 常規與透析欄（合併列，逐藥標示）"
+    },
+    {
+      "drug": "Isoniazid / Rifampin",
+      "field": "crrt",
+      "before": "（無）",
+      "after": "INH: No dosage adjustment; RIF: 300-600 mg q24h",
+      "why": "補 Sanford 常規與透析欄（合併列，逐藥標示）"
+    },
+    {
+      "drug": "Isoniazid / Rifampin",
+      "field": "ver",
+      "before": "（無）",
+      "after": 1,
+      "why": "補 Sanford 常規與透析欄（合併列，逐藥標示）"
+    },
+    {
+      "drug": "Nevirapine / Efavirenz / Ritonavir",
+      "field": "nd",
+      "before": "（無）",
+      "after": "NVP: 200 mg po q12h; EFV: 600 mg po q24h; RTV: Used as booster (dosage varies)",
+      "why": "補 Sanford 常規與透析欄（合併列，逐藥標示）"
+    },
+    {
+      "drug": "Nevirapine / Efavirenz / Ritonavir",
+      "field": "hd",
+      "before": "（無）",
+      "after": "NVP: Give extra 200 mg AD; EFV: No data; RTV: No data",
+      "why": "補 Sanford 常規與透析欄（合併列，逐藥標示）"
+    },
+    {
+      "drug": "Nevirapine / Efavirenz / Ritonavir",
+      "field": "capd",
+      "before": "（無）",
+      "after": "No data",
+      "why": "補 Sanford 常規與透析欄（合併列，逐藥標示）"
+    },
+    {
+      "drug": "Nevirapine / Efavirenz / Ritonavir",
+      "field": "crrt",
+      "before": "（無）",
+      "after": "No data",
+      "why": "補 Sanford 常規與透析欄（合併列，逐藥標示）"
+    },
+    {
+      "drug": "Nevirapine / Efavirenz / Ritonavir",
+      "field": "ver",
+      "before": "（無）",
+      "after": 1,
+      "why": "補 Sanford 常規與透析欄（合併列，逐藥標示）"
+    },
+    {
+      "drug": "Acyclovir（PO）VZV",
+      "field": "nd",
+      "before": "（無）",
+      "after": "800 mg po q4h (5x/day)",
+      "why": "補 Sanford 常規與透析欄（Acyclovir 口服部分）"
+    },
+    {
+      "drug": "Acyclovir（PO）VZV",
+      "field": "hd",
+      "before": "（無）",
+      "after": "800 mg po q12h (give extra dose AD)",
+      "why": "補 Sanford 常規與透析欄（Acyclovir 口服部分）"
+    },
+    {
+      "drug": "Acyclovir（PO）VZV",
+      "field": "capd",
+      "before": "（無）",
+      "after": "800 mg po q12h",
+      "why": "補 Sanford 常規與透析欄（Acyclovir 口服部分）"
+    },
+    {
+      "drug": "Acyclovir（PO）VZV",
+      "field": "crrt",
+      "before": "（無）",
+      "after": "No data",
+      "why": "補 Sanford 常規與透析欄（Acyclovir 口服部分）"
+    },
+    {
+      "drug": "Acyclovir（PO）VZV",
+      "field": "ver",
+      "before": "（無）",
+      "after": 1,
+      "why": "補 Sanford 常規與透析欄（Acyclovir 口服部分）"
+    },
+    {
+      "drug": "Valganciclovir（誘導）",
+      "field": "nd",
+      "before": "（無）",
+      "after": "900 mg po q12h",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Valganciclovir（誘導）",
+      "field": "hd",
+      "before": "（無）",
+      "after": "Not recommended",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Valganciclovir（誘導）",
+      "field": "capd",
+      "before": "（無）",
+      "after": "No data",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Valganciclovir（誘導）",
+      "field": "crrt",
+      "before": "（無）",
+      "after": "No data",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Valganciclovir（誘導）",
+      "field": "ver",
+      "before": "（無）",
+      "after": 1,
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Valganciclovir（維持）",
+      "field": "nd",
+      "before": "（無）",
+      "after": "900 mg po q24h",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Valganciclovir（維持）",
+      "field": "hd",
+      "before": "（無）",
+      "after": "Not recommended",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Valganciclovir（維持）",
+      "field": "capd",
+      "before": "（無）",
+      "after": "No data",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Valganciclovir（維持）",
+      "field": "crrt",
+      "before": "（無）",
+      "after": "CVVHD: 450 mg q24h",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Valganciclovir（維持）",
+      "field": "ver",
+      "before": "（無）",
+      "after": 1,
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Amphotericin B",
+      "field": "obese",
+      "before": "（無）",
+      "after": "Liposomal: Use adjusted BW, but consider actual BW if critically ill",
+      "why": "補 Sanford 肥胖註記"
+    },
+    {
+      "drug": "Fosfomycin（IV）",
+      "field": "g50",
+      "before": "Ccr20–40：bid",
+      "after": "N",
+      "why": "GFR 欄改用 Sanford 分段（原綠卡條件放錯欄）"
+    },
+    {
+      "drug": "Fosfomycin（IV）",
+      "field": "g1050",
+      "before": "Ccr10–20：q24h",
+      "after": "Ccr>40：N／Ccr31–40：70%／Ccr21–30：60%／Ccr11–20：40%（分 q8–12h）",
+      "why": "GFR 欄改用 Sanford 分段（原綠卡條件放錯欄）"
+    },
+    {
+      "drug": "Fosfomycin（IV）",
+      "field": "g10",
+      "before": "q48h；HD：50–100% after HD",
+      "after": "Ccr≤10：20%（分 q12–24h）",
+      "why": "GFR 欄改用 Sanford 分段（原綠卡條件放錯欄）"
+    },
+    {
+      "drug": "Fosfomycin（IV）",
+      "field": "comment",
+      "before": "Nottingham Univ. Hospital",
+      "after": "Sanford（非美國劑型）：% 指正常一天總劑量的百分比；首劑加倍（最多 8 g）",
+      "why": "GFR 欄改用 Sanford 分段（原綠卡條件放錯欄）"
+    },
+    {
+      "drug": "Telbivudine",
+      "field": "g50",
+      "before": "Ccr30–49：q48h",
+      "after": "N",
+      "why": "GFR 欄改用 Sanford 分段（原綠卡條件放錯欄）"
+    },
+    {
+      "drug": "Telbivudine",
+      "field": "g1050",
+      "before": "Ccr<30：q72h",
+      "after": "Ccr30–49：600 mg q48h／Ccr10–30：600 mg q72h",
+      "why": "GFR 欄改用 Sanford 分段（原綠卡條件放錯欄）"
+    },
+    {
+      "drug": "Telbivudine",
+      "field": "g10",
+      "before": "q96h",
+      "after": "600 mg q96h",
+      "why": "GFR 欄改用 Sanford 分段（原綠卡條件放錯欄）"
+    },
+    {
+      "drug": "Emtricitabine",
+      "field": "g50",
+      "before": "Ccr30–49：q48h",
+      "after": "N",
+      "why": "GFR 欄改用 Sanford 分段（原綠卡條件放錯欄）"
+    },
+    {
+      "drug": "Emtricitabine",
+      "field": "g1050",
+      "before": "Ccr<30：q72h",
+      "after": "Ccr30–49：200 mg q48h／Ccr10–29：200 mg q72h",
+      "why": "GFR 欄改用 Sanford 分段（原綠卡條件放錯欄）"
+    },
+    {
+      "drug": "Emtricitabine",
+      "field": "g10",
+      "before": "q96h",
+      "after": "200 mg q96h",
+      "why": "GFR 欄改用 Sanford 分段（原綠卡條件放錯欄）"
+    },
+    {
+      "drug": "Emtricitabine",
+      "field": "comment",
+      "before": "",
+      "after": "膠囊劑量（口服液不同）",
+      "why": "GFR 欄改用 Sanford 分段（原綠卡條件放錯欄）"
+    },
+    {
+      "drug": "Emtricitabine",
+      "field": "nd",
+      "before": "（無）",
+      "after": "200 mg po q24h",
+      "why": "補 Sanford 常規與透析欄（膠囊）"
+    },
+    {
+      "drug": "Emtricitabine",
+      "field": "hd",
+      "before": "（無）",
+      "after": "200 mg q96h",
+      "why": "補 Sanford 常規與透析欄（膠囊）"
+    },
+    {
+      "drug": "Emtricitabine",
+      "field": "capd",
+      "before": "（無）",
+      "after": "No data",
+      "why": "補 Sanford 常規與透析欄（膠囊）"
+    },
+    {
+      "drug": "Emtricitabine",
+      "field": "crrt",
+      "before": "（無）",
+      "after": "No data",
+      "why": "補 Sanford 常規與透析欄（膠囊）"
+    },
+    {
+      "drug": "Emtricitabine",
+      "field": "ver",
+      "before": "（無）",
+      "after": 1,
+      "why": "補 Sanford 常規與透析欄（膠囊）"
+    },
+    {
+      "drug": "Tenofovir",
+      "field": "g50",
+      "before": "Ccr30–49：q48h",
+      "after": "N",
+      "why": "GFR 欄改用 Sanford 分段（原綠卡條件放錯欄）"
+    },
+    {
+      "drug": "Tenofovir",
+      "field": "g1050",
+      "before": "Ccr<30：q72–96h",
+      "after": "Ccr30–49：300 mg q48h／Ccr10–29：300 mg q72–96h",
+      "why": "GFR 欄改用 Sanford 分段（原綠卡條件放錯欄）"
+    },
+    {
+      "drug": "Tenofovir",
+      "field": "comment",
+      "before": "HD：q7d",
+      "after": "",
+      "why": "HD 劑量改放透析欄"
+    },
+    {
+      "drug": "Tenofovir",
+      "field": "nd",
+      "before": "（無）",
+      "after": "300 mg po q24h",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Tenofovir",
+      "field": "hd",
+      "before": "（無）",
+      "after": "300 mg after every 3rd dialysis, or q7 days if no dialysis",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Tenofovir",
+      "field": "capd",
+      "before": "（無）",
+      "after": "No data",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Tenofovir",
+      "field": "crrt",
+      "before": "（無）",
+      "after": "No data",
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Tenofovir",
+      "field": "ver",
+      "before": "（無）",
+      "after": 1,
+      "why": "補 Sanford 常規與透析欄"
+    },
+    {
+      "drug": "Tenofovir",
+      "field": "brands",
+      "before": [
+        "Atripla",
+        "Biktarvy",
+        "Complera",
+        "Delstrigo",
+        "Odefsey",
+        "Symtuza",
+        "Tenof",
+        "Truvada",
+        "Vemlidy",
+        "Viread"
+      ],
+      "after": [
+        "Atripla",
+        "Complera",
+        "Delstrigo",
+        "Tenof",
+        "Truvada",
+        "Viread"
+      ],
+      "why": "TAF 商品名移到 TAF 列"
+    },
+    {
+      "drug": "Tenofovir",
+      "field": "unit",
+      "before": {
+        "tab": [
+          "25mg",
+          "300mg"
+        ]
+      },
+      "after": {
+        "tab": [
+          "300mg"
+        ]
+      },
+      "why": "25mg 為 TAF（Vemlidy），移到 TAF 列"
+    },
+    {
+      "drug": "Tenofovir",
+      "field": "name",
+      "before": "Tenofovir",
+      "after": "Tenofovir（TDF）",
+      "why": "標明為 TDF，與 TAF 區分"
+    },
+    {
+      "drug": "Tenofovir alafenamide（TAF）",
+      "field": "（新增列）",
+      "before": "（無）",
+      "after": {
+        "name": "Tenofovir alafenamide（TAF）",
+        "route": "?",
+        "g50": "N",
+        "g1050": "Ccr≥15：N／Ccr<15：A（未透析）",
+        "g10": "A（未透析）；HD：N",
+        "comment": "Sanford；複方錠（Biktarvy 等）另有腎功能限制",
+        "brands": [
+          "Biktarvy",
+          "Odefsey",
+          "Symtuza",
+          "Vemlidy"
+        ],
+        "nd": "25 mg po q24h",
+        "hd": "No dosage adjustment (dose AD on dialysis days)",
+        "capd": "No data",
+        "crrt": "No data",
+        "ver": 1,
+        "unit": {
+          "tab": [
+            "25mg"
+          ]
+        }
+      },
+      "why": "新增 TAF 列（Sanford）"
+    },
+    {
+      "drug": "Terbinafine",
+      "field": "comment",
+      "before": "",
+      "after": "Sanford：Ccr≤50 No data",
+      "why": "補 Sanford 說明（保留綠卡 ? 或 A）"
+    },
+    {
+      "drug": "Colistin / Colimycin（維持劑量・參考 A）",
+      "field": "（刪除列）",
+      "before": {
+        "name": "Colistin / Colimycin（維持劑量・參考 A）",
+        "route": "R",
+        "g50": "N",
+        "g1050": "Ccr20–40：2–3 MU q12h／Ccr10–19：2 MU q12h",
+        "g10": "1 MU q12h",
+        "comment": "*CRRT 膜會吸附；CRRT：4.5 MU q12–8h",
+        "unit": {
+          "vial": [
+            "2MU"
+          ]
+        }
+      },
+      "after": "（併入 Colistin / Colimycin（mg CBA））",
+      "why": "Colistin 改用 Sanford（選項 a）"
+    },
+    {
+      "drug": "Colistin / Colimycin（維持劑量・參考 B）",
+      "field": "（刪除列）",
+      "before": {
+        "name": "Colistin / Colimycin（維持劑量・參考 B）",
+        "route": "R",
+        "g50": "N",
+        "g1050": "4.5 MU q24h",
+        "g10": "2–2.5 MU q24h",
+        "comment": "CRRT：2–3 MU q8h",
+        "unit": {
+          "vial": [
+            "2MU"
+          ]
+        }
+      },
+      "after": "（併入 Colistin / Colimycin（mg CBA））",
+      "why": "Colistin 改用 Sanford（選項 a）"
+    },
+    {
+      "drug": "Colistin / Colimycin（mg CBA）",
+      "field": "（新增列）",
+      "before": "（無）",
+      "after": {
+        "name": "Colistin / Colimycin（mg CBA）",
+        "route": "R",
+        "g50": "Ccr≥90：180 mg q12h／Ccr80–89：170 mg q12h／Ccr70–79：150 mg q12h／Ccr60–69：137.5 mg q12h／Ccr50–59：122.5 mg q12h",
+        "g1050": "Ccr40–49：110 mg q12h／Ccr30–39：97.5 mg q12h／Ccr20–29：87.5 mg q12h／Ccr10–19：80 mg q12h",
+        "g10": "Ccr5–9：72.5 mg q12h／Ccr<5：65 mg q12h",
+        "comment": "Sanford：劑量以 mg CBA 計，與 MU 換算請依院內藥典；Load 4 × 體重（kg）mg CBA",
+        "nd": "Load: 4 x (wt in kg) Maintenance: 180 mg q12h",
+        "hd": "Non-HD days: give 65 mg IV q12h. HD days: give supplemental dose of 40-50 mg after a 3-4 hr session. Give this supplement with the next regular dose after the dialysis has ended.",
+        "capd": "No data",
+        "crrt": "220 mg q12h",
+        "ver": 1,
+        "unit": {
+          "vial": [
+            "2MU"
+          ]
+        }
+      },
+      "why": "Colistin 改用 Sanford（選項 a）"
+    }
+  ]
+}

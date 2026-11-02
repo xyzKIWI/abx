@@ -1,0 +1,19 @@
+name: 資料結構檢查
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  data-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: 檢查 renal_data.js 結構與格式（不判斷劑量對錯）
+        run: node --test tests/data.test.js
