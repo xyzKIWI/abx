@@ -18,7 +18,7 @@
 | 每個藥物都有完整的三段腎功能分級 | 強制 | ✅ 通過 | 0 |
 | CrCl 分段連續、不重疊、沒有缺口（meta.bands 與 index.html 一致） | 強制 | ✅ 通過 | 0 |
 | GFR 欄內的 CrCl 條件落在該欄範圍內 | 可列已知 | ✅ 通過 | 0 |
-| GFR 欄內的 CrCl 條件涵蓋整欄（例如 10–50 欄只寫 Ccr>20，10–20 要去別欄找） | 可列已知 | ⚠️ 已知問題（todo） | 34 |
+| GFR 欄內的 CrCl 條件涵蓋整欄（例如 10–50 欄只寫 Ccr>20，10–20 要去別欄找） | 可列已知 | ⚠️ 已知問題（todo） | 14 |
 | 透析欄位（HD／CAPD／CRRT）齊全或明確標示無資料 | 可列已知 | ⚠️ 已知問題（todo） | 6 |
 | 「待核」標記方式一致（ver 欄位） | 強制 | ✅ 通過 | 0 |
 | Route 寫法符合圖例（R／H／HD／?） | 可列已知 | ✅ 通過 | 0 |
@@ -299,50 +299,86 @@
 
 </details>
 
+### 0.4 第四輪：GFR 欄寫滿整欄（Kiwi 2026-11-02 確認）（42 處）
+
+- A 類 9 列：Sanford 與綠卡意思一致，把隔壁欄或隱含的部分寫進本欄。Daptomycin 刪除 <10 欄「或 9 mg/kg q72h」與備註「CRRT：8 mg/kg q48h」，改以 Sanford 透析欄為準。
+- B 類 9 列：改用 Sanford 分段與劑量；原本以百分比表示者保留 %，括號附 Sanford 劑量（如 50%（150 mg）q24h）。
+- C 類 5 列（Levofloxacin 500mg、Amoxicillin-clav 875mg tab、Ampicillin/sulbactam 高劑量、Amikacin / Streptomycin（TB）、Nitroxoline）依 Kiwi 指示維持高醫原版，仍列為已知問題。
+- 只缺 CrCl 50 或 10 一個點的格子屬於分段邊界差異，不改。
+
+<details><summary>逐項變更（42 處，點開看明細）</summary>
+
+| 藥名 | 欄位 | 修改前 | 修改後 | 原因 |
+| --- | --- | --- | --- | --- |
+| Ampicillin | GFR 10–50 | `Ccr<30：q12h` | `Ccr30–50：1–2 g q6–8h／Ccr10–29：1–2 g q8–12h` | A 類：照 Sanford 寫清楚（意思與綠卡一致） |
+| Ampicillin | GFR <10 | `q12–24h` | `1–2 g q12–24h` | A 類：照 Sanford 寫清楚（意思與綠卡一致） |
+| Ampicillin/sulbactam | GFR 10–50 | `Ccr<30：q12h` | `Ccr30–50：N／Ccr15–29：1.5–3 g q12h／Ccr10–14：1.5–3 g q24h` | A 類：照 Sanford 寫清楚（意思與綠卡一致） |
+| Ampicillin/sulbactam | GFR <10 | `q24h` | `1.5–3 g q24h（Sanford 未列 <5）` | A 類：照 Sanford 寫清楚（意思與綠卡一致） |
+| Piperacillin-tazobactam（non-Pseudomonas） | GFR 10–50 | `Ccr<20：q8h` | `Ccr41–50：N／Ccr20–40：2.25 g q6h／Ccr10–19：2.25 g q8h` | A 類：照 Sanford 寫清楚（意思與綠卡一致） |
+| Piperacillin-tazobactam（non-Pseudomonas） | GFR <10 | `2.25 g q8–12h` | `2.25 g q8h` | A 類：照 Sanford 寫清楚（意思與綠卡一致） |
+| Piperacillin-tazobactam（non-Pseudomonas） | 備註 | `` | `Sanford：間歇輸注、非院內肺炎` | A 類：照 Sanford 寫清楚（意思與綠卡一致） |
+| Cephalexin | GFR 10–50 | `Ccr≤40：q8–12h` | `250–1000 mg q8–12h` | A 類：照 Sanford 寫清楚（意思與綠卡一致） |
+| Cephalexin | GFR <10 | `q12–24h` | `250–1000 mg q24–48h` | A 類：照 Sanford 寫清楚（意思與綠卡一致） |
+| Ertapenem | GFR 10–50 | `Ccr<30：50%` | `Ccr31–50：N／Ccr10–30：50%（500 mg）q24h` | A 類：照 Sanford 寫清楚（意思與綠卡一致） |
+| Ertapenem | GFR <10 | `50%` | `50%（500 mg）q24h` | A 類：照 Sanford 寫清楚（意思與綠卡一致） |
+| Ertapenem | 備註 | `` | `Sanford 以 mL/min/1.73 m² 計` | A 類：照 Sanford 寫清楚（意思與綠卡一致） |
+| Gemifloxacin | GFR 10–50 | `Ccr≤40：160 mg q24h` | `160 mg q24h` | A 類：照 Sanford 寫清楚（意思與綠卡一致） |
+| Daptomycin | GFR 10–50 | `Ccr<30：q48h` | `Ccr30–50：N／Ccr10–29：6–10 mg/kg q48h` | A 類：照 Sanford 寫清楚（意思與綠卡一致） |
+| Daptomycin | GFR <10 | `q48h 或 9 mg/kg q72h` | `6–10 mg/kg q48h` | A 類：照 Sanford 寫清楚（意思與綠卡一致） |
+| Daptomycin | 備註 | `CRRT：8 mg/kg q48h` | `` | A 類：照 Sanford 寫清楚（意思與綠卡一致） |
+| Levofloxacin 750mg | GFR 10–50 | `Ccr≥20：750 mg q48h` | `Ccr20–49：750 mg q48h／Ccr10–19：750 mg×1，之後 500 mg q48h` | A 類：照 Sanford 寫清楚（意思與綠卡一致） |
+| Ganciclovir（誘導） | GFR >50 | `Ccr50–69：50% q12h` | `Ccr≥70：N／Ccr50–69：50%（2.5 mg/kg）q12h` | A 類：照 Sanford 寫清楚（意思與綠卡一致） |
+| Ganciclovir（誘導） | GFR 10–50 | `Ccr25–49：50% q24h／Ccr10–24：25% q24h` | `Ccr25–49：50%（2.5 mg/kg）q24h／Ccr10–24：25%（1.25 mg/kg）q24h` | A 類：照 Sanford 寫清楚（意思與綠卡一致） |
+| Rifabutin | GFR 10–50 | `Ccr<30：50%` | `50%（150 mg）q24h` | B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量） |
+| Rifabutin | GFR <10 | `Ccr<30：50%` | `50%（150 mg）q24h` | B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量） |
+| Cefixime | GFR >50 | `N` | `Ccr≥60：N／Ccr51–59：260 mg q24h（懸液）` | B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量） |
+| Cefixime | GFR 10–50 | `Ccr>20：75%` | `Ccr21–50：260 mg q24h（懸液）／Ccr10–20：50%（200 mg）q24h` | B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量） |
+| Cefixime | GFR <10 | `Ccr<20：50%` | `50%（200 mg）q24h` | B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量） |
+| Ceftibuten | GFR >50 | `q24h` | `N` | B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量） |
+| Ceftibuten | GFR 10–50 | `Ccr≥30：50%` | `50%（200 mg）q24h` | B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量） |
+| Ceftibuten | GFR <10 | `Ccr<30：50%` | `25%（100 mg）q24h` | B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量） |
+| Ganciclovir（維持） | GFR >50 | `Ccr50–69：50% q24h` | `Ccr>90：N／Ccr51–90：50–100%（2.5–5 mg/kg）q24h` | B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量） |
+| Ganciclovir（維持） | GFR 10–50 | `Ccr25–49：25% q24h／Ccr<25：0.625 mg/kg q24h` | `12.5–25%（0.625–1.25 mg/kg）q24h` | B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量） |
+| Valganciclovir（誘導） | GFR >50 | `Ccr50–69：50% q12h` | `Ccr≥60：N／Ccr51–59：50%（450 mg）q12h` | B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量） |
+| Valganciclovir（誘導） | GFR 10–50 | `Ccr25–49：50% q24h／Ccr10–24：50% q48h` | `Ccr40–50：50%（450 mg）q12h／Ccr25–39：50%（450 mg）q24h／Ccr10–24：50%（450 mg）q48h` | B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量） |
+| Valganciclovir（誘導） | GFR <10 | `A 或 50% q48h` | `A` | B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量） |
+| Valganciclovir（維持） | GFR >50 | `Ccr50–69：50% q24h` | `Ccr≥60：N／Ccr51–59：50%（450 mg）q24h` | B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量） |
+| Valganciclovir（維持） | GFR 10–50 | `Ccr25–49：50% q48h／Ccr<25：50% biw` | `Ccr40–50：50%（450 mg）q24h／Ccr25–39：50%（450 mg）q48h／Ccr10–24：50%（450 mg）biw` | B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量） |
+| Valganciclovir（維持） | GFR <10 | `A 或 50% biw` | `A` | B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量） |
+| SMZ-TMP（治療） | GFR 10–50 | `Ccr<30：50%` | `Ccr31–50：N／Ccr15–30：50%（分 q12–24h）／Ccr10–14：25–50%（分 q24h）` | B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量） |
+| SMZ-TMP（治療） | GFR <10 | `A 或 5–10 mg/kg/day（一次或分次）` | `25–50%（分 q24h）` | B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量） |
+| Cefoperazone/sulbactam | GFR 10–50 | `Ccr≤30：2–4 g q12h` | `Ccr31–50：N／Ccr15–30：sulbactam 1 g q12h／Ccr10–14：sulbactam 500 mg q12h` | B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量） |
+| Cefoperazone/sulbactam | GFR <10 | `CRRT：2 g q6h` | `sulbactam 500 mg q12h` | B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量） |
+| Cefoperazone/sulbactam | 備註 | `R 指 sulbactam；cefoperazone 主要經膽道排除` | `R 指 sulbactam；cefoperazone 主要經膽道排除。Sanford 劑量以 sulbactam 成分計` | B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量） |
+| Amoxicillin-clavulanate（PO/IV） | GFR 10–50 | `Ccr<30：q12h` | `Ccr31–50：N／Ccr10–30：PO 250–500 mg q12h；IV 1 g×1，之後 500 mg q12h` | B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量） |
+| Amoxicillin-clavulanate（PO/IV） | GFR <10 | `q24h` | `PO 250–500 mg q24h；IV 1 g×1，之後 500 mg q24h` | B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量） |
+
+</details>
+
 ## 1. 結構問題清單
 
 下表是檢查腳本找到的所有結構問題（不含單位寫法，單位寫法見第 3 節）。
 
-### GFR 欄內的 CrCl 條件涵蓋整欄（例如 10–50 欄只寫 Ccr>20，10–20 要去別欄找）（34 項）
+### GFR 欄內的 CrCl 條件涵蓋整欄（例如 10–50 欄只寫 Ccr>20，10–20 要去別欄找）（14 項）
 
 格子裡寫了 CrCl 條件，但條件沒有涵蓋整欄。例如 Cefixime 10–50 欄只寫「Ccr>20：75%」，CrCl 10–20 的答案其實寫在 <10 欄的「Ccr<20：50%」；病人 CrCl 15 時頁面高亮的是 10–50 那格，容易看錯。只缺「50」或「10」一個點的，多半是 Sanford 分段（>50／30–49）和頁面分段（10–50 含 50）的邊界差異。
 
 | 藥名 | 欄位 | 問題描述 |
 | --- | --- | --- |
 | Amikacin / Streptomycin（TB） | GFR 10–50 | 「10–50」欄只寫了 Ccr<30，本欄 CrCl 30–50 沒有對應寫法 |
-| Amoxicillin-clavulanate（PO/IV） | GFR 10–50 | 「10–50」欄只寫了 Ccr<30，本欄 CrCl 30–50 沒有對應寫法 |
 | Amoxicillin-clav 875mg tab（PO） | GFR 10–50 | 「10–50」欄只寫了 Ccr<15，本欄 CrCl 15–50 沒有對應寫法 |
 | Amoxicillin-clav 875mg tab（PO） | GFR <10 | 「<10」欄只寫了 Ccr<5，本欄 CrCl 5–9 沒有對應寫法 |
-| Ampicillin | GFR 10–50 | 「10–50」欄只寫了 Ccr<30，本欄 CrCl 30–50 沒有對應寫法 |
-| Ampicillin/sulbactam | GFR 10–50 | 「10–50」欄只寫了 Ccr<30，本欄 CrCl 30–50 沒有對應寫法 |
 | Ampicillin/sulbactam — Acinetobacter / E. faecalis（高劑量） | GFR 10–50 | 「10–50」欄只寫了 Ccr<30，本欄 CrCl 30–50 沒有對應寫法 |
-| Piperacillin-tazobactam（non-Pseudomonas） | GFR 10–50 | 「10–50」欄只寫了 Ccr<20，本欄 CrCl 20–50 沒有對應寫法 |
-| Cefixime | GFR 10–50 | 「10–50」欄只寫了 Ccr>20，本欄 CrCl 10–20 沒有對應寫法 |
-| Cefoperazone/sulbactam | GFR 10–50 | 「10–50」欄只寫了 Ccr≤30，本欄 CrCl 31–50 沒有對應寫法 |
-| Ceftibuten | GFR 10–50 | 「10–50」欄只寫了 Ccr≥30，本欄 CrCl 10–29 沒有對應寫法 |
-| Cephalexin | GFR 10–50 | 「10–50」欄只寫了 Ccr≤40，本欄 CrCl 41–50 沒有對應寫法 |
-| Ertapenem | GFR 10–50 | 「10–50」欄只寫了 Ccr<30，本欄 CrCl 30–50 沒有對應寫法 |
-| Levofloxacin 750mg | GFR 10–50 | 「10–50」欄只寫了 Ccr≥20，本欄 CrCl 10–19 沒有對應寫法 |
+| Levofloxacin 750mg | GFR 10–50 | 「10–50」欄只寫了 Ccr20–49、Ccr10–19，本欄 CrCl 50 沒有對應寫法 |
 | Levofloxacin 500mg | GFR 10–50 | 「10–50」欄只寫了 Ccr≥20，本欄 CrCl 10–19 沒有對應寫法 |
-| Gemifloxacin | GFR 10–50 | 「10–50」欄只寫了 Ccr≤40，本欄 CrCl 41–50 沒有對應寫法 |
 | Colistin / Colimycin（mg CBA） | GFR 10–50 | 「10–50」欄只寫了 Ccr40–49、Ccr30–39、Ccr20–29、Ccr10–19，本欄 CrCl 50 沒有對應寫法 |
-| Daptomycin | GFR 10–50 | 「10–50」欄只寫了 Ccr<30，本欄 CrCl 30–50 沒有對應寫法 |
 | Fosfomycin（IV） | GFR 10–50 | 「10–50」欄只寫了 Ccr>40、Ccr31–40、Ccr21–30、Ccr11–20，本欄 CrCl 10 沒有對應寫法 |
 | Nitroxoline | GFR 10–50 | 「10–50」欄只寫了 Ccr<20，本欄 CrCl 20–50 沒有對應寫法 |
-| SMZ-TMP（治療） | GFR 10–50 | 「10–50」欄只寫了 Ccr<30，本欄 CrCl 30–50 沒有對應寫法 |
-| Rifabutin | GFR 10–50 | 「10–50」欄只寫了 Ccr<30，本欄 CrCl 30–50 沒有對應寫法 |
 | Entecavir | GFR 10–50 | 「10–50」欄只寫了 Ccr30–49、Ccr<30，本欄 CrCl 50 沒有對應寫法 |
-| Ganciclovir（誘導） | GFR >50 | 「>50」欄只寫了 Ccr50–69，本欄 CrCl ≥70 沒有對應寫法 |
 | Ganciclovir（誘導） | GFR 10–50 | 「10–50」欄只寫了 Ccr25–49、Ccr10–24，本欄 CrCl 50 沒有對應寫法 |
-| Ganciclovir（維持） | GFR >50 | 「>50」欄只寫了 Ccr50–69，本欄 CrCl ≥70 沒有對應寫法 |
-| Ganciclovir（維持） | GFR 10–50 | 「10–50」欄只寫了 Ccr25–49、Ccr<25，本欄 CrCl 50 沒有對應寫法 |
 | Telbivudine | GFR 10–50 | 「10–50」欄只寫了 Ccr30–49、Ccr10–30，本欄 CrCl 50 沒有對應寫法 |
 | Tenofovir（TDF） | GFR 10–50 | 「10–50」欄只寫了 Ccr30–49、Ccr10–29，本欄 CrCl 50 沒有對應寫法 |
 | Emtricitabine | GFR 10–50 | 「10–50」欄只寫了 Ccr30–49、Ccr10–29，本欄 CrCl 50 沒有對應寫法 |
-| Valganciclovir（誘導） | GFR >50 | 「>50」欄只寫了 Ccr50–69，本欄 CrCl ≥70 沒有對應寫法 |
-| Valganciclovir（誘導） | GFR 10–50 | 「10–50」欄只寫了 Ccr25–49、Ccr10–24，本欄 CrCl 50 沒有對應寫法 |
-| Valganciclovir（維持） | GFR >50 | 「>50」欄只寫了 Ccr50–69，本欄 CrCl ≥70 沒有對應寫法 |
-| Valganciclovir（維持） | GFR 10–50 | 「10–50」欄只寫了 Ccr25–49、Ccr<25，本欄 CrCl 50 沒有對應寫法 |
 
 ### 透析欄位（HD／CAPD／CRRT）齊全或明確標示無資料（6 項）
 
@@ -367,30 +403,38 @@ GFR 三欄的分段為 `>50`、`10–50`、`<10`（頁面先把 CrCl 四捨五�
 | --- | --- | --- | --- | --- | --- |
 | Amikacin / Streptomycin（TB） | 10–50 | `Ccr<30 或 HD：15 mg/kg biw–tiw` | `Ccr<30` | ≤29 | **部分超出欄位範圍** |
 | Amikacin / Streptomycin（TB） | <10 | `Ccr<30 或 HD：15 mg/kg biw–tiw` | `Ccr<30` | ≤29 | **部分超出欄位範圍** |
-| Amoxicillin-clavulanate（PO/IV） | 10–50 | `Ccr<30：q12h` | `Ccr<30` | ≤29 | **部分超出欄位範圍** |
+| Amoxicillin-clavulanate（PO/IV） | 10–50 | `Ccr31–50：N／Ccr10–30：PO 250–500 mg q12h；IV 1 g×1，之後 500 mg q12h` | `Ccr31–50` | 31–50 | 在欄位範圍內 |
+| Amoxicillin-clavulanate（PO/IV） | 10–50 | `Ccr31–50：N／Ccr10–30：PO 250–500 mg q12h；IV 1 g×1，之後 500 mg q12h` | `Ccr10–30` | 10–30 | 在欄位範圍內 |
 | Amoxicillin-clav 875mg tab（PO） | 10–50 | `Ccr<15：q24h` | `Ccr<15` | ≤14 | **部分超出欄位範圍** |
 | Amoxicillin-clav 875mg tab（PO） | <10 | `Ccr<5：50% q24h` | `Ccr<5` | ≤4 | 在欄位範圍內 |
-| Ampicillin | 10–50 | `Ccr<30：q12h` | `Ccr<30` | ≤29 | **部分超出欄位範圍** |
-| Ampicillin/sulbactam | 10–50 | `Ccr<30：q12h` | `Ccr<30` | ≤29 | **部分超出欄位範圍** |
+| Ampicillin | 10–50 | `Ccr30–50：1–2 g q6–8h／Ccr10–29：1–2 g q8–12h` | `Ccr30–50` | 30–50 | 在欄位範圍內 |
+| Ampicillin | 10–50 | `Ccr30–50：1–2 g q6–8h／Ccr10–29：1–2 g q8–12h` | `Ccr10–29` | 10–29 | 在欄位範圍內 |
+| Ampicillin/sulbactam | 10–50 | `Ccr30–50：N／Ccr15–29：1.5–3 g q12h／Ccr10–14：1.5–3 g q24h` | `Ccr30–50` | 30–50 | 在欄位範圍內 |
+| Ampicillin/sulbactam | 10–50 | `Ccr30–50：N／Ccr15–29：1.5–3 g q12h／Ccr10–14：1.5–3 g q24h` | `Ccr15–29` | 15–29 | 在欄位範圍內 |
+| Ampicillin/sulbactam | 10–50 | `Ccr30–50：N／Ccr15–29：1.5–3 g q12h／Ccr10–14：1.5–3 g q24h` | `Ccr10–14` | 10–14 | 在欄位範圍內 |
 | Ampicillin/sulbactam — Acinetobacter / E. faecalis（高劑量） | 10–50 | `Ccr<30：6 g q12h` | `Ccr<30` | ≤29 | **部分超出欄位範圍** |
-| Piperacillin-tazobactam（non-Pseudomonas） | 10–50 | `Ccr<20：q8h` | `Ccr<20` | ≤19 | **部分超出欄位範圍** |
+| Piperacillin-tazobactam（non-Pseudomonas） | 10–50 | `Ccr41–50：N／Ccr20–40：2.25 g q6h／Ccr10–19：2.25 g q8h` | `Ccr41–50` | 41–50 | 在欄位範圍內 |
+| Piperacillin-tazobactam（non-Pseudomonas） | 10–50 | `Ccr41–50：N／Ccr20–40：2.25 g q6h／Ccr10–19：2.25 g q8h` | `Ccr20–40` | 20–40 | 在欄位範圍內 |
+| Piperacillin-tazobactam（non-Pseudomonas） | 10–50 | `Ccr41–50：N／Ccr20–40：2.25 g q6h／Ccr10–19：2.25 g q8h` | `Ccr10–19` | 10–19 | 在欄位範圍內 |
 | Piperacillin-tazobactam（Pseudomonas） | 10–50 | `Ccr40–50：4.5 g q6h；20–40：3.375 g q6h；<20：2.25 g q6h` | `Ccr40–50` | 40–50 | 在欄位範圍內 |
 | Piperacillin-tazobactam（Pseudomonas） | 10–50 | `Ccr40–50：4.5 g q6h；20–40：3.375 g q6h；<20：2.25 g q6h` | `20–40` | 20–40 | 在欄位範圍內 |
 | Piperacillin-tazobactam（Pseudomonas） | 10–50 | `Ccr40–50：4.5 g q6h；20–40：3.375 g q6h；<20：2.25 g q6h` | `<20` | ≤19 | **部分超出欄位範圍** |
-| Cefixime | 10–50 | `Ccr>20：75%` | `Ccr>20` | ≥21 | **部分超出欄位範圍** |
-| Cefixime | <10 | `Ccr<20：50%` | `Ccr<20` | ≤19 | **部分超出欄位範圍** |
-| Cefoperazone/sulbactam | 10–50 | `Ccr≤30：2–4 g q12h` | `Ccr≤30` | ≤30 | **部分超出欄位範圍** |
-| Ceftibuten | 10–50 | `Ccr≥30：50%` | `Ccr≥30` | ≥30 | **部分超出欄位範圍** |
-| Ceftibuten | <10 | `Ccr<30：50%` | `Ccr<30` | ≤29 | **部分超出欄位範圍** |
-| Cephalexin | 10–50 | `Ccr≤40：q8–12h` | `Ccr≤40` | ≤40 | **部分超出欄位範圍** |
+| Cefixime | >50 | `Ccr≥60：N／Ccr51–59：260 mg q24h（懸液）` | `Ccr≥60` | ≥60 | 在欄位範圍內 |
+| Cefixime | >50 | `Ccr≥60：N／Ccr51–59：260 mg q24h（懸液）` | `Ccr51–59` | 51–59 | 在欄位範圍內 |
+| Cefixime | 10–50 | `Ccr21–50：260 mg q24h（懸液）／Ccr10–20：50%（200 mg）q24h` | `Ccr21–50` | 21–50 | 在欄位範圍內 |
+| Cefixime | 10–50 | `Ccr21–50：260 mg q24h（懸液）／Ccr10–20：50%（200 mg）q24h` | `Ccr10–20` | 10–20 | 在欄位範圍內 |
+| Cefoperazone/sulbactam | 10–50 | `Ccr31–50：N／Ccr15–30：sulbactam 1 g q12h／Ccr10–14：sulbactam 500 mg q12h` | `Ccr31–50` | 31–50 | 在欄位範圍內 |
+| Cefoperazone/sulbactam | 10–50 | `Ccr31–50：N／Ccr15–30：sulbactam 1 g q12h／Ccr10–14：sulbactam 500 mg q12h` | `Ccr15–30` | 15–30 | 在欄位範圍內 |
+| Cefoperazone/sulbactam | 10–50 | `Ccr31–50：N／Ccr15–30：sulbactam 1 g q12h／Ccr10–14：sulbactam 500 mg q12h` | `Ccr10–14` | 10–14 | 在欄位範圍內 |
 | Doripenem | 10–50 | `Ccr30–50：0.25 g q8h／Ccr<30：0.25 g q12h` | `Ccr30–50` | 30–50 | 在欄位範圍內 |
 | Doripenem | 10–50 | `Ccr30–50：0.25 g q8h／Ccr<30：0.25 g q12h` | `Ccr<30` | ≤29 | **部分超出欄位範圍** |
-| Ertapenem | 10–50 | `Ccr<30：50%` | `Ccr<30` | ≤29 | **部分超出欄位範圍** |
-| Levofloxacin 750mg | 10–50 | `Ccr≥20：750 mg q48h` | `Ccr≥20` | ≥20 | **部分超出欄位範圍** |
+| Ertapenem | 10–50 | `Ccr31–50：N／Ccr10–30：50%（500 mg）q24h` | `Ccr31–50` | 31–50 | 在欄位範圍內 |
+| Ertapenem | 10–50 | `Ccr31–50：N／Ccr10–30：50%（500 mg）q24h` | `Ccr10–30` | 10–30 | 在欄位範圍內 |
+| Levofloxacin 750mg | 10–50 | `Ccr20–49：750 mg q48h／Ccr10–19：750 mg×1，之後 500 mg q48h` | `Ccr20–49` | 20–49 | 在欄位範圍內 |
+| Levofloxacin 750mg | 10–50 | `Ccr20–49：750 mg q48h／Ccr10–19：750 mg×1，之後 500 mg q48h` | `Ccr10–19` | 10–19 | 在欄位範圍內 |
 | Levofloxacin 750mg | <10 | `Ccr<20：750 mg×1，之後 500 mg q48h` | `Ccr<20` | ≤19 | **部分超出欄位範圍** |
 | Levofloxacin 500mg | 10–50 | `Ccr≥20：500 mg q48h` | `Ccr≥20` | ≥20 | **部分超出欄位範圍** |
 | Levofloxacin 500mg | <10 | `Ccr<20：500 mg×1，之後 250 mg q48h` | `Ccr<20` | ≤19 | **部分超出欄位範圍** |
-| Gemifloxacin | 10–50 | `Ccr≤40：160 mg q24h` | `Ccr≤40` | ≤40 | **部分超出欄位範圍** |
 | Colistin / Colimycin（mg CBA） | >50 | `Ccr≥90：180 mg q12h／Ccr80–89：170 mg q12h／Ccr70–79：150 mg q12h／Ccr60–69：137.5 mg q12h／Ccr50–59：122.5 mg q12h` | `Ccr≥90` | ≥90 | 在欄位範圍內 |
 | Colistin / Colimycin（mg CBA） | >50 | `Ccr≥90：180 mg q12h／Ccr80–89：170 mg q12h／Ccr70–79：150 mg q12h／Ccr60–69：137.5 mg q12h／Ccr50–59：122.5 mg q12h` | `Ccr80–89` | 80–89 | 在欄位範圍內 |
 | Colistin / Colimycin（mg CBA） | >50 | `Ccr≥90：180 mg q12h／Ccr80–89：170 mg q12h／Ccr70–79：150 mg q12h／Ccr60–69：137.5 mg q12h／Ccr50–59：122.5 mg q12h` | `Ccr70–79` | 70–79 | 在欄位範圍內 |
@@ -402,25 +446,26 @@ GFR 三欄的分段為 `>50`、`10–50`、`<10`（頁面先把 CrCl 四捨五�
 | Colistin / Colimycin（mg CBA） | 10–50 | `Ccr40–49：110 mg q12h／Ccr30–39：97.5 mg q12h／Ccr20–29：87.5 mg q12h／Ccr10–19：80 mg q12h` | `Ccr10–19` | 10–19 | 在欄位範圍內 |
 | Colistin / Colimycin（mg CBA） | <10 | `Ccr5–9：72.5 mg q12h／Ccr<5：65 mg q12h` | `Ccr5–9` | 5–9 | 在欄位範圍內 |
 | Colistin / Colimycin（mg CBA） | <10 | `Ccr5–9：72.5 mg q12h／Ccr<5：65 mg q12h` | `Ccr<5` | ≤4 | 在欄位範圍內 |
-| Daptomycin | 10–50 | `Ccr<30：q48h` | `Ccr<30` | ≤29 | **部分超出欄位範圍** |
+| Daptomycin | 10–50 | `Ccr30–50：N／Ccr10–29：6–10 mg/kg q48h` | `Ccr30–50` | 30–50 | 在欄位範圍內 |
+| Daptomycin | 10–50 | `Ccr30–50：N／Ccr10–29：6–10 mg/kg q48h` | `Ccr10–29` | 10–29 | 在欄位範圍內 |
 | Fosfomycin（IV） | 10–50 | `Ccr>40：N／Ccr31–40：70%／Ccr21–30：60%／Ccr11–20：40%（分 q8–12h）` | `Ccr>40` | ≥41 | **部分超出欄位範圍** |
 | Fosfomycin（IV） | 10–50 | `Ccr>40：N／Ccr31–40：70%／Ccr21–30：60%／Ccr11–20：40%（分 q8–12h）` | `Ccr31–40` | 31–40 | 在欄位範圍內 |
 | Fosfomycin（IV） | 10–50 | `Ccr>40：N／Ccr31–40：70%／Ccr21–30：60%／Ccr11–20：40%（分 q8–12h）` | `Ccr21–30` | 21–30 | 在欄位範圍內 |
 | Fosfomycin（IV） | 10–50 | `Ccr>40：N／Ccr31–40：70%／Ccr21–30：60%／Ccr11–20：40%（分 q8–12h）` | `Ccr11–20` | 11–20 | 在欄位範圍內 |
 | Fosfomycin（IV） | <10 | `Ccr≤10：20%（分 q12–24h）` | `Ccr≤10` | ≤10 | **部分超出欄位範圍** |
 | Nitroxoline | 10–50 | `Ccr<20：A` | `Ccr<20` | ≤19 | **部分超出欄位範圍** |
-| SMZ-TMP（治療） | 10–50 | `Ccr<30：50%` | `Ccr<30` | ≤29 | **部分超出欄位範圍** |
+| SMZ-TMP（治療） | 10–50 | `Ccr31–50：N／Ccr15–30：50%（分 q12–24h）／Ccr10–14：25–50%（分 q24h）` | `Ccr31–50` | 31–50 | 在欄位範圍內 |
+| SMZ-TMP（治療） | 10–50 | `Ccr31–50：N／Ccr15–30：50%（分 q12–24h）／Ccr10–14：25–50%（分 q24h）` | `Ccr15–30` | 15–30 | 在欄位範圍內 |
+| SMZ-TMP（治療） | 10–50 | `Ccr31–50：N／Ccr15–30：50%（分 q12–24h）／Ccr10–14：25–50%（分 q24h）` | `Ccr10–14` | 10–14 | 在欄位範圍內 |
 | Fluconazole | 10–50 | `Ccr≤50：50% q24h` | `Ccr≤50` | ≤50 | **部分超出欄位範圍** |
-| Rifabutin | 10–50 | `Ccr<30：50%` | `Ccr<30` | ≤29 | **部分超出欄位範圍** |
-| Rifabutin | <10 | `Ccr<30：50%` | `Ccr<30` | ≤29 | **部分超出欄位範圍** |
 | Entecavir | 10–50 | `Ccr30–49：q48h／Ccr<30：q72h` | `Ccr30–49` | 30–49 | 在欄位範圍內 |
 | Entecavir | 10–50 | `Ccr30–49：q48h／Ccr<30：q72h` | `Ccr<30` | ≤29 | **部分超出欄位範圍** |
-| Ganciclovir（誘導） | >50 | `Ccr50–69：50% q12h` | `Ccr50–69` | 50–69 | **部分超出欄位範圍** |
-| Ganciclovir（誘導） | 10–50 | `Ccr25–49：50% q24h／Ccr10–24：25% q24h` | `Ccr25–49` | 25–49 | 在欄位範圍內 |
-| Ganciclovir（誘導） | 10–50 | `Ccr25–49：50% q24h／Ccr10–24：25% q24h` | `Ccr10–24` | 10–24 | 在欄位範圍內 |
-| Ganciclovir（維持） | >50 | `Ccr50–69：50% q24h` | `Ccr50–69` | 50–69 | **部分超出欄位範圍** |
-| Ganciclovir（維持） | 10–50 | `Ccr25–49：25% q24h／Ccr<25：0.625 mg/kg q24h` | `Ccr25–49` | 25–49 | 在欄位範圍內 |
-| Ganciclovir（維持） | 10–50 | `Ccr25–49：25% q24h／Ccr<25：0.625 mg/kg q24h` | `Ccr<25` | ≤24 | **部分超出欄位範圍** |
+| Ganciclovir（誘導） | >50 | `Ccr≥70：N／Ccr50–69：50%（2.5 mg/kg）q12h` | `Ccr≥70` | ≥70 | 在欄位範圍內 |
+| Ganciclovir（誘導） | >50 | `Ccr≥70：N／Ccr50–69：50%（2.5 mg/kg）q12h` | `Ccr50–69` | 50–69 | **部分超出欄位範圍** |
+| Ganciclovir（誘導） | 10–50 | `Ccr25–49：50%（2.5 mg/kg）q24h／Ccr10–24：25%（1.25 mg/kg）q24h` | `Ccr25–49` | 25–49 | 在欄位範圍內 |
+| Ganciclovir（誘導） | 10–50 | `Ccr25–49：50%（2.5 mg/kg）q24h／Ccr10–24：25%（1.25 mg/kg）q24h` | `Ccr10–24` | 10–24 | 在欄位範圍內 |
+| Ganciclovir（維持） | >50 | `Ccr>90：N／Ccr51–90：50–100%（2.5–5 mg/kg）q24h` | `Ccr>90` | ≥91 | 在欄位範圍內 |
+| Ganciclovir（維持） | >50 | `Ccr>90：N／Ccr51–90：50–100%（2.5–5 mg/kg）q24h` | `Ccr51–90` | 51–90 | 在欄位範圍內 |
 | Telbivudine | 10–50 | `Ccr30–49：600 mg q48h／Ccr10–30：600 mg q72h` | `Ccr30–49` | 30–49 | 在欄位範圍內 |
 | Telbivudine | 10–50 | `Ccr30–49：600 mg q48h／Ccr10–30：600 mg q72h` | `Ccr10–30` | 10–30 | 在欄位範圍內 |
 | Tenofovir（TDF） | 10–50 | `Ccr30–49：300 mg q48h／Ccr10–29：300 mg q72–96h` | `Ccr30–49` | 30–49 | 在欄位範圍內 |
@@ -429,12 +474,16 @@ GFR 三欄的分段為 `>50`、`10–50`、`<10`（頁面先把 CrCl 四捨五�
 | Tenofovir alafenamide（TAF） | 10–50 | `Ccr≥15：N／Ccr<15：A（未透析）` | `Ccr<15` | ≤14 | **部分超出欄位範圍** |
 | Emtricitabine | 10–50 | `Ccr30–49：200 mg q48h／Ccr10–29：200 mg q72h` | `Ccr30–49` | 30–49 | 在欄位範圍內 |
 | Emtricitabine | 10–50 | `Ccr30–49：200 mg q48h／Ccr10–29：200 mg q72h` | `Ccr10–29` | 10–29 | 在欄位範圍內 |
-| Valganciclovir（誘導） | >50 | `Ccr50–69：50% q12h` | `Ccr50–69` | 50–69 | **部分超出欄位範圍** |
-| Valganciclovir（誘導） | 10–50 | `Ccr25–49：50% q24h／Ccr10–24：50% q48h` | `Ccr25–49` | 25–49 | 在欄位範圍內 |
-| Valganciclovir（誘導） | 10–50 | `Ccr25–49：50% q24h／Ccr10–24：50% q48h` | `Ccr10–24` | 10–24 | 在欄位範圍內 |
-| Valganciclovir（維持） | >50 | `Ccr50–69：50% q24h` | `Ccr50–69` | 50–69 | **部分超出欄位範圍** |
-| Valganciclovir（維持） | 10–50 | `Ccr25–49：50% q48h／Ccr<25：50% biw` | `Ccr25–49` | 25–49 | 在欄位範圍內 |
-| Valganciclovir（維持） | 10–50 | `Ccr25–49：50% q48h／Ccr<25：50% biw` | `Ccr<25` | ≤24 | **部分超出欄位範圍** |
+| Valganciclovir（誘導） | >50 | `Ccr≥60：N／Ccr51–59：50%（450 mg）q12h` | `Ccr≥60` | ≥60 | 在欄位範圍內 |
+| Valganciclovir（誘導） | >50 | `Ccr≥60：N／Ccr51–59：50%（450 mg）q12h` | `Ccr51–59` | 51–59 | 在欄位範圍內 |
+| Valganciclovir（誘導） | 10–50 | `Ccr40–50：50%（450 mg）q12h／Ccr25–39：50%（450 mg）q24h／Ccr10–24：50%（450 mg）q48h` | `Ccr40–50` | 40–50 | 在欄位範圍內 |
+| Valganciclovir（誘導） | 10–50 | `Ccr40–50：50%（450 mg）q12h／Ccr25–39：50%（450 mg）q24h／Ccr10–24：50%（450 mg）q48h` | `Ccr25–39` | 25–39 | 在欄位範圍內 |
+| Valganciclovir（誘導） | 10–50 | `Ccr40–50：50%（450 mg）q12h／Ccr25–39：50%（450 mg）q24h／Ccr10–24：50%（450 mg）q48h` | `Ccr10–24` | 10–24 | 在欄位範圍內 |
+| Valganciclovir（維持） | >50 | `Ccr≥60：N／Ccr51–59：50%（450 mg）q24h` | `Ccr≥60` | ≥60 | 在欄位範圍內 |
+| Valganciclovir（維持） | >50 | `Ccr≥60：N／Ccr51–59：50%（450 mg）q24h` | `Ccr51–59` | 51–59 | 在欄位範圍內 |
+| Valganciclovir（維持） | 10–50 | `Ccr40–50：50%（450 mg）q24h／Ccr25–39：50%（450 mg）q48h／Ccr10–24：50%（450 mg）biw` | `Ccr40–50` | 40–50 | 在欄位範圍內 |
+| Valganciclovir（維持） | 10–50 | `Ccr40–50：50%（450 mg）q24h／Ccr25–39：50%（450 mg）q48h／Ccr10–24：50%（450 mg）biw` | `Ccr25–39` | 25–39 | 在欄位範圍內 |
+| Valganciclovir（維持） | 10–50 | `Ccr40–50：50%（450 mg）q24h／Ccr25–39：50%（450 mg）q48h／Ccr10–24：50%（450 mg）biw` | `Ccr10–24` | 10–24 | 在欄位範圍內 |
 
 ### GFR 欄內混有透析／CRRT 劑量（觀察，未列為問題）
 
@@ -445,13 +494,11 @@ GFR 三欄的分段為 `>50`、`10–50`、`<10`（頁面先把 CrCl 四捨五�
 | Amikacin / Streptomycin（TB） | GFR 10–50 | `Ccr<30 或 HD：15 mg/kg biw–tiw` | 有 |
 | Amikacin / Streptomycin（TB） | GFR <10 | `Ccr<30 或 HD：15 mg/kg biw–tiw` | 有 |
 | Piperacillin-tazobactam（Pseudomonas） | 備註 | `Sanford 17A；HD 2.25 g q8h＋透析後補 0.75 g` | 有 |
-| Cefoperazone/sulbactam | GFR <10 | `CRRT：2 g q6h` | 有 |
 | Ceftibuten | 備註 | `200–400 mg after HD` | 有 |
 | Doripenem | 備註 | `HD：0.25–0.5 g q24h` | 有 |
 | Imipenem | 備註 | `CRRT：0.5–1 g q12h` | 有 |
 | Levofloxacin 750mg | 備註 | `HD：同 <20` | 有 |
 | Levofloxacin 500mg | 備註 | `HD：同 <20` | 有 |
-| Daptomycin | 備註 | `CRRT：8 mg/kg q48h` | 有 |
 | Vancomycin（IV） | GFR <10 | `0.5 g after HD` | 有 |
 | Fluconazole | GFR <10 | `HD：50% q24h 或僅 HD 後給全量` | 有 |
 | Tenofovir alafenamide（TAF） | GFR 10–50 | `Ccr≥15：N／Ccr<15：A（未透析）` | 有 |
@@ -532,7 +579,7 @@ GFR 三欄的分段為 `>50`、`10–50`、`<10`（頁面先把 CrCl 四捨五�
 | 常規、HD、CAPD、CRRT | Sanford Guide（2026-10-30 更新） | 84 | 全部 `ver: 1` |
 | 肝功能、肥胖 | Sanford Guide | 3／16 | 沒有 ver 標記機制 |
 | 院內規格 | 高醫藥典品名（程式擷取） | 83 | 非劑量資料，沒有核對標記 |
-| 備註 | 綠卡等 | 20 | 沒有核對標記 |
+| 備註 | 綠卡等 | 21 | 沒有核對標記 |
 
 ## 3. 單位寫法不一致清單
 
@@ -542,26 +589,26 @@ GFR 三欄的分段為 `>50`、`10–50`、`<10`（頁面先把 CrCl 四捨五�
 
 | 類別 | 綠卡 GFR 欄＋備註 | Sanford 欄（常規／透析／肝／肥胖） | 藥名 | 同來源內不一致 |
 | --- | --- | --- | --- | --- |
-| 公克寫法（g／gm） | g：27 | gm：78 | g：3 | — |
-| 數字與單位之間的空格 | 有空格（如 6 g、160 mg）：57 | 有空格（如 6 g、160 mg）：230 | 緊接（如 6g、160mg）：6 | — |
+| 公克寫法（g／gm） | g：33 | gm：78 | g：3 | — |
+| 數字與單位之間的空格 | 有空格（如 6 g、160 mg）：81 | 有空格（如 6 g、160 mg）：230 | 緊接（如 6g、160mg）：6 | — |
 | 百萬單位寫法（MU／million U） | — | million U：4 | — | — |
-| 數字範圍連接號（–／-） | en dash（–）：74 | hyphen（-）：105 | en dash（–）：3 | — |
-| 給藥間隔大小寫（q8h／Q8H） | 小寫 q…h：149 | 小寫 q…h：218 | 小寫 q…h：1 | — |
-| 每日一次寫法 | q24h：41 | q24h：85<br>once daily：2<br>daily（單獨）：1 | — | ⚠️ Sanford |
-| 每日總量寫法（/day／每日） | /day：1 | /day：9 | — | — |
-| 隔日一次寫法 | q48h：15 | q48h：16 | — | — |
-| 每週數次寫法 | biw／tiw：9 | Nx/wk：4<br>Nx/week：4 | — | ⚠️ Sanford |
+| 數字範圍連接號（–／-） | en dash（–）：86 | hyphen（-）：105 | en dash（–）：3 | — |
+| 給藥間隔大小寫（q8h／Q8H） | 小寫 q…h：157 | 小寫 q…h：218 | 小寫 q…h：1 | — |
+| 每日一次寫法 | q24h：53 | q24h：85<br>once daily：2<br>daily（單獨）：1 | — | ⚠️ Sanford |
+| 每日總量寫法（/day／每日） | — | /day：9 | — | — |
+| 隔日一次寫法 | q48h：13 | q48h：16 | — | — |
+| 每週數次寫法 | biw／tiw：8 | Nx/wk：4<br>Nx/week：4 | — | ⚠️ Sanford |
 | 每週一次寫法 | q7d：2 | once weekly：1 | — | — |
-| 乘號／次數（x／×） | ×（如 ×1）：3 | x（如 x1、3x/wk）：22 | — | — |
-| 毫升大小寫（mL／ml） | — | ml：1<br>mL：2 | — | ⚠️ Sanford |
-| 腎功能縮寫（Ccr／CrCl／eGFR） | Ccr：48 | CrCl：6<br>eGFR：1 | — | ⚠️ Sanford |
-| Ccr 與數值之間的空格 | 緊接（如 Ccr<30、Ccr30–49）：48 | — | — | — |
-| 同一格多段條件的分隔符（／；、） | ；：7<br>／：14<br>、：1 | — | — | ⚠️ 綠卡 |
-| 冒號全形／半形 | 全形「：」：58 | 半形「:」：53<br>全形「：」：3 | — | ⚠️ Sanford |
-| 「或」的寫法 | 或：15 | OR／or：2 | — | — |
+| 乘號／次數（x／×） | ×（如 ×1）：6 | x（如 x1、3x/wk）：22 | — | — |
+| 毫升大小寫（mL／ml） | mL：1 | ml：1<br>mL：2 | — | ⚠️ Sanford |
+| 腎功能縮寫（Ccr／CrCl／eGFR） | Ccr：41 | CrCl：6<br>eGFR：1 | — | ⚠️ Sanford |
+| Ccr 與數值之間的空格 | 緊接（如 Ccr<30、Ccr30–49）：41 | — | — | — |
+| 同一格多段條件的分隔符（／；、） | ／：28<br>；：9<br>、：2 | — | — | ⚠️ 綠卡 |
+| 冒號全形／半形 | 全形「：」：50 | 半形「:」：53<br>全形「：」：3 | — | ⚠️ Sanford |
+| 「或」的寫法 | 或：11 | OR／or：2 | — | — |
 | 透析後給藥寫法 | 透析後：1<br>after HD／after each dialysis：2 | AD：57<br>POST-HD：2<br>after HD／after each dialysis：1 | — | ⚠️ 綠卡、Sanford |
 | 給藥途徑順序（IV/po／po/IV） | — | po/IV：8<br>IV/po：3 | — | ⚠️ Sanford |
-| 口服大小寫（po／PO） | — | po：51 | PO：5 | — |
+| 口服大小寫（po／PO） | PO：2 | po：51 | PO：5 | — |
 
 數字是出現該寫法的欄位數（同一格出現多次只算一次）。
 
@@ -730,16 +777,19 @@ GFR 三欄的分段為 `>50`、`10–50`、`<10`（頁面先把 CrCl 四捨五�
 
 #### 同一格多段條件的分隔符（／；、）｜綠卡 GFR 欄＋備註
 
-「、」1 處：
+「、」2 處：
 
 | 藥名 | 欄位 | 比對到的文字 |
 | --- | --- | --- |
+| Piperacillin-tazobactam（non-Pseudomonas） | 備註 | `、` |
 | SMZ-TMP（預防） | GFR >50 | `、` |
 
-「；」7 處：
+「；」9 處：
 
 | 藥名 | 欄位 | 比對到的文字 |
 | --- | --- | --- |
+| Amoxicillin-clavulanate（PO/IV） | GFR 10–50 | `；` |
+| Amoxicillin-clavulanate（PO/IV） | GFR <10 | `；` |
 | Piperacillin-tazobactam（Pseudomonas） | GFR 10–50 | `；、；` |
 | Piperacillin-tazobactam（Pseudomonas） | 備註 | `；` |
 | Cefoperazone/sulbactam | 備註 | `；` |
@@ -748,24 +798,38 @@ GFR 三欄的分段為 `>50`、`10–50`、`<10`（頁面先把 CrCl 四捨五�
 | Tenofovir alafenamide（TAF） | GFR <10 | `；` |
 | Tenofovir alafenamide（TAF） | 備註 | `；` |
 
-<details><summary>「／」14 處（點開看明細）</summary>
+<details><summary>「／」28 處（點開看明細）</summary>
 
 | 藥名 | 欄位 | 比對到的文字 |
 | --- | --- | --- |
+| Amoxicillin-clavulanate（PO/IV） | GFR 10–50 | `／` |
+| Ampicillin | GFR 10–50 | `／` |
+| Ampicillin/sulbactam | GFR 10–50 | `／、／` |
+| Piperacillin-tazobactam（non-Pseudomonas） | GFR 10–50 | `／、／` |
+| Cefixime | GFR >50 | `／` |
+| Cefixime | GFR 10–50 | `／` |
+| Cefoperazone/sulbactam | GFR 10–50 | `／、／` |
 | Doripenem | GFR 10–50 | `／` |
+| Ertapenem | GFR 10–50 | `／` |
+| Levofloxacin 750mg | GFR 10–50 | `／` |
 | Colistin / Colimycin（mg CBA） | GFR >50 | `／、／、／、／` |
 | Colistin / Colimycin（mg CBA） | GFR 10–50 | `／、／、／` |
 | Colistin / Colimycin（mg CBA） | GFR <10 | `／` |
+| Daptomycin | GFR 10–50 | `／` |
 | Fosfomycin（IV） | GFR 10–50 | `／、／、／` |
+| SMZ-TMP（治療） | GFR 10–50 | `／、／` |
 | Entecavir | GFR 10–50 | `／` |
+| Ganciclovir（誘導） | GFR >50 | `／` |
 | Ganciclovir（誘導） | GFR 10–50 | `／` |
-| Ganciclovir（維持） | GFR 10–50 | `／` |
+| Ganciclovir（維持） | GFR >50 | `／` |
 | Telbivudine | GFR 10–50 | `／` |
 | Tenofovir（TDF） | GFR 10–50 | `／` |
 | Tenofovir alafenamide（TAF） | GFR 10–50 | `／` |
 | Emtricitabine | GFR 10–50 | `／` |
-| Valganciclovir（誘導） | GFR 10–50 | `／` |
-| Valganciclovir（維持） | GFR 10–50 | `／` |
+| Valganciclovir（誘導） | GFR >50 | `／` |
+| Valganciclovir（誘導） | GFR 10–50 | `／、／` |
+| Valganciclovir（維持） | GFR >50 | `／` |
+| Valganciclovir（維持） | GFR 10–50 | `／、／` |
 
 </details>
 
@@ -966,7 +1030,7 @@ GFR 三欄的分段為 `>50`、`10–50`、`<10`（頁面先把 CrCl 四捨五�
 | 每週一次寫法 | 綠卡 GFR 欄＋備註：q7d<br>Sanford 欄（常規／透析／肝／肥胖）：once weekly<br>藥名：— |
 | 乘號／次數（x／×） | 綠卡 GFR 欄＋備註：×（如 ×1）<br>Sanford 欄（常規／透析／肝／肥胖）：x（如 x1、3x/wk）<br>藥名：— |
 | 「或」的寫法 | 綠卡 GFR 欄＋備註：或<br>Sanford 欄（常規／透析／肝／肥胖）：OR／or<br>藥名：— |
-| 口服大小寫（po／PO） | 綠卡 GFR 欄＋備註：—<br>Sanford 欄（常規／透析／肝／肥胖）：po<br>藥名：PO |
+| 口服大小寫（po／PO） | 綠卡 GFR 欄＋備註：PO<br>Sanford 欄（常規／透析／肝／肥胖）：po<br>藥名：PO |
 
 大寫 `Q8H` 之類的寫法：**沒有發現**，間隔全部是小寫 `q…h`。
 

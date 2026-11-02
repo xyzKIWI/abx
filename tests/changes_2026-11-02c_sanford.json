@@ -1,0 +1,305 @@
+{
+  "標題": "0.4 第四輪：GFR 欄寫滿整欄（Kiwi 2026-11-02 確認）",
+  "摘要": [
+    "A 類 9 列：Sanford 與綠卡意思一致，把隔壁欄或隱含的部分寫進本欄。Daptomycin 刪除 <10 欄「或 9 mg/kg q72h」與備註「CRRT：8 mg/kg q48h」，改以 Sanford 透析欄為準。",
+    "B 類 9 列：改用 Sanford 分段與劑量；原本以百分比表示者保留 %，括號附 Sanford 劑量（如 50%（150 mg）q24h）。",
+    "C 類 5 列（Levofloxacin 500mg、Amoxicillin-clav 875mg tab、Ampicillin/sulbactam 高劑量、Amikacin / Streptomycin（TB）、Nitroxoline）依 Kiwi 指示維持高醫原版，仍列為已知問題。",
+    "只缺 CrCl 50 或 10 一個點的格子屬於分段邊界差異，不改。"
+  ],
+  "changes": [
+    {
+      "drug": "Ampicillin",
+      "field": "g1050",
+      "before": "Ccr<30：q12h",
+      "after": "Ccr30–50：1–2 g q6–8h／Ccr10–29：1–2 g q8–12h",
+      "why": "A 類：照 Sanford 寫清楚（意思與綠卡一致）"
+    },
+    {
+      "drug": "Ampicillin",
+      "field": "g10",
+      "before": "q12–24h",
+      "after": "1–2 g q12–24h",
+      "why": "A 類：照 Sanford 寫清楚（意思與綠卡一致）"
+    },
+    {
+      "drug": "Ampicillin/sulbactam",
+      "field": "g1050",
+      "before": "Ccr<30：q12h",
+      "after": "Ccr30–50：N／Ccr15–29：1.5–3 g q12h／Ccr10–14：1.5–3 g q24h",
+      "why": "A 類：照 Sanford 寫清楚（意思與綠卡一致）"
+    },
+    {
+      "drug": "Ampicillin/sulbactam",
+      "field": "g10",
+      "before": "q24h",
+      "after": "1.5–3 g q24h（Sanford 未列 <5）",
+      "why": "A 類：照 Sanford 寫清楚（意思與綠卡一致）"
+    },
+    {
+      "drug": "Piperacillin-tazobactam（non-Pseudomonas）",
+      "field": "g1050",
+      "before": "Ccr<20：q8h",
+      "after": "Ccr41–50：N／Ccr20–40：2.25 g q6h／Ccr10–19：2.25 g q8h",
+      "why": "A 類：照 Sanford 寫清楚（意思與綠卡一致）"
+    },
+    {
+      "drug": "Piperacillin-tazobactam（non-Pseudomonas）",
+      "field": "g10",
+      "before": "2.25 g q8–12h",
+      "after": "2.25 g q8h",
+      "why": "A 類：照 Sanford 寫清楚（意思與綠卡一致）"
+    },
+    {
+      "drug": "Piperacillin-tazobactam（non-Pseudomonas）",
+      "field": "comment",
+      "before": "",
+      "after": "Sanford：間歇輸注、非院內肺炎",
+      "why": "A 類：照 Sanford 寫清楚（意思與綠卡一致）"
+    },
+    {
+      "drug": "Cephalexin",
+      "field": "g1050",
+      "before": "Ccr≤40：q8–12h",
+      "after": "250–1000 mg q8–12h",
+      "why": "A 類：照 Sanford 寫清楚（意思與綠卡一致）"
+    },
+    {
+      "drug": "Cephalexin",
+      "field": "g10",
+      "before": "q12–24h",
+      "after": "250–1000 mg q24–48h",
+      "why": "A 類：照 Sanford 寫清楚（意思與綠卡一致）"
+    },
+    {
+      "drug": "Ertapenem",
+      "field": "g1050",
+      "before": "Ccr<30：50%",
+      "after": "Ccr31–50：N／Ccr10–30：50%（500 mg）q24h",
+      "why": "A 類：照 Sanford 寫清楚（意思與綠卡一致）"
+    },
+    {
+      "drug": "Ertapenem",
+      "field": "g10",
+      "before": "50%",
+      "after": "50%（500 mg）q24h",
+      "why": "A 類：照 Sanford 寫清楚（意思與綠卡一致）"
+    },
+    {
+      "drug": "Ertapenem",
+      "field": "comment",
+      "before": "",
+      "after": "Sanford 以 mL/min/1.73 m² 計",
+      "why": "A 類：照 Sanford 寫清楚（意思與綠卡一致）"
+    },
+    {
+      "drug": "Gemifloxacin",
+      "field": "g1050",
+      "before": "Ccr≤40：160 mg q24h",
+      "after": "160 mg q24h",
+      "why": "A 類：照 Sanford 寫清楚（意思與綠卡一致）"
+    },
+    {
+      "drug": "Daptomycin",
+      "field": "g1050",
+      "before": "Ccr<30：q48h",
+      "after": "Ccr30–50：N／Ccr10–29：6–10 mg/kg q48h",
+      "why": "A 類：照 Sanford 寫清楚（意思與綠卡一致）"
+    },
+    {
+      "drug": "Daptomycin",
+      "field": "g10",
+      "before": "q48h 或 9 mg/kg q72h",
+      "after": "6–10 mg/kg q48h",
+      "why": "A 類：照 Sanford 寫清楚（意思與綠卡一致）"
+    },
+    {
+      "drug": "Daptomycin",
+      "field": "comment",
+      "before": "CRRT：8 mg/kg q48h",
+      "after": "",
+      "why": "A 類：照 Sanford 寫清楚（意思與綠卡一致）"
+    },
+    {
+      "drug": "Levofloxacin 750mg",
+      "field": "g1050",
+      "before": "Ccr≥20：750 mg q48h",
+      "after": "Ccr20–49：750 mg q48h／Ccr10–19：750 mg×1，之後 500 mg q48h",
+      "why": "A 類：照 Sanford 寫清楚（意思與綠卡一致）"
+    },
+    {
+      "drug": "Ganciclovir（誘導）",
+      "field": "g50",
+      "before": "Ccr50–69：50% q12h",
+      "after": "Ccr≥70：N／Ccr50–69：50%（2.5 mg/kg）q12h",
+      "why": "A 類：照 Sanford 寫清楚（意思與綠卡一致）"
+    },
+    {
+      "drug": "Ganciclovir（誘導）",
+      "field": "g1050",
+      "before": "Ccr25–49：50% q24h／Ccr10–24：25% q24h",
+      "after": "Ccr25–49：50%（2.5 mg/kg）q24h／Ccr10–24：25%（1.25 mg/kg）q24h",
+      "why": "A 類：照 Sanford 寫清楚（意思與綠卡一致）"
+    },
+    {
+      "drug": "Rifabutin",
+      "field": "g1050",
+      "before": "Ccr<30：50%",
+      "after": "50%（150 mg）q24h",
+      "why": "B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量）"
+    },
+    {
+      "drug": "Rifabutin",
+      "field": "g10",
+      "before": "Ccr<30：50%",
+      "after": "50%（150 mg）q24h",
+      "why": "B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量）"
+    },
+    {
+      "drug": "Cefixime",
+      "field": "g50",
+      "before": "N",
+      "after": "Ccr≥60：N／Ccr51–59：260 mg q24h（懸液）",
+      "why": "B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量）"
+    },
+    {
+      "drug": "Cefixime",
+      "field": "g1050",
+      "before": "Ccr>20：75%",
+      "after": "Ccr21–50：260 mg q24h（懸液）／Ccr10–20：50%（200 mg）q24h",
+      "why": "B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量）"
+    },
+    {
+      "drug": "Cefixime",
+      "field": "g10",
+      "before": "Ccr<20：50%",
+      "after": "50%（200 mg）q24h",
+      "why": "B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量）"
+    },
+    {
+      "drug": "Ceftibuten",
+      "field": "g50",
+      "before": "q24h",
+      "after": "N",
+      "why": "B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量）"
+    },
+    {
+      "drug": "Ceftibuten",
+      "field": "g1050",
+      "before": "Ccr≥30：50%",
+      "after": "50%（200 mg）q24h",
+      "why": "B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量）"
+    },
+    {
+      "drug": "Ceftibuten",
+      "field": "g10",
+      "before": "Ccr<30：50%",
+      "after": "25%（100 mg）q24h",
+      "why": "B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量）"
+    },
+    {
+      "drug": "Ganciclovir（維持）",
+      "field": "g50",
+      "before": "Ccr50–69：50% q24h",
+      "after": "Ccr>90：N／Ccr51–90：50–100%（2.5–5 mg/kg）q24h",
+      "why": "B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量）"
+    },
+    {
+      "drug": "Ganciclovir（維持）",
+      "field": "g1050",
+      "before": "Ccr25–49：25% q24h／Ccr<25：0.625 mg/kg q24h",
+      "after": "12.5–25%（0.625–1.25 mg/kg）q24h",
+      "why": "B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量）"
+    },
+    {
+      "drug": "Valganciclovir（誘導）",
+      "field": "g50",
+      "before": "Ccr50–69：50% q12h",
+      "after": "Ccr≥60：N／Ccr51–59：50%（450 mg）q12h",
+      "why": "B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量）"
+    },
+    {
+      "drug": "Valganciclovir（誘導）",
+      "field": "g1050",
+      "before": "Ccr25–49：50% q24h／Ccr10–24：50% q48h",
+      "after": "Ccr40–50：50%（450 mg）q12h／Ccr25–39：50%（450 mg）q24h／Ccr10–24：50%（450 mg）q48h",
+      "why": "B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量）"
+    },
+    {
+      "drug": "Valganciclovir（誘導）",
+      "field": "g10",
+      "before": "A 或 50% q48h",
+      "after": "A",
+      "why": "B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量）"
+    },
+    {
+      "drug": "Valganciclovir（維持）",
+      "field": "g50",
+      "before": "Ccr50–69：50% q24h",
+      "after": "Ccr≥60：N／Ccr51–59：50%（450 mg）q24h",
+      "why": "B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量）"
+    },
+    {
+      "drug": "Valganciclovir（維持）",
+      "field": "g1050",
+      "before": "Ccr25–49：50% q48h／Ccr<25：50% biw",
+      "after": "Ccr40–50：50%（450 mg）q24h／Ccr25–39：50%（450 mg）q48h／Ccr10–24：50%（450 mg）biw",
+      "why": "B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量）"
+    },
+    {
+      "drug": "Valganciclovir（維持）",
+      "field": "g10",
+      "before": "A 或 50% biw",
+      "after": "A",
+      "why": "B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量）"
+    },
+    {
+      "drug": "SMZ-TMP（治療）",
+      "field": "g1050",
+      "before": "Ccr<30：50%",
+      "after": "Ccr31–50：N／Ccr15–30：50%（分 q12–24h）／Ccr10–14：25–50%（分 q24h）",
+      "why": "B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量）"
+    },
+    {
+      "drug": "SMZ-TMP（治療）",
+      "field": "g10",
+      "before": "A 或 5–10 mg/kg/day（一次或分次）",
+      "after": "25–50%（分 q24h）",
+      "why": "B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量）"
+    },
+    {
+      "drug": "Cefoperazone/sulbactam",
+      "field": "g1050",
+      "before": "Ccr≤30：2–4 g q12h",
+      "after": "Ccr31–50：N／Ccr15–30：sulbactam 1 g q12h／Ccr10–14：sulbactam 500 mg q12h",
+      "why": "B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量）"
+    },
+    {
+      "drug": "Cefoperazone/sulbactam",
+      "field": "g10",
+      "before": "CRRT：2 g q6h",
+      "after": "sulbactam 500 mg q12h",
+      "why": "B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量）"
+    },
+    {
+      "drug": "Cefoperazone/sulbactam",
+      "field": "comment",
+      "before": "R 指 sulbactam；cefoperazone 主要經膽道排除",
+      "after": "R 指 sulbactam；cefoperazone 主要經膽道排除。Sanford 劑量以 sulbactam 成分計",
+      "why": "B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量）"
+    },
+    {
+      "drug": "Amoxicillin-clavulanate（PO/IV）",
+      "field": "g1050",
+      "before": "Ccr<30：q12h",
+      "after": "Ccr31–50：N／Ccr10–30：PO 250–500 mg q12h；IV 1 g×1，之後 500 mg q12h",
+      "why": "B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量）"
+    },
+    {
+      "drug": "Amoxicillin-clavulanate（PO/IV）",
+      "field": "g10",
+      "before": "q24h",
+      "after": "PO 250–500 mg q24h；IV 1 g×1，之後 500 mg q24h",
+      "why": "B 類：改用 Sanford（原為百分比者保留 %，括號附 Sanford 劑量）"
+    }
+  ]
+}
